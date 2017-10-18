@@ -34,7 +34,12 @@ q:before, q:after {
   content: '';
   content: none; }
 
-
+* {
+      cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer.png"),auto!important
+  }
+  :active {
+      cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer-active.png"),auto!important
+  }
 
 body {
   width: 100%;
