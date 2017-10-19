@@ -35,7 +35,7 @@ q:before, q:after {
   content: none; }
 
 /*更改鼠标样式*/
-* {
+  :default {
       cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer.png"),auto!important
   }
   :active {
