@@ -36,10 +36,10 @@ q:before, q:after {
 
 /*更改鼠标样式*/
 * {
-      cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer.png"),auto!important
+      cursor: url("../images/pointer.png"),auto!important
   }
   :active {
-      cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer-active.png"),auto!important
+      cursor: url("../images/pointer-active.png"),auto!important
   }
 
 body {
