@@ -41,6 +41,9 @@ q:before, q:after {
   :active {
       cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer-active.png"),auto!important
   }
+  :hover  {
+      cursor: url("https://liukanshan.zhihu.com/images/cursor/pointer-hover.png"),auto!important
+  }
 
 body {
   width: 100%;
