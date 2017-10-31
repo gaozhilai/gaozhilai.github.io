@@ -31,17 +31,17 @@
     
     
 
-    <meta name="description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…">
+    <meta name="description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… ##原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. ##解决方法将子项目的po">
 <meta property="og:type" content="article">
 <meta property="og:title" content="eclipse中Maven子项目不能找到变量或者方法的引用问题 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/10/31/eclipse中Maven子项目不能找到变量或者方法的引用问题/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…">
+<meta property="og:description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… ##原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. ##解决方法将子项目的po">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-31T10:20:52.656Z">
+<meta property="og:updated_time" content="2017-10-31T10:32:31.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="eclipse中Maven子项目不能找到变量或者方法的引用问题 | zlGao的小站">
-<meta name="twitter:description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…">
+<meta name="twitter:description" content="##问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… ##原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. ##解决方法将子项目的po">
     
     
     
@@ -186,7 +186,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>##问题描述:<br>用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…<br><a id="more"></a></p>
+    <p>##问题描述:<br>用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…</p>
 <p>##原因:<br>因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法.</p>
 <p>##解决方法<br>将子项目的pom.xml文件也导入到Eclipse即可.</p>
 
