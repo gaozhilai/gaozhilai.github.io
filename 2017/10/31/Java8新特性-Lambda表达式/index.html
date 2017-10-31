@@ -22,7 +22,7 @@
     
 
     <title>
-      归档: 2017 
+      Java8新特性,Lambda表达式 | zlGao的小站 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,13 +31,17 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档: 2017">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+    <meta name="description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;} ##Lambda表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8新特性,Lambda表达式 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2017/10/31/Java8新特性-Lambda表达式/index.html">
 <meta property="og:site_name" content="zlGao的小站">
+<meta property="og:description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;} ##Lambda表达式">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-31T07:47:16.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归档: 2017">
+<meta name="twitter:title" content="Java8新特性,Lambda表达式 | zlGao的小站">
+<meta name="twitter:description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;} ##Lambda表达式">
     
     
     
@@ -157,67 +161,79 @@ classes that you can use:
         <div class="content-wrapper__inner entry">
             
 
+<article class="post-container post-container--single">
 
-  <h1 class="archive-title">归档: 2017</h1>
-  <hr class="post-list__divider" />
-
-
-<div class="main-post-list">
-    <ol class="post-list">
+  <header class="post-header">
     
-    
-    <li>
+    <h1 class="post-title">Java8新特性,Lambda表达式</h1>
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/10/31/Java8新特性-Lambda表达式/" title="link to Java8新特性,Lambda表达式">Java8新特性,Lambda表达式</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-10-31" class="post-list__meta--date date">2017-10-31</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/10/19/约定优先于配置的理解/" title="link to 约定优先于配置的理解">约定优先于配置的理解</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-10-19" class="post-list__meta--date date">2017-10-19</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>ConventionOverConfiguration:约定优先于配置,之前一直不理解这句话,字面意思是’约定’的权利大于’配置’,但是约定是什么约定,网上只是说约定俗成的约定,还是不理解,直到在书上看到一句话:</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
     
 
-    <span class="pagination__page-number"> 1 / 1</span>
+    <div class="post-meta">
+      <time datetime="2017-10-31" class="post-meta__date date">2017-10-31</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
     
     
-</nav>
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>##Lambda表达式示例:<br>Lambda表达式本质是匿名方法.例如:</p>
+<p>方法:</p>
+<pre><code>public int add(int x,int y){
+    return x+y;
+}
+</code></pre><p>Lambda表达式形式:</p>
+<pre><code>(int x,int y) -&gt; x+y;
+</code></pre><p>参数类型可以省略:</p>
+<pre><code>(x + y) -&gt; x+y;
+</code></pre><p>显示指定返回值</p>
+<pre><code>(x + y) -&gt; {return x+y;}
+</code></pre><p>##Lambda表达式分析:</p>
+<p>Lambda表达式由三部分组成:</p>
+<blockquote>
+<p>参数列表,箭头( -&gt; ),表达式或者语句块.</p>
+</blockquote>
+<p>特殊情况:</p>
+<pre><code>() -&gt; { System.out.println(&quot;Hello Lambda!&quot;); }//没有参数没有返回值.
+c -&gt; { return c.size(); }//只有一个参数,且参数类型可以由上下文推断则可以省略参数列表括号.
+</code></pre><p>##Lambda表达式的类型</p>
+<p>Lambda表达式的类型是目标类型(target type)中的函数接口(functional interface)</p>
+<blockquote>
+<p>函数接口Java8新引入的概念。它的定义是：一个接口，如果只有一个显式声明的抽象方法，那么它就是一个函数接口。一般用@FunctionalInterface标注出来（也可以不标）。举例如下：</p>
+</blockquote>
+<pre><code>@FunctionalInterface
+public interface Runnable { void run(); }
+
+public interface Callable&lt;V&gt; { V call() throws Exception; }
+
+public interface ActionListener { void actionPerformed(ActionEvent e); }
+
+public interface Comparator&lt;T&gt; { int compare(T o1, T o2); boolean equals(Object obj); }
+</code></pre><p>接口会声明Object所有public方法,equals方法属与Object中的方法,所以最后一种情况依旧属于函数接口类型.</p>
+<pre><code>Object o = (Runnable) () -&gt; { System.out.println(&quot;hi&quot;); };//Lambda表达式显示转换为函数接口后可以给Object赋值,这里转为Runnable接口是因为该接口符合函数接口类型.
+</code></pre><p>了解到这应该已经够用了,原文由更详细的介绍,链接:<a href="http://blog.csdn.net/ioriogami/article/details/12782141/" target="_blank" rel="external">http://blog.csdn.net/ioriogami/article/details/12782141/</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
 
 
-</div>
+</article>
+
+
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -245,6 +261,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
