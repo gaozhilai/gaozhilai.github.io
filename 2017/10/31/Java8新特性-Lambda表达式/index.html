@@ -31,17 +31,17 @@
     
     
 
-    <meta name="description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
+    <meta name="description" content="Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java8新特性,Lambda表达式 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/10/31/Java8新特性-Lambda表达式/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
+<meta property="og:description" content="Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-01T11:09:37.144Z">
+<meta property="og:updated_time" content="2017-11-01T11:44:26.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8新特性,Lambda表达式 | zlGao的小站">
-<meta name="twitter:description" content="##Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
+<meta name="twitter:description" content="Lambda表达式示例:Lambda表达式本质是匿名方法.例如: 方法: public int add(int x,int y){     return x+y; } Lambda表达式形式: (int x,int y) -&amp;gt; x+y; 参数类型可以省略: (x + y) -&amp;gt; x+y; 显示指定返回值 (x + y) -&amp;gt; {return x+y;}">
     
     
     
@@ -186,7 +186,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>##Lambda表达式示例:<br>Lambda表达式本质是匿名方法.例如:</p>
+    <h2 id="Lambda表达式示例"><a href="#Lambda表达式示例" class="headerlink" title="Lambda表达式示例:"></a>Lambda表达式示例:</h2><p>Lambda表达式本质是匿名方法.例如:</p>
 <p>方法:</p>
 <pre><code>public int add(int x,int y){
     return x+y;
@@ -198,16 +198,14 @@ classes that you can use:
 </code></pre><p>显示指定返回值</p>
 <pre><code>(x + y) -&gt; {return x+y;}
 </code></pre><a id="more"></a>
-<p>##Lambda表达式分析:</p>
-<p>Lambda表达式由三部分组成:</p>
+<h2 id="Lambda表达式分析"><a href="#Lambda表达式分析" class="headerlink" title="Lambda表达式分析:"></a>Lambda表达式分析:</h2><p>Lambda表达式由三部分组成:</p>
 <blockquote>
 <p>参数列表,箭头( -&gt; ),表达式或者语句块.</p>
 </blockquote>
 <p>特殊情况:</p>
 <pre><code>() -&gt; { System.out.println(&quot;Hello Lambda!&quot;); }//没有参数没有返回值.
 c -&gt; { return c.size(); }//只有一个参数,且参数类型可以由上下文推断则可以省略参数列表括号.
-</code></pre><p>##Lambda表达式的类型</p>
-<p>Lambda表达式的类型是目标类型(target type)中的函数接口(functional interface)</p>
+</code></pre><h2 id="Lambda表达式的类型"><a href="#Lambda表达式的类型" class="headerlink" title="Lambda表达式的类型"></a>Lambda表达式的类型</h2><p>Lambda表达式的类型是目标类型(target type)中的函数接口(functional interface)</p>
 <blockquote>
 <p>函数接口Java8新引入的概念。它的定义是：一个接口，如果只有一个显式声明的抽象方法，那么它就是一个函数接口。一般用@FunctionalInterface标注出来（也可以不标）。举例如下：</p>
 </blockquote>
