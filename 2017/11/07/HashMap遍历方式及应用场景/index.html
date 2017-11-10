@@ -31,17 +31,17 @@
     
     
 
-    <meta name="description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ 12345678910111213//迭代器方式Map map = new HashMap();Iterator iter = map.entrySet().iterator();while (iter.hasNext()) &amp;#123;Map.En">
+    <meta name="description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ //迭代器方式 Map map = new HashMap(); Iterator iter = map.entrySet().iterator(); while (iter.hasNext()) { Map.Entry entry = (Map.E">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap遍历方式及应用场景 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/07/HashMap遍历方式及应用场景/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ 12345678910111213//迭代器方式Map map = new HashMap();Iterator iter = map.entrySet().iterator();while (iter.hasNext()) &amp;#123;Map.En">
+<meta property="og:description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ //迭代器方式 Map map = new HashMap(); Iterator iter = map.entrySet().iterator(); while (iter.hasNext()) { Map.Entry entry = (Map.E">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-07T05:55:44.664Z">
+<meta property="og:updated_time" content="2017-11-10T01:42:02.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap遍历方式及应用场景 | zlGao的小站">
-<meta name="twitter:description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ 12345678910111213//迭代器方式Map map = new HashMap();Iterator iter = map.entrySet().iterator();while (iter.hasNext()) &amp;#123;Map.En">
+<meta name="twitter:description" content="HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:效率高,以后一定要使用此种方式！ //迭代器方式 Map map = new HashMap(); Iterator iter = map.entrySet().iterator(); while (iter.hasNext()) { Map.Entry entry = (Map.E">
     
     
     
@@ -187,7 +187,19 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>HashMap可以通过entrySet()方法获取到EntrySet,然后用iterator或者增强for循环遍历:<br>效率高,以后一定要使用此种方式！</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//迭代器方式</span></div><div class="line">Map map = <span class="keyword">new</span> HashMap();</div><div class="line">Iterator iter = map.entrySet().iterator();</div><div class="line"><span class="keyword">while</span> (iter.hasNext()) &#123;</div><div class="line">Map.Entry entry = (Map.Entry) iter.next();</div><div class="line">Object key = entry.getKey();</div><div class="line">Object val = entry.getValue();</div><div class="line">&#125;</div><div class="line"><span class="comment">//容量大的时候用增强for循环方式</span></div><div class="line"><span class="keyword">for</span>(Map.Entry&lt;String, String&gt; entry: map.entrySet())</div><div class="line">&#123;</div><div class="line"> System.out.println(<span class="string">"Key: "</span>+ entry.getKey()+ <span class="string">" Value: "</span>+entry.getValue());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>//迭代器方式
+Map map = new HashMap();
+Iterator iter = map.entrySet().iterator();
+while (iter.hasNext()) {
+Map.Entry entry = (Map.Entry) iter.next();
+Object key = entry.getKey();
+Object val = entry.getValue();
+}
+//容量大的时候用增强for循环方式
+for(Map.Entry&lt;String, String&gt; entry: map.entrySet())
+{
+ System.out.println(&quot;Key: &quot;+ entry.getKey()+ &quot; Value: &quot;+entry.getValue());
+}
 </code></pre><p>获取keySet,也可以用iterator或是增强for循环遍历key,然后通过map自带方法取值:</p>
 <pre><code>Map map = new HashMap();
 Iterator iter = map.keySet().iterator();
