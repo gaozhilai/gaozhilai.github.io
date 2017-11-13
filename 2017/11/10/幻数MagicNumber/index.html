@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). ###概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  /">
+    <meta name="description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). 概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  // g">
 <meta name="keywords" content="趣闻,娱乐">
 <meta property="og:type" content="article">
 <meta property="og:title" content="幻数MagicNumber | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/10/幻数MagicNumber/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). ###概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  /">
+<meta property="og:description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). 概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  // g">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-10T01:41:32.783Z">
+<meta property="og:updated_time" content="2017-11-13T06:04:59.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="幻数MagicNumber | zlGao的小站">
-<meta name="twitter:description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). ###概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  /">
+<meta name="twitter:description" content="在学习dicom的过程中了解到了一个概念，MagicNumer(幻数). 概念：幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中: int magicNo = 3721; // what the fuck 3721 mean? so it&amp;apos;s a magic number 而表意清楚就不是幻数了,比如: const size_t arrayLen = 3721;  // g">
     
     
     
@@ -193,12 +193,12 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>在学习dicom的过程中了解到了一个概念，MagicNumer(幻数).</p>
-<p>###概念：<br>幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中:</p>
+<h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>幻数就是程序中让人不能看出含义的对常量的赋值.比如在一段程序中:</p>
 <pre><code>int magicNo = 3721; // what the fuck 3721 mean? so it&apos;s a magic number
 </code></pre><p>而表意清楚就不是幻数了,比如:</p>
 <pre><code>const size_t arrayLen = 3721;  // given 3721 the meaning of the array length
 for (size_t i = 0; i &lt; arrayLen; i++) ...
-</code></pre><p>###例子:<br>最著名的例子属于 約翰·卡馬克 （John D. Carmack）在速算平方根函数Q_rsqrt中的幻数0x5f3759df了,人们普遍认为这个幻数是卡马克发明引入的,单被本人否认,真正来源是个谜…</p>
+</code></pre><h3 id="例子"><a href="#例子" class="headerlink" title="例子:"></a>例子:</h3><p>最著名的例子属于 約翰·卡馬克 （John D. Carmack）在速算平方根函数Q_rsqrt中的幻数0x5f3759df了,人们普遍认为这个幻数是卡马克发明引入的,单被本人否认,真正来源是个谜…</p>
 <pre><code>float Q_rsqrt( float number )
 {
     long i;
@@ -215,8 +215,7 @@ for (size_t i = 0; i &lt; arrayLen; i++) ...
 
     return y;
 }
-</code></pre><p>###应用:</p>
-<p>幻数可以用来判断文件格式,可以判断文件是否损坏,Linux下的file命令就是通过MagicNumber判断文件类型的,比如java编译后产生的Class文件用来表明文件类型的MagicNumber就是0xCAFEBABE.</p>
+</code></pre><h3 id="应用"><a href="#应用" class="headerlink" title="应用:"></a>应用:</h3><p>幻数可以用来判断文件格式,可以判断文件是否损坏,Linux下的file命令就是通过MagicNumber判断文件类型的,比如java编译后产生的Class文件用来表明文件类型的MagicNumber就是0xCAFEBABE.</p>
 
   </section>
 
