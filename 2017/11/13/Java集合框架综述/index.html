@@ -31,13 +31,13 @@
     
     
 
-    <meta name="description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
+    <meta name="description" content="敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现int">
 <meta name="keywords" content="转载,java集合框架,java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合框架综述 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/13/Java集合框架综述/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
+<meta property="og:description" content="敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现int">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122113410534-705560500.jpg">
@@ -45,10 +45,10 @@
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161123132517440-795442770.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144612442-1195596330.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144843208-531675510.png">
-<meta property="og:updated_time" content="2017-11-13T08:13:02.032Z">
+<meta property="og:updated_time" content="2017-11-13T08:14:09.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合框架综述 | zlGao的小站">
-<meta name="twitter:description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
+<meta name="twitter:description" content="敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现int">
 <meta name="twitter:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif">
     
     
@@ -199,7 +199,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>###敲黑板划重点:<br>①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection.</p>
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点:"></a>敲黑板划重点:</h3><p>①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection.</p>
 <p>②需要用TreeSet存储的对象需要实现Comparable接口实现int compareTo(T o)方法,如果在定义Treeset对象的时候用 Comparator接口的匿名内部类实现int compare(Object o1, Object o2)方法来定制排序则存入的对象无需实现Comparable接口,因为存取排序过程都调用排序其中的compare(Object o1, Object o2)方法而不是默认的compareTo(T o)方法.</p>
 <p><strong>一、集合框架图</strong></p>
 <p><img src="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif" alt=""></p>
