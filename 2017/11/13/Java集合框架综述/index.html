@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161123132517440-795442770.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144612442-1195596330.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144843208-531675510.png">
-<meta property="og:updated_time" content="2017-11-13T09:09:06.716Z">
+<meta property="og:updated_time" content="2017-11-13T09:21:39.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合框架综述 | zlGao的小站">
 <meta name="twitter:description" content="敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现int">
@@ -201,7 +201,8 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点:"></a>敲黑板划重点:</h3><p>①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection.</p>
 <p>②需要用TreeSet存储的对象需要实现Comparable接口实现int compareTo(T o)方法,如果在定义Treeset对象的时候用 Comparator接口的匿名内部类实现int compare(Object o1, Object o2)方法来定制排序则存入的对象无需实现Comparable接口,因为存取排序过程都调用排序其中的compare(Object o1, Object o2)方法而不是默认的compareTo(T o)方法.</p>
-<p>③Entry就是key-value pair.WeakHashMap里的Entry可能会被GC自动删除,常见应用场景是缓存方面应用.</p>
+<p>③Entry就是key-value pair.Entry是HashMap中的一个静态内部类实现了接口Map.Entry,Java8中这个静态内部类由Java7中的名字Entry改为了Node,因为Java8中HashMap引入了红黑树,对应着红黑树的TreeNode,</p>
+<p>④WeakHashMap里的Entry可能会被GC自动删除,常见应用场景是缓存方面应用.</p>
 <p><strong>一、集合框架图</strong></p>
 <p><img src="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif" alt=""></p>
 <p>简化图：</p>
