@@ -31,13 +31,13 @@
     
     
 
-    <meta name="description" content="一、集合框架图  简化图：  说明：对于以上的框架图有如下几点说明 1.所有集合类都位于java.util包下。Java的集合类主要由两个接口派生而出：Collection和Map，Collection和Map是Java集合框架的根接口，这两个接口又包含了一些子接口或实现类。  集合接口：6个接口（短虚线表示），表示不同集合类型，是集合框架的基础。 抽象类：5个抽象类（长虚线表示），对集合接口的部">
+    <meta name="description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
 <meta name="keywords" content="转载,java集合框架,java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合框架综述 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/13/Java集合框架综述/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="一、集合框架图  简化图：  说明：对于以上的框架图有如下几点说明 1.所有集合类都位于java.util包下。Java的集合类主要由两个接口派生而出：Collection和Map，Collection和Map是Java集合框架的根接口，这两个接口又包含了一些子接口或实现类。  集合接口：6个接口（短虚线表示），表示不同集合类型，是集合框架的基础。 抽象类：5个抽象类（长虚线表示），对集合接口的部">
+<meta property="og:description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122113410534-705560500.jpg">
@@ -45,10 +45,10 @@
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161123132517440-795442770.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144612442-1195596330.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/249993/201701/249993-20170117144843208-531675510.png">
-<meta property="og:updated_time" content="2017-11-13T07:18:55.660Z">
+<meta property="og:updated_time" content="2017-11-13T08:13:02.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合框架综述 | zlGao的小站">
-<meta name="twitter:description" content="一、集合框架图  简化图：  说明：对于以上的框架图有如下几点说明 1.所有集合类都位于java.util包下。Java的集合类主要由两个接口派生而出：Collection和Map，Collection和Map是Java集合框架的根接口，这两个接口又包含了一些子接口或实现类。  集合接口：6个接口（短虚线表示），表示不同集合类型，是集合框架的基础。 抽象类：5个抽象类（长虚线表示），对集合接口的部">
+<meta name="twitter:description" content="###敲黑板划重点:①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection. ②需要用TreeSet存储的对象需要实现Comparable接口实现">
 <meta name="twitter:image" content="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif">
     
     
@@ -199,7 +199,9 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p><strong>一、集合框架图</strong></p>
+    <p>###敲黑板划重点:<br>①Map接口与Collection接口没有继承或是依赖关系,框架集合图中虚线箭头带着produces代表生成,即Map可以有方法生成所有value的集合或是所有key的集合,而这些集合的类型是Collection中的Set,Collection可以通过方法生成Iterator,作用是遍历Collection.</p>
+<p>②需要用TreeSet存储的对象需要实现Comparable接口实现int compareTo(T o)方法,如果在定义Treeset对象的时候用 Comparator接口的匿名内部类实现int compare(Object o1, Object o2)方法来定制排序则存入的对象无需实现Comparable接口,因为存取排序过程都调用排序其中的compare(Object o1, Object o2)方法而不是默认的compareTo(T o)方法.</p>
+<p><strong>一、集合框架图</strong></p>
 <p><img src="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122112853268-1919394058.gif" alt=""></p>
 <p>简化图：</p>
 <p><img src="http://images2015.cnblogs.com/blog/249993/201611/249993-20161122113410534-705560500.jpg" alt=""></p>
@@ -450,8 +452,8 @@ E previous();
 <p><strong>TreeSet类</strong><br>&nbsp;&nbsp;&nbsp; TreeSet是SortedSet接口的唯一实现类，<span style="background-color: #ffff00;">TreeSet可以确保集合元素处于排序状态</span>。TreeSet支持两种排序方式，<span style="background-color: #ffff00;">自然排序和定制排序</span>，其中自然排序为默认的排序方式。向TreeSet中加入的应该是同一个类的对象。<br>&nbsp;&nbsp;&nbsp; <span style="background-color: #ffff00;">TreeSet判断两个对象不相等的方式是两个对象通过equals方法返回false，或者通过CompareTo方法比较没有返回0。</span><br><span style="background-color: #00ffff;">自然排序</span><br>&nbsp;&nbsp;&nbsp; 自然排序使用要排序元素的CompareTo（Object obj）方法来比较元素之间大小关系，然后将元素<span style="background-color: #ffff00;">按照升序排列</span>。<br>&nbsp;&nbsp;&nbsp; Java提供了一个Comparable接口，该接口里定义了一个compareTo(Object obj)方法，该方法返回一个整数值，实现了该接口的对象就可以比较大小。obj1.compareTo(obj2)方法如果返回0，则说明被比较的两个对象相等，如果返回一个正数，则表明obj1大于obj2，如果是负数，则表明obj1小于obj2。<span style="background-color: #ffff00;">如果我们将两个对象的equals方法总是返回true，则这两个对象的compareTo方法返回应该返回0。</span><br><span style="background-color: #00ffff;">定制排序</span><br>&nbsp;&nbsp;&nbsp; 自然排序是根据集合元素的大小，以升序排列，如果要定制排序，应该使用Comparator接口，实现 int compare(T o1,T o2)方法。</p>
 <p><pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> com.test;  </span></pre></p>
 <p><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.HashSet;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.LinkedHashSet;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.TreeSet;  </span></p>
-<p><span style="color: #008000;">/**</span><span style="color: #008000;">  </span></p>
-<ul>
+<pre><code>&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt;/**&lt;/span&gt;&lt;span style=&quot;color: #008000;&quot;&gt;  
+</code></pre><ul>
 <li>@description 几个set的比较  </li>
 <li>HashSet：哈希表是通过使用称为散列法的机制来存储信息的，元素并没有以某种特定顺序来存放；  </li>
 <li>LinkedHashSet：以元素插入的顺序来维护集合的链接表，允许以插入的顺序在集合中迭代；  </li>
