@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
+    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
 <meta name="keywords" content="JNLP,技术,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Network Launch Protocol分析 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/14/Java-Network-Launch-Protocol分析/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
+<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-14T01:47:51.147Z">
+<meta property="og:updated_time" content="2017-11-14T02:05:44.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Network Launch Protocol分析 | zlGao的小站">
-<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
+<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
     
     
     
@@ -194,18 +194,35 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <p>最近在研究JNLP,所以抽个时间整理下搜集的资料.</p>
 <p>###概念:<br>JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.  </p>
-<p>###工作流程:<br>当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执行.JNLP方式执行的客户端所需文件会被加密缓存在电脑中,下次启动只是检查是否有更新,如果配置允许离线运行可以直接运行,否则会检查是否能连接到服务器,如果不能则不能运行.  </p>
-<p>###格式分析:<br>    &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>    <jnlp spec="1.0+" codebase="" href=""><br>    <information><br>        <title>Dynamic Tree Demo</title><br>        <vendor>Dynamic Team</vendor><br>        <icon href="sometree-icon.jpg"><br>        <offline-allowed><br>    </offline-allowed></icon></information><br>    <resources><br>        <!-- Application Resources --><br>        <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"><br>        <jar href="DynamicTreeDemo.jar" main="true"></jar></j2se></resources></jnlp></p>
-<pre><code>&lt;/resources&gt;
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程:"></a>工作流程:</h3><p>当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执行.JNLP方式执行的客户端所需文件会被加密缓存在电脑中,下次启动只是检查是否有更新,如果配置允许离线运行可以直接运行,否则会检查是否能连接到服务器,如果不能则不能运行.  </p>
+<h3 id="格式分析"><a href="#格式分析" class="headerlink" title="格式分析:"></a>格式分析:</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;jnlp spec=&quot;1.0+&quot; codebase=&quot;&quot; href=&quot;&quot;&gt;
+&lt;information&gt;
+    &lt;title&gt;Dynamic Tree Demo&lt;/title&gt;
+    &lt;vendor&gt;Dynamic Team&lt;/vendor&gt;
+    &lt;icon href=&quot;sometree-icon.jpg&quot;/&gt;
+    &lt;offline-allowed/&gt;
+&lt;/information&gt;
+&lt;resources&gt;
+    &lt;!-- Application Resources --&gt;
+    &lt;j2se version=&quot;1.6+&quot; href=
+       &quot;http://java.sun.com/products/autodl/j2se&quot;/&gt;
+    &lt;jar href=&quot;DynamicTreeDemo.jar&quot;
+        main=&quot;true&quot; /&gt;
+
+&lt;/resources&gt;
 &lt;application-desc
      name=&quot;Dynamic Tree Demo Application&quot;
      main-class=&quot;webstartComponentArch.DynamicTreeApplication&quot;
      width=&quot;300&quot;
      height=&quot;300&quot;&gt;
+    &lt;argument&gt;param&lt;/argument&gt;
  &lt;/application-desc&gt;
  &lt;update check=&quot;background&quot;/&gt;
 &lt;/jnlp&gt;  
-</code></pre><p>上面是官网基于Java8教程给出的模板,jnlp为顶层xml元素,information元素描述了应用的标题作者图标位置以及是否允许离线运行等信息,</p>
+</code></pre><p>上面是官网基于Java8教程给出的模板,jnlp为顶层xml元素,information元素描述了应用的标题作者图标位置以及是否允许离线运行等信息,resources元素记录了jar包位置,一个JNLP文件中必须有application-desc, applet-desc, component-desc,installer-desc中的一个元素,application-desc代表这个JNLP文件是application的启动文件.application-desc元素中指明了运行的主类和其他参数.子元素argument代表启动时向主类中传递的参数列表.  </p>
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用:"></a>实际应用:</h3><p>实际应用中不可能传递一个参数启动一次,这就需要官方提供的SingleInstanceService接口,这个接口可以让应用只启动一个实例,以后每次启动如果有实例存在则直接向其中传递参数,而不会重复实例化应用.</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景:"></a>应用场景:</h3><p>JNLP目前官方提供了jnlp://方式启动,无需下载JNLP文件,真正的实现了让桌面端应用有WEB应用的优势,如果公司产品有桌面端应用并且希望自己控制用户是否能运行,所有应用统一更新应用版本,那就选择JNLP吧.</p>
 
   </section>
 
