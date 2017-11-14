@@ -31,14 +31,18 @@
     
     
 
-    <meta property="og:type" content="article">
+    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
+<meta name="keywords" content="JNLP,技术,Java">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Java Network Launch Protocol分析 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/14/Java-Network-Launch-Protocol分析/index.html">
 <meta property="og:site_name" content="zlGao的小站">
+<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-14T01:34:07.387Z">
+<meta property="og:updated_time" content="2017-11-14T01:47:51.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Network Launch Protocol分析 | zlGao的小站">
+<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   ###工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源">
     
     
     
@@ -174,6 +178,11 @@ classes that you can use:
           
 
           
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JNLP/">JNLP</a>, <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/技术/">技术</a>
+            </font>
+          
 
       </span>
     </div>
@@ -183,7 +192,21 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <p>最近在研究JNLP,所以抽个时间整理下搜集的资料.</p>
+<p>###概念:<br>JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.  </p>
+<p>###工作流程:<br>当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执行.JNLP方式执行的客户端所需文件会被加密缓存在电脑中,下次启动只是检查是否有更新,如果配置允许离线运行可以直接运行,否则会检查是否能连接到服务器,如果不能则不能运行.  </p>
+<p>###格式分析:<br>    &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>    <jnlp spec="1.0+" codebase="" href=""><br>    <information><br>        <title>Dynamic Tree Demo</title><br>        <vendor>Dynamic Team</vendor><br>        <icon href="sometree-icon.jpg"><br>        <offline-allowed><br>    </offline-allowed></icon></information><br>    <resources><br>        <!-- Application Resources --><br>        <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"><br>        <jar href="DynamicTreeDemo.jar" main="true"></jar></j2se></resources></jnlp></p>
+<pre><code>&lt;/resources&gt;
+&lt;application-desc
+     name=&quot;Dynamic Tree Demo Application&quot;
+     main-class=&quot;webstartComponentArch.DynamicTreeApplication&quot;
+     width=&quot;300&quot;
+     height=&quot;300&quot;&gt;
+ &lt;/application-desc&gt;
+ &lt;update check=&quot;background&quot;/&gt;
+&lt;/jnlp&gt;  
+</code></pre><p>上面是官网基于Java8教程给出的模板,jnlp为顶层xml元素,information元素描述了应用的标题作者图标位置以及是否允许离线运行等信息,</p>
+
   </section>
 
   <section class="post-comments">
