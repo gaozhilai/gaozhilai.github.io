@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
+    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
 <meta name="keywords" content="JNLP,技术,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Network Launch Protocol分析 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/14/Java-Network-Launch-Protocol分析/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
+<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-14T08:06:21.229Z">
+<meta property="og:updated_time" content="2017-11-16T08:41:18.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Network Launch Protocol分析 | zlGao的小站">
-<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. ###概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,">
+<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
     
     
     
@@ -193,7 +193,7 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>最近在研究JNLP,所以抽个时间整理下搜集的资料.</p>
-<p>###概念:<br>JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.  </p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念:"></a>概念:</h3><p>JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.  </p>
 <h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程:"></a>工作流程:</h3><p>当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执行.JNLP方式执行的客户端所需文件会被加密缓存在电脑中,下次启动只是检查是否有更新,如果配置允许离线运行可以直接运行,否则会检查是否能连接到服务器,如果不能则不能运行.  </p>
 <h3 id="格式分析"><a href="#格式分析" class="headerlink" title="格式分析:"></a>格式分析:</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;jnlp spec=&quot;1.0+&quot; codebase=&quot;&quot; href=&quot;&quot;&gt;
@@ -223,10 +223,40 @@ classes that you can use:
 </code></pre><p>上面是官网基于Java8教程给出的模板,jnlp为顶层xml元素,information元素描述了应用的标题作者图标位置以及是否允许离线运行等信息,resources元素记录了jar包位置,一个JNLP文件中必须有application-desc, applet-desc, component-desc,installer-desc中的一个元素,application-desc代表这个JNLP文件是application的启动文件.application-desc元素中指明了运行的主类和其他参数.子元素argument代表启动时向主类中传递的参数列表.  </p>
 <h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用:"></a>实际应用:</h3><p>实际应用中不可能传递一个参数启动一次,这就需要官方提供的SingleInstanceService接口,这个接口可以让应用只启动一个实例,以后每次启动如果有实例存在则直接向其中传递参数,而不会重复实例化应用.</p>
 <h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景:"></a>应用场景:</h3><p>JNLP目前官方提供了jnlp://方式启动,无需下载JNLP文件,真正的实现了让桌面端应用有WEB应用的优势,如果公司产品有桌面端应用并且希望自己控制用户是否能运行,所有应用统一更新应用版本,那就选择JNLP吧.  </p>
-<p>###JNLP完整模板,仅供参考:<br>    &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>    <!-- jnlp spec必须是1.0以上版本，次数用的是1.0+；  
-     codebase 属性指出搜索应用程序资源的顶级URL。  
-     href 属性设置是为了让应用程序并入 Java Web Start 应用程序管理器--><br>    <jnlp spec="1.0+" codebase="http://localhost:8081/NetJavaProject" href="jwspalette.jnlp"><br>    <!-- information 标记（如 title、vendor 等）用于提供来自 Java Web Start 应用程序管理器的关于应用程序的附加信息。 homepage ref 属性是专门用于指向 Web URL 从而用户可以去提供了关于应用程序的更多的信息的 Web 页面。最有趣的 information 标记是 offline-allowed 属性；该属性决定了客户机 Java 应用程序是否能离线启动。当离线运行客户机 Java 应用程序时，Java Web Start 将继续判定来自 Web 服务器的最新的文件；在多数情况下，这个方案将引起快速的超时（因为位置被指定要离线启动），并且应用程序从本地高速缓存启动 --><br>        <information><br>    <!--title ：应用程序标题 vendor:供应商；title/vendor元素必须，会显示在”javaws  -viewer”命令打开的应用程序缓存查看器(Java Application Cache Viewer)中 --><br>            <title>NetJava Application </title><br>            <vendor>NetJava</vendor><br>    &lt;!—description：对应用程序的描述，可以有多对<description> </description>，可有可无的 –&gt;<br>            <description>NetJava Application </description><br>    <!--offline-allowed：选择项，允许离线启动，可以使用javaws –offine命令 --><br>            <offline-allowed><br>        </offline-allowed></information><br>    <!-- resource 标记考虑到 JNLP 文件指定应用程序使用哪些 JAR 文件和如何下载 JAR 文件；即，是急切的还是不紧不慢的。这个特性在当用户要下载大量的文件而对用户来说不是所有的文件都是客户机执行所需要的时是非常有帮助的。缺省的，多数资源是急切的下载的，在这样情况下，JAR 文件和资源在应用程序启动前被下载。不紧不慢的下载的资源只有当 Java 虚拟机（JVM）触发从应用程序载入资源或文件时才被下载。不紧不慢的下载资源的一个示例是客户机的帮助文件；考虑到了客户机的更快的启动和执行，只有在用户实际上向客户机请求帮助文件时，才会下载这些文件。然而，一旦用户请求了一个帮助文件，在请求过程中适当的 JAR 就会被下载，并伴有一个通知用户大致的下载时间的窗口 --><br>             <resources><br>    &lt;!—指定客户端需要安装的j2se版本，下面指定为1.6+，如果版本是1.4,在连接此JNLP文件时会提示更新J2se版本 –&gt;<br>            <j2se version="1.6+"><br>    &lt;!—指定要下载到本地的jar文件(注意：所有的文件都需要打包才能够下载)，可以包含一些资源文件，如icons/configuration files,但是都必须使用类的getResource()方法获取 –&gt;<br>            <jar href="palette.jar"><br>        </jar></j2se></resources><br>    <!--指定操作系统以及jdk版本--><br>        <resources os="Windows"><br>            <j2se version="1.6+"><br>        </j2se></resources><br>    &lt;!—Application-desc必须，指定Web Start启动时执行jar文件中的哪个类 –&gt;<br>        <application-desc main-class="cn.netjava.palette.Palette"><br>    <!-- security 属性。缺省的，任何从 Java Web Start 客户机启动的 Java 应用程序在一个安全的、受限制的环境执行，该环境中不允许进行本地文件访问、与其它计算机的网络连接等等。然而，对于要对客户机和网络可以完全访问的特性丰富的客户机来说， all-permissions 值是用于给予客户机完全访问的权限的。为具有对本地机的完全访问，Java 应用程序所使用和装入的所有 JAR 文件和资源必须被数字签名 --><br>        <security><br>            <all-permissions><br>        </all-permissions></security><br>    </application-desc></jnlp>  </p>
-
+<h3 id="JNLP完整模板-仅供参考"><a href="#JNLP完整模板-仅供参考" class="headerlink" title="JNLP完整模板,仅供参考:"></a>JNLP完整模板,仅供参考:</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  
+&lt;!-- jnlp spec必须是1.0以上版本，次数用的是1.0+；  
+ codebase 属性指出搜索应用程序资源的顶级URL。  
+ href 属性设置是为了让应用程序并入 Java Web Start 应用程序管理器--&gt;  
+&lt;jnlp spec=&quot;1.0+&quot; codebase=&quot;http://localhost:8081/NetJavaProject&quot; href=&quot;jwspalette.jnlp&quot;&gt;  
+&lt;!-- information 标记（如 title、vendor 等）用于提供来自 Java Web Start 应用程序管理器的关于应用程序的附加信息。 homepage ref 属性是专门用于指向 Web URL 从而用户可以去提供了关于应用程序的更多的信息的 Web 页面。最有趣的 information 标记是 offline-allowed 属性；该属性决定了客户机 Java 应用程序是否能离线启动。当离线运行客户机 Java 应用程序时，Java Web Start 将继续判定来自 Web 服务器的最新的文件；在多数情况下，这个方案将引起快速的超时（因为位置被指定要离线启动），并且应用程序从本地高速缓存启动 --&gt;  
+    &lt;information&gt;  
+&lt;!--title ：应用程序标题 vendor:供应商；title/vendor元素必须，会显示在”javaws  -viewer”命令打开的应用程序缓存查看器(Java Application Cache Viewer)中 --&gt;  
+        &lt;title&gt;NetJava Application &lt;/title&gt;  
+        &lt;vendor&gt;NetJava&lt;/vendor&gt;  
+&lt;!—description：对应用程序的描述，可以有多对&lt;description&gt; &lt;/description&gt;，可有可无的 --&gt;  
+        &lt;description&gt;NetJava Application &lt;/description&gt;  
+&lt;!--offline-allowed：选择项，允许离线启动，可以使用javaws –offine命令 --&gt;  
+        &lt;offline-allowed/&gt;  
+    &lt;/information&gt;  
+&lt;!-- resource 标记考虑到 JNLP 文件指定应用程序使用哪些 JAR 文件和如何下载 JAR 文件；即，是急切的还是不紧不慢的。这个特性在当用户要下载大量的文件而对用户来说不是所有的文件都是客户机执行所需要的时是非常有帮助的。缺省的，多数资源是急切的下载的，在这样情况下，JAR 文件和资源在应用程序启动前被下载。不紧不慢的下载的资源只有当 Java 虚拟机（JVM）触发从应用程序载入资源或文件时才被下载。不紧不慢的下载资源的一个示例是客户机的帮助文件；考虑到了客户机的更快的启动和执行，只有在用户实际上向客户机请求帮助文件时，才会下载这些文件。然而，一旦用户请求了一个帮助文件，在请求过程中适当的 JAR 就会被下载，并伴有一个通知用户大致的下载时间的窗口 --&gt;  
+         &lt;resources&gt;  
+&lt;!—指定客户端需要安装的j2se版本，下面指定为1.6+，如果版本是1.4,在连接此JNLP文件时会提示更新J2se版本 --&gt;  
+        &lt;j2se version=&quot;1.6+&quot;/&gt;  
+&lt;!—指定要下载到本地的jar文件(注意：所有的文件都需要打包才能够下载)，可以包含一些资源文件，如icons/configuration files,但是都必须使用类的getResource()方法获取 --&gt;  
+        &lt;jar href=&quot;palette.jar&quot;/&gt;  
+    &lt;/resources&gt;  
+&lt;!--指定操作系统以及jdk版本--&gt;  
+    &lt;resources os=&quot;Windows&quot;&gt;  
+        &lt;j2se version=&quot;1.6+&quot;/&gt;  
+    &lt;/resources&gt;  
+&lt;!—Application-desc必须，指定Web Start启动时执行jar文件中的哪个类 --&gt;  
+    &lt;application-desc main-class=&quot;cn.netjava.palette.Palette&quot;/&gt;  
+&lt;!-- security 属性。缺省的，任何从 Java Web Start 客户机启动的 Java 应用程序在一个安全的、受限制的环境执行，该环境中不允许进行本地文件访问、与其它计算机的网络连接等等。然而，对于要对客户机和网络可以完全访问的特性丰富的客户机来说， all-permissions 值是用于给予客户机完全访问的权限的。为具有对本地机的完全访问，Java 应用程序所使用和装入的所有 JAR 文件和资源必须被数字签名 --&gt;  
+    &lt;security&gt;  
+        &lt;all-permissions/&gt;  
+    &lt;/security&gt;  
+&lt;/jnlp&gt;  
+</code></pre>
   </section>
 
   <section class="post-comments">
