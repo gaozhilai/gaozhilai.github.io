@@ -31,17 +31,18 @@
     
     
 
-    <meta name="description" content="swing鼠标事件太重要了,先留个坑在这.网址:https://zhidao.baidu.com/question/205898500.html其实这按钮只是一个样式。也可以是一个字符串。那么你要监听的是你的jtable给你的jtable添加一个MouseListener在实现MouseListener 的类中有一个方法 以下代码是我原来做的你可以参考以下public void mousePres">
+    <meta name="description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+<meta name="keywords" content="swing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="swing鼠标点击事件 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/16/swing鼠标点击事件/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="swing鼠标事件太重要了,先留个坑在这.网址:https://zhidao.baidu.com/question/205898500.html其实这按钮只是一个样式。也可以是一个字符串。那么你要监听的是你的jtable给你的jtable添加一个MouseListener在实现MouseListener 的类中有一个方法 以下代码是我原来做的你可以参考以下public void mousePres">
+<meta property="og:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-16T08:47:28.711Z">
+<meta property="og:updated_time" content="2017-11-17T07:21:11.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swing鼠标点击事件 | zlGao的小站">
-<meta name="twitter:description" content="swing鼠标事件太重要了,先留个坑在这.网址:https://zhidao.baidu.com/question/205898500.html其实这按钮只是一个样式。也可以是一个字符串。那么你要监听的是你的jtable给你的jtable添加一个MouseListener在实现MouseListener 的类中有一个方法 以下代码是我原来做的你可以参考以下public void mousePres">
+<meta name="twitter:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
     
     
     
@@ -177,6 +178,11 @@ classes that you can use:
           
 
           
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/swing/">swing</a>
+            </font>
+          
 
       </span>
     </div>
@@ -186,21 +192,41 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="swing鼠标事件太重要了-先留个坑在这"><a href="#swing鼠标事件太重要了-先留个坑在这" class="headerlink" title="swing鼠标事件太重要了,先留个坑在这."></a>swing鼠标事件太重要了,先留个坑在这.</h1><p>网址:<a href="https://zhidao.baidu.com/question/205898500.html" target="_blank" rel="external">https://zhidao.baidu.com/question/205898500.html</a><br>其实这按钮只是一个样式。也可以是一个字符串。那么你要监听的是你的jtable<br>给你的jtable添加一个MouseListener<br>在实现MouseListener 的类中有一个方法 以下代码是我原来做的你可以参考以下<br>public void mousePressed(MouseEvent e)<br> {<br>  if (e.getClickCount() &gt;= 2)<br>  {<br>   int row = dataTable.rowAtPoint(e.getPoint());<br>   int column = dataTable.columnAtPoint(e.getPoint());<br>   if (column == 4)// 显示remark 字段<br>   {<br>    JOptionPane.showMessageDialog(this, dataTable.getValueAt(row, column), “备注详细”, 1);<br>   }<br>   else if (column == 5)// 询问是否删除<br>   {<br>    String date = (String) dataTable.getValueAt(row, 0);<br>    String type1 = (String) dataTable.getValueAt(row, 1);<br>    String type2 = (String) dataTable.getValueAt(row, 2);<br>    String fee = (String) dataTable.getValueAt(row, 3);<br>    String remark = (String) dataTable.getValueAt(row, 4);<br>    String idKey = (String) dataTable.getValueAt(row, 5);<br>    String info = date + “\n” + type1 + “\n” + type2 + “\n” + fee + “\n” + remark;<br>    int confirm = JOptionPane.showConfirmDialog(this, info, “是否删除??”,<br>      JOptionPane.YES_NO_OPTION);<br>    if (confirm == 0)<br>    {<br>     try<br>     {<br>      AccountService.delete(date, idKey);</p>
-<pre><code>  if (date == null || &quot;&quot;.equals(date))
-  {
-   date = Util.getToday();
-  }
-  list = AccountService.getOneDayInfo(date);
-  dataScrollPane.setViewportView(getDataTable(list));
- }
- catch (Exception e1)
- {
-  JOptionPane.showMessageDialog(this, &quot;删除异常&quot;);
- }
-}
-</code></pre><p>   }<br>  }<br> }</p>
-
+    <h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得所点击的行,获取焦点方式也很奇怪.  </p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在Renderer与Editor中都设置返回所JButton容器比如:  </p>
+<pre><code>this.setDefaultRenderer(Object.class,new DefaultTableCellRenderer(){
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                       boolean hasFocus, int row, int column) {
+            if(column == 4){
+                return new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
+            }else {
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        }
+    });
+    this.setDefaultEditor(Object.class,new DefaultCellEditor(new JTextField()){
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
+                                                     int row, int column) {
+            if(column == 4){
+                JButton btnDelete = new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
+                return btnDelete;
+            }
+            return super.getTableCellEditorComponent(table, value, isSelected, row, column);
+        }
+    });
+</code></pre><p>上面代码仅仅在表格的两种状态中添加了JButton按钮,但是并不添加按钮点击事件,仅仅作为一个样式.然后对JTable添加监听事件,如果column等于按钮所在列就触发事件,代码如下:</p>
+<pre><code>tagsGridView.addMouseListener(new MouseAdapter(){
+        public void mousePressed(MouseEvent e){
+            int row=tagsGridView.rowAtPoint(e.getPoint());
+            int column = tagsGridView.columnAtPoint(e.getPoint());
+            if (column == 4){
+                JOptionPane.showMessageDialog(null, &quot;是否删除第&quot;+row+&quot;行&quot;, &quot;消息&quot;, JOptionPane.OK_OPTION);
+            }
+        }
+    });
+</code></pre>
   </section>
 
   <section class="post-comments">
