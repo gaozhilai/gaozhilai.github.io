@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      swing鼠标点击事件 | zlGao的小站 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+<meta name="keywords" content="swing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swing鼠标点击事件 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2017/11/16/JTable添加按钮点击删除当前行/index.html">
+<meta property="og:site_name" content="zlGao的小站">
+<meta property="og:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-17T07:21:11.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="swing鼠标点击事件 | zlGao的小站">
+<meta name="twitter:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的小站</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">swing鼠标点击事件</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-11-16" class="post-meta__date date">2017-11-16</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/swing/">swing</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得所点击的行,获取焦点方式也很奇怪.  </p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在Renderer与Editor中都设置返回所JButton容器比如:  </p>
+<pre><code>this.setDefaultRenderer(Object.class,new DefaultTableCellRenderer(){
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                       boolean hasFocus, int row, int column) {
+            if(column == 4){
+                return new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
+            }else {
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        }
+    });
+    this.setDefaultEditor(Object.class,new DefaultCellEditor(new JTextField()){
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
+                                                     int row, int column) {
+            if(column == 4){
+                JButton btnDelete = new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
+                return btnDelete;
+            }
+            return super.getTableCellEditorComponent(table, value, isSelected, row, column);
+        }
+    });
+</code></pre><p>上面代码仅仅在表格的两种状态中添加了JButton按钮,但是并不添加按钮点击事件,仅仅作为一个样式.然后对JTable添加监听事件,如果column等于按钮所在列就触发事件,代码如下:</p>
+<pre><code>tagsGridView.addMouseListener(new MouseAdapter(){
+        public void mousePressed(MouseEvent e){
+            int row=tagsGridView.rowAtPoint(e.getPoint());
+            int column = tagsGridView.columnAtPoint(e.getPoint());
+            if (column == 4){
+                JOptionPane.showMessageDialog(null, &quot;是否删除第&quot;+row+&quot;行&quot;, &quot;消息&quot;, JOptionPane.OK_OPTION);
+            }
+        }
+    });
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
