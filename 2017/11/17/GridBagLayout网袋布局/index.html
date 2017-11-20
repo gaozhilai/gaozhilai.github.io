@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      布局管理器GridBagLayout网袋布局 | zlGao的小站 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="定义:GridBagLayout网袋布局,Java Swing中的一种布局方式,可以写出很复杂的布局,最近几天给我的感受就是,虽然Java Swing很古老,但是只要CardLayout与GridBagLayout相配合,没有什么复杂布局是做不出来的. 使用方法:将父容器设置为GridBagLayout然后为添加的组件设置GridBagConstraints即可.   GridBagConstra">
+<meta name="keywords" content="swing,GridbagLayout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="布局管理器GridBagLayout网袋布局 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2017/11/17/GridBagLayout网袋布局/index.html">
+<meta property="og:site_name" content="zlGao的小站">
+<meta property="og:description" content="定义:GridBagLayout网袋布局,Java Swing中的一种布局方式,可以写出很复杂的布局,最近几天给我的感受就是,虽然Java Swing很古老,但是只要CardLayout与GridBagLayout相配合,没有什么复杂布局是做不出来的. 使用方法:将父容器设置为GridBagLayout然后为添加的组件设置GridBagConstraints即可.   GridBagConstra">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-20T09:37:46.437Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="布局管理器GridBagLayout网袋布局 | zlGao的小站">
+<meta name="twitter:description" content="定义:GridBagLayout网袋布局,Java Swing中的一种布局方式,可以写出很复杂的布局,最近几天给我的感受就是,虽然Java Swing很古老,但是只要CardLayout与GridBagLayout相配合,没有什么复杂布局是做不出来的. 使用方法:将父容器设置为GridBagLayout然后为添加的组件设置GridBagConstraints即可.   GridBagConstra">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的小站</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">布局管理器GridBagLayout网袋布局</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-11-17" class="post-meta__date date">2017-11-17</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/GridbagLayout/">GridbagLayout</a>, <a class="tags-link" href="/tags/swing/">swing</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h3><p>GridBagLayout网袋布局,Java Swing中的一种布局方式,可以写出很复杂的布局,最近几天给我的感受就是,虽然Java Swing很古老,但是只要CardLayout与GridBagLayout相配合,没有什么复杂布局是做不出来的.</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法:"></a>使用方法:</h3><p>将父容器设置为GridBagLayout然后为添加的组件设置GridBagConstraints即可.  </p>
+<h3 id="GridBagConstraints参数及含义"><a href="#GridBagConstraints参数及含义" class="headerlink" title="GridBagConstraints参数及含义:"></a>GridBagConstraints参数及含义:</h3><p>GridBagLayout很强大,主要难点在于GridBagConstraints,下面分析GridBagConstraints各个参数的含义.  </p>
+<blockquote>
+<p>@gridx,gridy:<br>组件左上角所在的位置，如上图中左侧的面板在1行0列，则gridy=0,gridx=1。读者请注意这里的行对应的是gridy,列对应的是gridx</p>
+<p>@gridwidth,gridheight<br>组件占据的行数和列数，如最上面的那个面板占了1行2列，则gridwidth=2,gridheight=1</p>
+<p>@weightx,weighty<br>可以简单理解为组件大小变化的增量值，如设置weightx=100，组件会随着单元格而变化，设置weightx=0时，组件大小不会发生变化。当然weightx,weighty也可以设置成其他的值，不过意义不大，就不再详细介绍。</p>
+<p>@fill<br>组件在所处格子(分配区域)内的填充方式<br>如fill= HORIZONTAL,组件就只在水平方向上填充满单元格，取fill= BOTH则会填满整个格子。</p>
+<p>@anchor<br>组件在所处格子内的对其方式，取anchor=EAST就是指右对齐</p>
+<p>@ipadx,ipady<br>内部填充，是指在组件首选大小的基础上x方向上加上ipadx，y方向上加上ipady,这样做就可以保证组件不会收缩到ipadx,ipady所确定的大小以下，因此我们可以用ipadx,ipady的值来指定组件的大小，而不必指定组件的大小否则会有意想不到的效果</p>
+<p>@insets<br>外部填充，填充的区域是组件与所处格子边框之间的部分,有left,top,right,bottom四个参数，不过当组件的fill=NONE时，指定insects值是无意义的  </p>
+<h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点:"></a>敲黑板划重点:</h3><p>GridBagConstraints最基本的用法是先new一个对象然后设置各种参数,然后与对应的组件绑定,以后每个组件无限重复这一过程,繁琐枯燥乏味.<br>GridBagConstraints进阶用法是只new一个对象然后设置各个属性与组件绑定,下一个组件先重新设置这个对象各个参数然后复用这个对象,这种方法经常有人炫技使用,但是只要是人用这个方法就难免老马失前蹄.极度不推荐这种用法.<br>在网上有人给出了一个工具类大大简化了这一过程,从此以后即使每个组件都是新new的约束对象代码也不再繁琐,例如:  </p>
+</blockquote>
+<pre><code>this.add(rightResult,new GBCUtil(3,2,1,1).setFill(GBCUtil.BOTH).setWeight(20,100));  
+</code></pre><p>一句代码搞定.下面给出工具类.  </p>
+<h3 id="工具类GBCUtil"><a href="#工具类GBCUtil" class="headerlink" title="工具类GBCUtil"></a>工具类GBCUtil</h3><pre><code>import java.awt.*;
+public class GBCUtil extends GridBagConstraints{
+//初始化左上角位置
+public GBCUtil(int gridx, int gridy)
+{
+    this.gridx = gridx;
+    this.gridy = gridy;
+}
+
+//初始化左上角位置和所占行数和列数
+public GBCUtil(int gridx, int gridy, int gridwidth, int gridheight)
+{
+    this.gridx = gridx;
+    this.gridy = gridy;
+    this.gridwidth = gridwidth;
+    this.gridheight = gridheight;
+}
+
+//对齐方式
+public GBCUtil setAnchor(int anchor)
+{
+    this.anchor = anchor;
+    return this;
+}
+
+//是否拉伸及拉伸方向
+public GBCUtil setFill(int fill)
+{
+    this.fill = fill;
+    return this;
+}
+
+//x和y方向上的增量
+public GBCUtil setWeight(double weightx, double weighty)
+{
+    this.weightx = weightx;
+    this.weighty = weighty;
+    return this;
+}
+
+//外部填充
+public GBCUtil setInsets(int distance)
+{
+    this.insets = new Insets(distance, distance, distance, distance);
+    return this;
+}
+
+//外填充
+public GBCUtil setInsets(int top, int left, int bottom, int right)
+{
+    this.insets = new Insets(top, left, bottom, right);
+    return this;
+}
+
+//内填充
+public GBCUtil setIpad(int ipadx, int ipady)
+{
+    this.ipadx = ipadx;
+    this.ipady = ipady;
+    return this;
+}
+}
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
