@@ -22,7 +22,7 @@
     
 
     <title>
-      swing鼠标点击事件 | zlGao的小站 
+      Java发展史 | zlGao的小站 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
-<meta name="keywords" content="swing">
+    <meta name="description" content="突然想知道Java这么庞大这么伟大的体系的成长过程,于是搜索了一下,1995年5月23日，Java语言诞生,1996年1月，第一个JDK-JDK1.0诞生,二十三年之后我不断的学习着这个比我早诞生了一年零几天的编程语言,不断使用着比我早诞生了五个月的JDK,真是奇妙.  Java发展的时间表。 （版本号 名称 中文名 发布日期）   　　JDK 1.1.4 Sparkler 宝石 1997-09">
+<meta name="keywords" content="感悟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swing鼠标点击事件 | zlGao的小站">
-<meta property="og:url" content="http://yoursite.com/2017/11/16/swing鼠标点击事件/index.html">
+<meta property="og:title" content="Java发展史 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2017/11/28/Java发展史/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+<meta property="og:description" content="突然想知道Java这么庞大这么伟大的体系的成长过程,于是搜索了一下,1995年5月23日，Java语言诞生,1996年1月，第一个JDK-JDK1.0诞生,二十三年之后我不断的学习着这个比我早诞生了一年零几天的编程语言,不断使用着比我早诞生了五个月的JDK,真是奇妙.  Java发展的时间表。 （版本号 名称 中文名 发布日期）   　　JDK 1.1.4 Sparkler 宝石 1997-09">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-17T07:21:11.914Z">
+<meta property="og:updated_time" content="2017-11-28T06:48:28.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swing鼠标点击事件 | zlGao的小站">
-<meta name="twitter:description" content="问题:工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得">
+<meta name="twitter:title" content="Java发展史 | zlGao的小站">
+<meta name="twitter:description" content="突然想知道Java这么庞大这么伟大的体系的成长过程,于是搜索了一下,1995年5月23日，Java语言诞生,1996年1月，第一个JDK-JDK1.0诞生,二十三年之后我不断的学习着这个比我早诞生了一年零几天的编程语言,不断使用着比我早诞生了五个月的JDK,真是奇妙.  Java发展的时间表。 （版本号 名称 中文名 发布日期）   　　JDK 1.1.4 Sparkler 宝石 1997-09">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">swing鼠标点击事件</h1>
+    <h1 class="post-title">Java发展史</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-11-16" class="post-meta__date date">2017-11-16</time> 
+      <time datetime="2017-11-28" class="post-meta__date date">2017-11-28</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/swing/">swing</a>
+              <a class="tags-link" href="/tags/感悟/">感悟</a>
             </font>
           
 
@@ -192,41 +192,28 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>工作上有个需求,在JTable某一列每一行都添加一个删除按钮,点击按钮出发删除该行事件,正常的思路是在所需表格中添加JButton,然后监听JButton的点击事件,但是问题出在JTable分为两种状态一种是Renderer,一种是Editor,两种状态也好办,本来的思路是在方法外定义按钮,两种状态判断为指定column就返回JButton容器,但是很不幸的是这样做JButton无法正常获得所点击的行,获取焦点方式也很奇怪.  </p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在Renderer与Editor中都设置返回所JButton容器比如:  </p>
-<pre><code>this.setDefaultRenderer(Object.class,new DefaultTableCellRenderer(){
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                       boolean hasFocus, int row, int column) {
-            if(column == 4){
-                return new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
-            }else {
-                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            }
-        }
-    });
-    this.setDefaultEditor(Object.class,new DefaultCellEditor(new JTextField()){
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
-                                                     int row, int column) {
-            if(column == 4){
-                JButton btnDelete = new JButton(new ImageIcon(this.getClass().getResource(&quot;/ai/medp/dicom/viewer/ui/images/icon_delete.png&quot;)));
-                return btnDelete;
-            }
-            return super.getTableCellEditorComponent(table, value, isSelected, row, column);
-        }
-    });
-</code></pre><p>上面代码仅仅在表格的两种状态中添加了JButton按钮,但是并不添加按钮点击事件,仅仅作为一个样式.然后对JTable添加监听事件,如果column等于按钮所在列就触发事件,代码如下:</p>
-<pre><code>tagsGridView.addMouseListener(new MouseAdapter(){
-        public void mousePressed(MouseEvent e){
-            int row=tagsGridView.rowAtPoint(e.getPoint());
-            int column = tagsGridView.columnAtPoint(e.getPoint());
-            if (column == 4){
-                JOptionPane.showMessageDialog(null, &quot;是否删除第&quot;+row+&quot;行&quot;, &quot;消息&quot;, JOptionPane.OK_OPTION);
-            }
-        }
-    });
-</code></pre>
+    <blockquote>
+<p>突然想知道Java这么庞大这么伟大的体系的成长过程,于是搜索了一下,1995年5月23日，Java语言诞生,1996年1月，第一个JDK-JDK1.0诞生,二十三年之后我不断的学习着这个比我早诞生了一年零几天的编程语言,不断使用着比我早诞生了五个月的JDK,真是奇妙.</p>
+</blockquote>
+<p>Java发展的时间表。 （版本号 名称 中文名 发布日期）  </p>
+<p>　　JDK 1.1.4 Sparkler 宝石 1997-09-12  </p>
+<p>　　JDK 1.1.5 Pumpkin 南瓜 1997-12-13  </p>
+<p>　　JDK 1.1.6 Abigail 阿比盖尔–女子名 1998-04-24  </p>
+<p>　　JDK 1.1.7 Brutus 布鲁图–古罗马政治家和将军 1998-09-28  </p>
+<p>　　JDK 1.1.8 Chelsea 切尔西–城市名 1999-04-08  </p>
+<p>　　J2SE 1.2 Playground 运动场 1998-12-04  </p>
+<p>　　J2SE 1.2.1 none 无 1999-03-30  </p>
+<p>　　J2SE 1.2.2 Cricket 蟋蟀 1999-07-08  </p>
+<p>　　J2SE 1.3 Kestrel 美洲红隼 2000-05-08  </p>
+<p>　　J2SE 1.3.1 Ladybird 瓢虫 2001-05-17  </p>
+<p>　　J2SE 1.4.0 Merlin 灰背隼 2002-02-13  </p>
+<p>　　J2SE 1.4.1 grasshopper 蚱蜢 2002-09-16  </p>
+<p>　　J2SE 1.4.2 Mantis 螳螂 2003-06-26  </p>
+<p>　　J2SE 5.0 (1.5.0) Tiger 老虎 2004-10  </p>
+<p>　　J2SE 6.0 (Beta) Mustang 野马 2006-04  </p>
+<p>　　从这个表中我们可以看出一个非常有意思的现象，就是JDK的每一个版本号都使用一个开发代号表示（就是表中的中文名）。而且从JDK1.2.2开始,主要版本(如1.3,1.4,5.0)都是以鸟类或哺乳动物来命名的. 而它们的bug修正版本(如1.2.2,1.3.1,1.4.2)都是以昆虫命名的。  </p>
+<p>1995年5月23日，Java语言诞生<br>1996年1月，第一个JDK-JDK1.0诞生<br>1996年4月，10个最主要的操作系统供应商申明将在其产品中嵌入JAVA技术<br>1996年9月，约8.3万个网页应用了JAVA技术来制作<br>1997年2月18日，JDK1.1发布<br>1997年4月2日，JavaOne会议召开，参与者逾一万人，创当时全球同类会议规模之纪录<br>1997年9月，JavaDeveloperConnection社区成员超过十万<br>1998年2月，JDK1.1被下载超过2,000,000次<br>1998年12月8日，JAVA2企业平台J2EE发布<br>1999年6月，SUN公司发布Java的三个版本：标准版、企业版和微型版（J2SE、J2EE、J2ME）<br>2000年5月8日，JDK1.3发布<br>2000年5月29日，JDK1.4发布<br>2001年6月5日，NOKIA宣布，到2003年将出售1亿部支持Java的手机<br>2001年9月24日，J2EE1.3发布<br>2002年2月26日，J2SE1.4发布，自此Java的计算能力有了大幅提升。<br>2004年9月30日18:00PM，J2SE1.5发布，是Java语言的发展史上的又一里程碑事件。为了表示这个版本的重要性，J2SE1.5更名为J2SE5.0<br>2005年6月，JavaOne大会召开，SUN公司公开Java SE 6。此时，Java的各种版本已经更名以取消其中的数字“2”：J2EE更名为Java EE, J2SE更名为Java SE，J2ME更名为Java ME。<br>2006年11月13日，SUN公司宣布Java全线采纳GNU General Public License Version 2，从而公开了Java的源代码。</p>
+
   </section>
 
   <section class="post-comments">
