@@ -22,7 +22,7 @@
     
 
     <title>
-      归档 
+      找到所需jar包对应maven依赖的方法 | zlGao的小站 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,14 +31,18 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://yoursite.com/archive/index.html">
+    <meta name="description" content="敲黑板划重点正确的方式是到http://search.maven.org去搜索所需jar包对应的Maven依赖的描述.   之前项目结构一直是老大跟另一个有经验的前辈搭的,通常使用Maven管理项目依赖,大多数需要的依赖已经添加好,少部分自己需要的依赖百度直接解决,可是万万没想到二手烟吸多了浪费生命,二手资料看多了也会浪费生命故事说来话长,我长话短说,所需要的依赖是jdom2.0.6,到网上一搜索">
+<meta name="keywords" content="技术,感悟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="找到所需jar包对应maven依赖的方法 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2017/12/04/找到所需jar包对应maven依赖的方法/index.html">
 <meta property="og:site_name" content="zlGao的小站">
+<meta property="og:description" content="敲黑板划重点正确的方式是到http://search.maven.org去搜索所需jar包对应的Maven依赖的描述.   之前项目结构一直是老大跟另一个有经验的前辈搭的,通常使用Maven管理项目依赖,大多数需要的依赖已经添加好,少部分自己需要的依赖百度直接解决,可是万万没想到二手烟吸多了浪费生命,二手资料看多了也会浪费生命故事说来话长,我长话短说,所需要的依赖是jdom2.0.6,到网上一搜索">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-18T06:18:04.270Z">
+<meta property="og:updated_time" content="2017-12-04T10:10:00.777Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归档">
+<meta name="twitter:title" content="找到所需jar包对应maven依赖的方法 | zlGao的小站">
+<meta name="twitter:description" content="敲黑板划重点正确的方式是到http://search.maven.org去搜索所需jar包对应的Maven依赖的描述.   之前项目结构一直是老大跟另一个有经验的前辈搭的,通常使用Maven管理项目依赖,大多数需要的依赖已经添加好,少部分自己需要的依赖百度直接解决,可是万万没想到二手烟吸多了浪费生命,二手资料看多了也会浪费生命故事说来话长,我长话短说,所需要的依赖是jdom2.0.6,到网上一搜索">
     
     
     
@@ -162,112 +166,60 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">归档</h1>
+    <h1 class="post-title">找到所需jar包对应maven依赖的方法</h1>
 
-    <section id="post-content" class="article-content post">
-        
-    </section>
+    
 
+    <div class="post-meta">
+      <time datetime="2017-12-04" class="post-meta__date date">2017-12-04</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/感悟/">感悟</a>, <a class="tags-link" href="/tags/技术/">技术</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
 
   </header>
 
+  <section id="post-content" class="article-content post">
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>正确的方式是到<strong><a href="http://search.maven.org" target="_blank" rel="external">http://search.maven.org</a></strong>去搜索所需jar包对应的Maven依赖的描述.  </p>
+<p>之前项目结构一直是老大跟另一个有经验的前辈搭的,通常使用Maven管理项目依赖,大多数需要的依赖已经添加好,少部分自己需要的依赖百度直接解决,可是万万没想到<br><strong>二手烟吸多了浪费生命,二手资料看多了也会浪费生命</strong><br>故事说来话长,我长话短说,所需要的依赖是jdom2.0.6,到网上一搜索,很多答案类似下面这样:  </p>
+<pre><code>&lt;!-- https://mvnrepository.com/artifact/org.jdom/jdom2 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.jdom&lt;/groupId&gt;
+    &lt;artifactId&gt;jdom2&lt;/artifactId&gt;
+    &lt;version&gt;2.0.6&lt;/version&gt;
+&lt;/dependency&gt;  
+</code></pre><p>这个网站很自豪的加入了自己域名注释,我试了一下,依赖找不到,没有报错,我以为被墙了,遂翻之,还是不行,直到我到官网去搜索,发现依赖描述已经变成了:  </p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.lucee&lt;/groupId&gt;
+    &lt;artifactId&gt;jdom2&lt;/artifactId&gt;
+    &lt;version&gt;2.0.6&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>总而言之一句话,最好找原版资料.以及正确的<strong>寻找jar包对应依赖</strong>的方式是到<strong><a href="http://search.maven.org" target="_blank" rel="external">http://search.maven.org</a></strong>去搜索所需jar包对应的Maven依赖的描述.</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
 </article>
 
-<div class="archive-meta">
 
-
-
-
-    <h3>标签</h3>
-    <div class="tagslist">
-        
-            
-                <span><a href="/tags/技术/" title="技术">技术<sup>6</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/java基础/" title="java基础">java基础<sup>5</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/swing/" title="swing">swing<sup>4</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/Java/" title="Java">Java<sup>4</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/感悟/" title="感悟">感悟<sup>4</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/转载/" title="转载">转载<sup>2</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/JNLP/" title="JNLP">JNLP<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/知识/" title="知识">知识<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/eclipse/" title="eclipse">eclipse<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/GridbagLayout/" title="GridbagLayout">GridbagLayout<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/java集合框架/" title="java集合框架">java集合框架<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/LRU算法/" title="LRU算法">LRU算法<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/源码分析/" title="源码分析">源码分析<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/趣闻/" title="趣闻">趣闻<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/娱乐/" title="娱乐">娱乐<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/加载动画/" title="加载动画">加载动画<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/开源小工具/" title="开源小工具">开源小工具<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/框架/" title="框架">框架<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></span>
-            
-        
-    </div>
-
-
-
-    <h3>归档</h3>
-    <div class="archiveslist">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">3</span></li></ul>
-    </div>
-
-
-</div>
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -295,6 +247,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
