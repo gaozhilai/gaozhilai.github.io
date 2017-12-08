@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
+    <meta name="description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 敲黑板划重点:按照官方的设置来看jnlp可以在用户每次调用客户端时检查是否有版本更新,如果有就更新,也就是说更新jar版本只需要在服务器端更新即可,这时候会有更新不成功的情况出现,甚至java控制面板清除缓存也无法调用新的jar包,被这个问题坑了好久,后来发现是旧的jar还在后台运行所以清除缓存或是调用时的更新都删除不掉缓存文件,所以更新不成功.">
 <meta name="keywords" content="JNLP,技术,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Network Launch Protocol分析 | zlGao的小站">
 <meta property="og:url" content="http://yoursite.com/2017/11/14/Java-Network-Launch-Protocol分析/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
+<meta property="og:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 敲黑板划重点:按照官方的设置来看jnlp可以在用户每次调用客户端时检查是否有版本更新,如果有就更新,也就是说更新jar版本只需要在服务器端更新即可,这时候会有更新不成功的情况出现,甚至java控制面板清除缓存也无法调用新的jar包,被这个问题坑了好久,后来发现是旧的jar还在后台运行所以清除缓存或是调用时的更新都删除不掉缓存文件,所以更新不成功.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-16T08:41:18.434Z">
+<meta property="og:updated_time" content="2017-12-08T08:26:08.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Network Launch Protocol分析 | zlGao的小站">
-<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 概念:JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.   工作流程:当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执">
+<meta name="twitter:description" content="最近在研究JNLP,所以抽个时间整理下搜集的资料. 敲黑板划重点:按照官方的设置来看jnlp可以在用户每次调用客户端时检查是否有版本更新,如果有就更新,也就是说更新jar版本只需要在服务器端更新即可,这时候会有更新不成功的情况出现,甚至java控制面板清除缓存也无法调用新的jar包,被这个问题坑了好久,后来发现是旧的jar还在后台运行所以清除缓存或是调用时的更新都删除不掉缓存文件,所以更新不成功.">
     
     
     
@@ -193,6 +193,7 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>最近在研究JNLP,所以抽个时间整理下搜集的资料.</p>
+<h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点:"></a>敲黑板划重点:</h3><p>按照官方的设置来看jnlp可以在用户每次调用客户端时检查是否有版本更新,如果有就更新,也就是说更新jar版本只需要在服务器端更新即可,这时候会有更新不成功的情况出现,甚至java控制面板清除缓存也无法调用新的jar包,被这个问题坑了好久,后来发现是旧的jar还在后台运行所以清除缓存或是调用时的更新都删除不掉缓存文件,所以更新不成功.解决办法是:<br><strong>在任务管理器中webstart进程都关闭再在java控制面板中清除缓存,普通用户也可以重启电脑后再在java控制面板中清除缓存</strong></p>
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念:"></a>概念:</h3><p>JNLP(Java Network Launch Protocol),Java网络启动协议,这个协议允许使用远程服务器上的资源启动一个桌面端应用.  </p>
 <h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程:"></a>工作流程:</h3><p>当用户点击浏览器中的一个指向JNLP文件的链接后,浏览器会在用户同意下载之后下载该JNLP文件并且执行,系统会根据JNLP中配置的资源Url下载相应程序的jar包与资源文件,然后执行.JNLP方式执行的客户端所需文件会被加密缓存在电脑中,下次启动只是检查是否有更新,如果配置允许离线运行可以直接运行,否则会检查是否能连接到服务器,如果不能则不能运行.  </p>
 <h3 id="格式分析"><a href="#格式分析" class="headerlink" title="格式分析:"></a>格式分析:</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
