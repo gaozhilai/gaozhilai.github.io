@@ -22,7 +22,7 @@
     
 
     <title>
-      swing的日常踩坑 | zlGao的小站 
+      java四种访问权限 | zlGao的小站 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
-<meta name="keywords" content="swing,java基础,Java">
+    <meta name="description" content="java访问权限有四种,由大到小分别为   public-&amp;gt;protected-&amp;gt;default-&amp;gt;private  ①public公共的:同类,同包,不同包子类,不同包非子类可访问.②protected保护的:同类,同包,不同包子类可访问.③default默认的:同类,同包可访问.④private私有的:同类可访问 敲黑板划重点protected主要限制的是不同包非子类不可以访">
+<meta name="keywords" content="java基础,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swing的日常踩坑 | zlGao的小站">
-<meta property="og:url" content="http://yoursite.com/2017/11/20/swing的日常踩坑/index.html">
+<meta property="og:title" content="java四种访问权限 | zlGao的小站">
+<meta property="og:url" content="http://yoursite.com/2018/01/19/Java四种访问权限/index.html">
 <meta property="og:site_name" content="zlGao的小站">
-<meta property="og:description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
+<meta property="og:description" content="java访问权限有四种,由大到小分别为   public-&amp;gt;protected-&amp;gt;default-&amp;gt;private  ①public公共的:同类,同包,不同包子类,不同包非子类可访问.②protected保护的:同类,同包,不同包子类可访问.③default默认的:同类,同包可访问.④private私有的:同类可访问 敲黑板划重点protected主要限制的是不同包非子类不可以访">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-20T09:56:09.280Z">
+<meta property="og:updated_time" content="2018-01-19T06:01:55.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swing的日常踩坑 | zlGao的小站">
-<meta name="twitter:description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
+<meta name="twitter:title" content="java四种访问权限 | zlGao的小站">
+<meta name="twitter:description" content="java访问权限有四种,由大到小分别为   public-&amp;gt;protected-&amp;gt;default-&amp;gt;private  ①public公共的:同类,同包,不同包子类,不同包非子类可访问.②protected保护的:同类,同包,不同包子类可访问.③default默认的:同类,同包可访问.④private私有的:同类可访问 敲黑板划重点protected主要限制的是不同包非子类不可以访">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">swing的日常踩坑</h1>
+    <h1 class="post-title">java四种访问权限</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-11-20" class="post-meta__date date">2017-11-20</time> 
+      <time datetime="2018-01-19" class="post-meta__date date">2018-01-19</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/swing/">swing</a>
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>
             </font>
           
 
@@ -192,7 +192,53 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.<br>②如果改变了look&amp;feel调用updateUI()会立刻更新显示效果<br>③更改组件大小或者删除添加组件后调用validate方法使其更新显示.<br>④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种.  </p>
+    <p>java访问权限有四种,由大到小分别为 </p>
+<blockquote>
+<p>public-&gt;protected-&gt;default-&gt;private</p>
+</blockquote>
+<p>①public公共的:同类,同包,不同包子类,不同包非子类可访问.<br>②protected保护的:同类,同包,不同包子类可访问.<br>③default默认的:同类,同包可访问.<br>④private私有的:同类可访问</p>
+<h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>protected主要限制的是不同包非子类不可以访问自己.<br>default,没有权限修饰符时默认权限为default,default又叫package-private,限制的是同包内可以访问.  </p>
+<h3 id="表格表示四种权限修饰符对应权限关系"><a href="#表格表示四种权限修饰符对应权限关系" class="headerlink" title="表格表示四种权限修饰符对应权限关系"></a>表格表示四种权限修饰符对应权限关系</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">同类</th>
+<th style="text-align:center">同包</th>
+<th style="text-align:center">不同包子类</th>
+<th style="text-align:center">不同包非子类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">public</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">x</td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+</tr>
+<tr>
+<td style="text-align:center">private</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+</tr>
+</tbody>
+</table>
 
   </section>
 
