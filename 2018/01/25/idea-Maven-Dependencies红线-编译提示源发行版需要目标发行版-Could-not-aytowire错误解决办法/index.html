@@ -22,7 +22,7 @@
     
 
     <title>
-      eclipse中Maven子项目不能找到变量或者方法的引用问题 | zlGao的笔记 
+      idea Maven Dependencies红线,编译提示源发行版需要目标发行版,Could not aytowire错误解决办法 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… 原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. 解决方法将子项目的pom.xml文">
-<meta name="keywords" content="技术,eclipse">
+    <meta name="description" content="最近在整合SSM三大框架出现了三个错误,在这里记录下解决办法.   敲黑板划重点 开发环境:ide:idea2017.2.1x64JDK:1.8.0_144 x64     错误 解决办法     idea右侧Maven中Dependencies部分依赖有红线 在仓库中删除对应依赖对应版本文件夹,pom.xml中去除报错依赖再重新添加   idea默认Project language level是">
+<meta name="keywords" content="Java,框架">
 <meta property="og:type" content="article">
-<meta property="og:title" content="eclipse中Maven子项目不能找到变量或者方法的引用问题 | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/2017/10/31/eclipse中Maven子项目不能找到变量或者方法的引用问题/index.html">
+<meta property="og:title" content="idea Maven Dependencies红线,编译提示源发行版需要目标发行版,Could not aytowire错误解决办法 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/25/idea-Maven-Dependencies红线-编译提示源发行版需要目标发行版-Could-not-aytowire错误解决办法/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… 原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. 解决方法将子项目的pom.xml文">
+<meta property="og:description" content="最近在整合SSM三大框架出现了三个错误,在这里记录下解决办法.   敲黑板划重点 开发环境:ide:idea2017.2.1x64JDK:1.8.0_144 x64     错误 解决办法     idea右侧Maven中Dependencies部分依赖有红线 在仓库中删除对应依赖对应版本文件夹,pom.xml中去除报错依赖再重新添加   idea默认Project language level是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-07T03:58:03.896Z">
+<meta property="og:updated_time" content="2018-01-25T03:50:11.588Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="eclipse中Maven子项目不能找到变量或者方法的引用问题 | zlGao的笔记">
-<meta name="twitter:description" content="问题描述:用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor… 原因:因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法. 解决方法将子项目的pom.xml文">
+<meta name="twitter:title" content="idea Maven Dependencies红线,编译提示源发行版需要目标发行版,Could not aytowire错误解决办法 | zlGao的笔记">
+<meta name="twitter:description" content="最近在整合SSM三大框架出现了三个错误,在这里记录下解决办法.   敲黑板划重点 开发环境:ide:idea2017.2.1x64JDK:1.8.0_144 x64     错误 解决办法     idea右侧Maven中Dependencies部分依赖有红线 在仓库中删除对应依赖对应版本文件夹,pom.xml中去除报错依赖再重新添加   idea默认Project language level是">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">eclipse中Maven子项目不能找到变量或者方法的引用问题</h1>
+    <h1 class="post-title">idea Maven Dependencies红线,编译提示源发行版需要目标发行版,Could not aytowire错误解决办法</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-10-31" class="post-meta__date date">2017-10-31</time> 
+      <time datetime="2018-01-25" class="post-meta__date date">2018-01-25</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/eclipse/">eclipse</a>, <a class="tags-link" href="/tags/技术/">技术</a>
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/框架/">框架</a>
             </font>
           
 
@@ -192,9 +192,33 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述:"></a>问题描述:</h2><p>用Eclipse在一个Maven子项目中打开的java文件中的变量和方法都不高亮显示,不能通过Ctrl+左键的方式定位引用,用F3找引用的时候报错Problems opening an editor…</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因:"></a>原因:</h2><p>因为导入Maven项目的时候只导入了父工程的pom.xml文件,而取消勾选了子工程的pom文件,所以Eclipse不能识别子项目中的关键字于方法.</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>将子项目的pom.xml文件也导入到Eclipse即可.</p>
+    <p>最近在整合SSM三大框架出现了三个错误,在这里记录下解决办法.  </p>
+<h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><blockquote>
+<p>开发环境:<br>ide:idea2017.2.1x64<br>JDK:1.8.0_144 x64</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">错误</th>
+<th style="text-align:center">解决办法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">idea右侧Maven中Dependencies部分依赖有红线</td>
+<td style="text-align:center">在仓库中删除对应依赖对应版本文件夹,pom.xml中去除报错依赖再重新添加</td>
+</tr>
+<tr>
+<td style="text-align:center">idea默认Project language level是5.0,更改后编译失败提示源发行版x version需要目标发行版x version</td>
+<td style="text-align:center">右侧Maven项目菜单中Reimport All Maven Project</td>
+</tr>
+<tr>
+<td style="text-align:center">Autowired后报错Could not autowire. No beans of XXX,不影响正常编译运行</td>
+<td style="text-align:center">idea2017.2.1x64的bug,升级2017.3.3x64后修复</td>
+</tr>
+</tbody>
+</table>
+<h3 id="idea-Maven-Dependencies-红线错误本质"><a href="#idea-Maven-Dependencies-红线错误本质" class="headerlink" title="idea Maven Dependencies 红线错误本质"></a>idea Maven Dependencies 红线错误本质</h3><p>idea中Maven项目右侧Maven菜单Dependencies某些依赖下面有红线,展开项目左侧Extra Library会发现报错依赖并没有导入到项目中,这个错误的本质是Maven本地仓库中下载相应依赖没有成功,而且由于idea或是maven的bug导致reimport也不会重新下载,所以解决方式就是删除仓库中对应依赖的对应版本整个文件夹,然后在idea项目pom.xml中去除相应依赖并重新添加,等待依赖下载成功就不会有报错了.</p>
 
   </section>
 
