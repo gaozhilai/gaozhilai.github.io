@@ -22,7 +22,7 @@
     
 
     <title>
-      利用反射机制实现反编译java程序 | zlGao的笔记 
+      Spring @Autowire为什么注入的是接口 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
-<meta name="keywords" content="技术,Java,java基础">
+    <meta name="description" content="Spring注入接口时有多个实现类怎么办①Spring怎么知道注入哪个实现?  As long as there is only a single implementation of the interface and that implementation is annotated with @Component with Spring’s component scan enabled, Spr">
+<meta name="keywords" content="转载,框架,Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用反射机制实现反编译java程序 | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/2017/12/20/利用反射机制实现反编译java程序/index.html">
+<meta property="og:title" content="Spring @Autowire为什么注入的是接口 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/26/Spring-Autowire为什么注入的是接口/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
+<meta property="og:description" content="Spring注入接口时有多个实现类怎么办①Spring怎么知道注入哪个实现?  As long as there is only a single implementation of the interface and that implementation is annotated with @Component with Spring’s component scan enabled, Spr">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-20T05:34:43.653Z">
+<meta property="og:updated_time" content="2018-01-26T02:32:32.463Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用反射机制实现反编译java程序 | zlGao的笔记">
-<meta name="twitter:description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
+<meta name="twitter:title" content="Spring @Autowire为什么注入的是接口 | zlGao的笔记">
+<meta name="twitter:description" content="Spring注入接口时有多个实现类怎么办①Spring怎么知道注入哪个实现?  As long as there is only a single implementation of the interface and that implementation is annotated with @Component with Spring’s component scan enabled, Spr">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">利用反射机制实现反编译java程序</h1>
+    <h1 class="post-title">Spring @Autowire为什么注入的是接口</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-12-20" class="post-meta__date date">2017-12-20</time> 
+      <time datetime="2018-01-26" class="post-meta__date date">2018-01-26</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/技术/">技术</a>
+              <a class="tags-link" href="/tags/Spring/">Spring</a>, <a class="tags-link" href="/tags/框架/">框架</a>, <a class="tags-link" href="/tags/转载/">转载</a>
             </font>
           
 
@@ -192,8 +192,118 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h3 id="类的的结构"><a href="#类的的结构" class="headerlink" title="类的的结构"></a>类的的结构</h3><p>要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.</p>
+    <h3 id="Spring注入接口时有多个实现类怎么办"><a href="#Spring注入接口时有多个实现类怎么办" class="headerlink" title="Spring注入接口时有多个实现类怎么办"></a>Spring注入接口时有多个实现类怎么办</h3><p>①Spring怎么知道注入哪个实现?</p>
+<blockquote>
+<p>As long as there is only a single implementation of the interface and that implementation is annotated with @Component with Spring’s component scan enabled, Spring framework can find out the (interface, implementation) pair. If component scan is not enabled, then you have to define the bean explicitly in your application-config.xml (or equivalent spring configuration file).</p>
+<p>如果Spring配置了component scan，并且要注入的接口只有一个实现的话，那么spring框架可以自动将interface于实现组装起来。如果没有配置component scan，那么你必须在application-config.xml（或等同的配置文件）定义这个bean。</p>
+</blockquote>
+<p>②需要@Qualifier和@Resource注解吗?  </p>
+<blockquote>
+<p>Once you have more than one implementation, then you need to qualify each of them and during auto-wiring, you would need to use the @Qualifier annotation to inject the right implementation, along with @Autowired annotation. If you are using @Resource (J2EE semantics), then you should specify the bean name using the name attribute of this annotation.   </p>
+<p>一旦一个接口有多个实现，那么就需要每个特殊化识别并且在自动装载过程中使用@Qualifier和@Autowired一起使用来标明。如果是使用@Resource注解，那么你应该使用resource中属性名称来标注@Autowired.  </p>
+</blockquote>
+<p>③为什么@Autowired使用在interface上而不是实现类上？  </p>
+<blockquote>
+<p>Firstly, it is always a good practice to code to interfaces in general. Secondly, in case of spring, you can inject any implementation at runtime. A typical use case is to inject mock implementation during testing stage.   </p>
+<p>首先，一般使用接口是很常用并且有益的变成技术。其次，在spring中，你可以在运行过程中注入各种实现。一个很经典的情况就是在测试阶段，注入模拟的实现类。</p>
+</blockquote>
+<pre><code>interface IA   
+{   
+public void someFunction();   
+}  
 
+
+class B implements IA   
+{   
+public void someFunction()   
+{   
+//busy code block   
+}   
+public void someBfunc()   
+{   
+//doing b things   
+}   
+}  
+
+
+class C implements IA   
+{   
+public void someFunction()   
+{   
+//busy code block   
+}   
+public void someCfunc()   
+{   
+//doing C things   
+}   
+}  
+
+
+`class MyRunner   
+{   
+@Autowire   
+@Qualifier(“b”)  
+IA worker;  
+
+
+....  
+worker.someFunction();  
+}`   
+Your bean configuration should look like this:  
+
+
+
+
+
+Alternatively, if you enabled component scan on the package where these are present, then you should qualify each class with @Component as follows:  
+
+
+interface IA   
+{   
+public void someFunction();   
+}  
+
+
+@Component(value=&quot;b&quot;)   
+class B implements IA   
+{   
+public void someFunction()   
+{   
+//busy code block   
+}   
+public void someBfunc()   
+{   
+//doing b things   
+}   
+}  
+
+
+@Component(value=&quot;c&quot;)   
+class C implements IA   
+{   
+public void someFunction()   
+{   
+//busy code block   
+}   
+public void someCfunc()   
+{   
+//doing C things   
+}   
+}  
+
+
+`@Component   
+class MyRunner   
+{   
+@Autowire   
+@Qualifier(“b”)  
+IA worker;  
+
+
+....  
+worker.someFunction();  
+}`
+</code></pre>
   </section>
 
   <section class="post-comments">
