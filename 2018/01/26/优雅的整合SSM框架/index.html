@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      优雅的整合SSM框架 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="单独使用MybatisMybatis最重要最核心的对象就是SqlSessionFactory,用以产生SqlSession,执行各种数据库相关操作.单独配置Mybatis的时候需要在配置文件中配置实体类别名typeAliases数据源dataSource(属于环境标签下environments–&amp;gt;environment的内容)要加载的mapper(属于mappers–&amp;gt;mapper下的">
+<meta name="keywords" content="框架,Mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优雅的整合SSM框架 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/26/优雅的整合SSM框架/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="单独使用MybatisMybatis最重要最核心的对象就是SqlSessionFactory,用以产生SqlSession,执行各种数据库相关操作.单独配置Mybatis的时候需要在配置文件中配置实体类别名typeAliases数据源dataSource(属于环境标签下environments–&amp;gt;environment的内容)要加载的mapper(属于mappers–&amp;gt;mapper下的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-29T02:25:39.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优雅的整合SSM框架 | zlGao的笔记">
+<meta name="twitter:description" content="单独使用MybatisMybatis最重要最核心的对象就是SqlSessionFactory,用以产生SqlSession,执行各种数据库相关操作.单独配置Mybatis的时候需要在配置文件中配置实体类别名typeAliases数据源dataSource(属于环境标签下environments–&amp;gt;environment的内容)要加载的mapper(属于mappers–&amp;gt;mapper下的">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">优雅的整合SSM框架</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-01-26" class="post-meta__date date">2018-01-26</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Mybatis/">Mybatis</a>, <a class="tags-link" href="/tags/框架/">框架</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="单独使用Mybatis"><a href="#单独使用Mybatis" class="headerlink" title="单独使用Mybatis"></a>单独使用Mybatis</h3><p>Mybatis最重要最核心的对象就是SqlSessionFactory,用以产生SqlSession,执行各种数据库相关操作.单独配置Mybatis的时候需要在配置文件中配置<br><strong>实体类别名typeAliases<br>数据源dataSource(属于环境标签下environments–&gt;environment的内容)<br>要加载的mapper(属于mappers–&gt;mapper下的内容)</strong><br>然后在dao层实现类中用如下代码即可获得SqlSessionFactory进行数据库操作<br>        <strong>(此处的mybatis单独使用,官方教程建议将SqlSessionFactory封装一个单例工具类)</strong></p>
+<pre><code>String resource = &quot;originalmybatisway/mybatis-config.xml&quot;;
+InputStream inputStream = Resources.getResourceAsStream(resource);
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+SqlSession sqlSession=sqlSessionFactory.openSession();
+//ibatis时期方法,这种方式会在JVM常量池中加入很多字符串字面量,消耗内存,返回对象要强制类型转换(测试
+//mybatis3.30已经不需要强制类型转换了)
+Book book=(Book)sqlSession.selectOne(&quot;com.gzl.dao.BookDao.queryById&quot;,id);
+//新时期方法,参数XxxXxx.class已经可以确定dao接口的全限定名,配合.methodName()调用方法达到了之前
+//的效果,而且不必考虑字面量导致的内存消耗和返回类型强制转换的问题.
+Book book2=sqlSession.getMapper(BookDao.class).queryById(1000);
+</code></pre><h3 id="MyBatis与Spring进行整合"><a href="#MyBatis与Spring进行整合" class="headerlink" title="MyBatis与Spring进行整合"></a>MyBatis与Spring进行整合</h3><p>Spring最关键的功能就是IOC和DI,如果Mybatis基础上与Spring进行整合就可以将Mybatis中最关键的对象<strong>SqlSessionFactory用Spring进行IOC</strong>(Inversion Of Control),SqlSessionFactory中<strong>所需要的dataSource属性</strong>(mapper.xml加载位置<strong>mapperLocations</strong>,实体类别名<strong>typeAliasesPackage</strong>也可以作为其中的属性)<strong>进行DI</strong>(Dependency Injection)<br>上面括号中提到过mapperLocations和typeAliasesPackage也可以作为dataSource的属性进行依赖注入,所以mybatis-config.xml中目前什么都不需要配置,甚至不需要存在.  </p>
+<h3 id="Spring和Mybatis整合后-当前能干什么"><a href="#Spring和Mybatis整合后-当前能干什么" class="headerlink" title="Spring和Mybatis整合后,当前能干什么"></a>Spring和Mybatis整合后,当前能干什么</h3><p>以前后端分离式项目为例,当前<strong>dao层</strong>(Data Access Objects数据访问层)已经能<strong>通过Mybatis</strong>帮助下在<strong>操作数据库</strong>,在dao层基础之上建立service层(业务层),按照现在的进度接下来是建立controller层来实现前端后端的桥梁,<strong>当前我们能很方便的操作数据库(mybatis)(写mapper.xml,mapper接口),管理对象(spring)(IOC,DI)</strong>,但是写controller还是要不耐其烦的写Servlet,现在急需一种框架可以像写普通类一样写controller,方便的映射controller对应的url.<br>虽然新版本的Servlet3.0标准增加了注释开发,但是更流行的方式是Struts,Struts2框架,目前Struts2应用场景下已经被SpringMVC替代,接下来进行SpringMVC的整合.</p>
+<h3 id="Mybatis和Spring与SpringMVC进行整合"><a href="#Mybatis和Spring与SpringMVC进行整合" class="headerlink" title="Mybatis和Spring与SpringMVC进行整合"></a>Mybatis和Spring与SpringMVC进行整合</h3><p>SpringMVC本身就是Spring框架中的一个容器,所以整合起来很简单,只需要配置<mvc:annotation-driven>以及controller包自动扫描即可.如果不是前后端分离开发还需要配置处理静态资源.</mvc:annotation-driven></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
