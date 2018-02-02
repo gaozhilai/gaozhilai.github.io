@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      ContextLoaderListener源码分析 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="#这篇笔记思路很乱,没有写完,待整理. ContextLoaderListener作用不配置ContextLoaderListener会导致No Spring WebApplicationInitializer types detected on classpath,也就是说不配置ContextLoaderListener会导致Spring无法发现ApplicationListener接口的实现类">
+<meta name="keywords" content="框架,Spring,源码分析,待整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ContextLoaderListener源码分析 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/30/ContextLoaderListener源码分析/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="#这篇笔记思路很乱,没有写完,待整理. ContextLoaderListener作用不配置ContextLoaderListener会导致No Spring WebApplicationInitializer types detected on classpath,也就是说不配置ContextLoaderListener会导致Spring无法发现ApplicationListener接口的实现类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-02T05:48:17.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ContextLoaderListener源码分析 | zlGao的笔记">
+<meta name="twitter:description" content="#这篇笔记思路很乱,没有写完,待整理. ContextLoaderListener作用不配置ContextLoaderListener会导致No Spring WebApplicationInitializer types detected on classpath,也就是说不配置ContextLoaderListener会导致Spring无法发现ApplicationListener接口的实现类">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">ContextLoaderListener源码分析</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-01-30" class="post-meta__date date">2018-01-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Spring/">Spring</a>, <a class="tags-link" href="/tags/待整理/">待整理</a>, <a class="tags-link" href="/tags/框架/">框架</a>, <a class="tags-link" href="/tags/源码分析/">源码分析</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>#这篇笔记思路很乱,没有写完,待整理.</p>
+<h3 id="ContextLoaderListener作用"><a href="#ContextLoaderListener作用" class="headerlink" title="ContextLoaderListener作用"></a>ContextLoaderListener作用</h3><p>不配置ContextLoaderListener会导致<strong>No Spring WebApplicationInitializer types detected on classpath</strong>,也就是说不配置ContextLoaderListener会导致Spring无法发现<strong>ApplicationListener</strong>接口的实现类,当Spring加载完成后无法自动执行实现类中的逻辑代码.  </p>
+<h3 id="ContextLoader源码分析"><a href="#ContextLoader源码分析" class="headerlink" title="ContextLoader源码分析"></a>ContextLoader源码分析</h3><p>ContextLoaderListener的类声明如下:  </p>
+<blockquote>
+<p>public class ContextLoaderListener extends ContextLoader implements ServletContextListener {  </p>
+</blockquote>
+<h4 id="跟ContextLoaderListener相关的有类ContextLoader和接口ServletContextListener"><a href="#跟ContextLoaderListener相关的有类ContextLoader和接口ServletContextListener" class="headerlink" title="跟ContextLoaderListener相关的有类ContextLoader和接口ServletContextListener"></a>跟ContextLoaderListener相关的有类ContextLoader和接口ServletContextListener</h4><p>其中ServletContext属于WebApplication,作用是web程序与容器之间通信.显而易见<strong>ServletContextListener</strong>就是ServletContext的监听器,作用是监听ServletContext的变化.所以<strong>当配置了ContextLoaderListener的情况下,Spring加载初始化ServletContext过程中,ServletContext的变化会形成一个事件并通知给ApplicationListener<contextrefreshedevent>的实现类</contextrefreshedevent></strong></p>
+<p>因为它实现了ServletContextListener接口,所以在web.xml配置ContextLoaderListener监听器,当启动容器后就会默认执行实现类的方法.又因为它继承了ContextLoader类,所以加载Spring配置过程实际由ContextLoader完成.  </p>
+<p>ServletContextListener实现了ServletContextListener中的contextInitialized和contextDestroyed方法,接下来省略接口的源代码直接观察ServletContextListener的源代码:<br>    public class ContextLoaderListener extends ContextLoader implements ServletContextListener {<br>        public ContextLoaderListener() {<br>        }</p>
+<pre><code>    public ContextLoaderListener(WebApplicationContext context) {
+        super(context);
+    }
+
+    //Spring框架由此启动, contextInitialized是监听器类的main入口函数
+    public void contextInitialized(ServletContextEvent event) {
+        this.initWebApplicationContext(event.getServletContext());
+    }
+
+    public void contextDestroyed(ServletContextEvent event) {
+        this.closeWebApplicationContext(event.getServletContext());
+        ContextCleanupListener.cleanupAttributes(event.getServletContext());
+    }
+}  
+</code></pre><p>initWebApplicationContext方法的作用是初始化WebApplication上下文,具体方法实现在父类ContextLoader中,具体实现如下:<br>    public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {<br>        if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {<br>            throw new IllegalStateException(“Cannot initialize context because there is already a root application context present - check whether you have multiple ContextLoader* definitions in your web.xml!”);<br>        } else {<br>            Log logger = LogFactory.getLog(ContextLoader.class);<br>            servletContext.log(“Initializing Spring root WebApplicationContext”);<br>            if (logger.isInfoEnabled()) {<br>                logger.info(“Root WebApplicationContext: initialization started”);<br>            }</p>
+<pre><code>        long startTime = System.currentTimeMillis();
+
+        try {
+            if (this.context == null) {
+                this.context = this.createWebApplicationContext(servletContext);
+            }
+
+            if (this.context instanceof ConfigurableWebApplicationContext) {
+                ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext)this.context;
+                if (!cwac.isActive()) {
+                    if (cwac.getParent() == null) {
+                        ApplicationContext parent = this.loadParentContext(servletContext);
+                        cwac.setParent(parent);
+                    }
+
+                    this.configureAndRefreshWebApplicationContext(cwac, servletContext);
+                }
+            }
+
+            servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
+            ClassLoader ccl = Thread.currentThread().getContextClassLoader();
+            if (ccl == ContextLoader.class.getClassLoader()) {
+                currentContext = this.context;
+            } else if (ccl != null) {
+                currentContextPerThread.put(ccl, this.context);
+            }
+
+            if (logger.isDebugEnabled()) {
+                logger.debug(&quot;Published root WebApplicationContext as ServletContext attribute with name [&quot; + WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE + &quot;]&quot;);
+            }
+
+            if (logger.isInfoEnabled()) {
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                logger.info(&quot;Root WebApplicationContext: initialization completed in &quot; + elapsedTime + &quot; ms&quot;);
+            }
+
+            return this.context;
+        } catch (RuntimeException var8) {
+            logger.error(&quot;Context initialization failed&quot;, var8);
+            servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, var8);
+            throw var8;
+        } catch (Error var9) {
+            logger.error(&quot;Context initialization failed&quot;, var9);
+            servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, var9);
+            throw var9;
+        }
+    }
+}  
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>

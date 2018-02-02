@@ -22,7 +22,7 @@
     
 
     <title>
-      标签: Mybatis 
+      Spring加载完成后自动执行某任务 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,13 +31,18 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="标签: Mybatis">
-<meta property="og:url" content="http://yoursite.com/tags/Mybatis/index.html">
+    <meta name="description" content="敲黑板划重点实现ApplicationListener接口,具体实现代码如下: @Override    public void onApplicationEvent(ContextRefreshedEvent event)    {        if(event.getApplicationContext().getParent() == null)//root application con">
+<meta name="keywords" content="框架,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring加载完成后自动执行某任务 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/01/30/Spring加载完成后自动执行某任务/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="敲黑板划重点实现ApplicationListener接口,具体实现代码如下: @Override    public void onApplicationEvent(ContextRefreshedEvent event)    {        if(event.getApplicationContext().getParent() == null)//root application con">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-30T09:28:52.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签: Mybatis">
+<meta name="twitter:title" content="Spring加载完成后自动执行某任务 | zlGao的笔记">
+<meta name="twitter:description" content="敲黑板划重点实现ApplicationListener接口,具体实现代码如下: @Override    public void onApplicationEvent(ContextRefreshedEvent event)    {        if(event.getApplicationContext().getParent() == null)//root application con">
     
     
     
@@ -157,83 +162,74 @@ classes that you can use:
         <div class="content-wrapper__inner entry">
             
 
+<article class="post-container post-container--single">
 
-  <h1 class="archive-title">标签: Mybatis</h1>
-  <hr class="post-list__divider" />
-
-
-<div class="main-post-list">
-    <ol class="post-list">
+  <header class="post-header">
     
-    
-    <li>
+    <h1 class="post-title">Spring加载完成后自动执行某任务</h1>
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/02/02/mybatis返回insert自增主键/" title="link to Mybatis返回insert自增主键">Mybatis返回insert自增主键</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-02-02" class="post-list__meta--date date">2018-02-02</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/01/26/优雅的整合SSM框架/" title="link to 优雅的整合SSM框架">优雅的整合SSM框架</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-01-26" class="post-list__meta--date date">2018-01-26</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/01/26/mybatis动态代理-自动实现dao实现类/" title="link to mybatis动态代理,自动实现dao实现类">mybatis动态代理,自动实现dao实现类</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-01-26" class="post-list__meta--date date">2018-01-26</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
     
 
-    <span class="pagination__page-number"> 1 / 1</span>
+    <div class="post-meta">
+      <time datetime="2018-01-30" class="post-meta__date date">2018-01-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Spring/">Spring</a>, <a class="tags-link" href="/tags/框架/">框架</a>
+            </font>
+          
+
+      </span>
+    </div>
     
     
-</nav>
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>实现ApplicationListener<contextrefreshedevent>接口,具体实现代码如下:</contextrefreshedevent></p>
+<pre><code>@Override
+   public void onApplicationEvent(ContextRefreshedEvent event)
+   {
+       if(event.getApplicationContext().getParent() == null)//root application context 没有parent，他就是老大.
+       {
+           //要执行的逻辑代码
+       }
+
+       /*//或者下面这种方式
+       if(event.getApplicationContext().getDisplayName().equals(&quot;Root WebApplicationContext&quot;))
+       {
+           //要执行的逻辑代码
+       }*/
+   }  
+</code></pre><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>项目中需要在WebApplication启动后执行一段代码,监听某一端口实现Dicom文件接受服务器的功能.  </p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>网上有很多类似上面的实现方法,当WebApplication加载完成后就执行实现了ApplicationListener接口中的逻辑代码,但是我在项目中添加了相关代码后不生效  </p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在查看控制台日志的时候发现了一个输出语句  </p>
+<blockquote>
+<p>No Spring WebApplicationInitializer types detected on classpath  </p>
+</blockquote>
+<p>在classpath中没有Spring WebApplicationInitializer类型被发现.原因是因为在web.xml中我<strong>没有配置ContextLoaderListener</strong>,这个个监听器负责监听实现ApplicationListener接口的类,从而告诉Spring加载完成后执行指定类的代码.配置过后问题解决.具体配置代码如下:  </p>
+<pre><code>&lt;listener&gt;  
+  &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;  
+&lt;/listener&gt;  
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
 
 
-</div>
+</article>
+
+
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -261,6 +257,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->

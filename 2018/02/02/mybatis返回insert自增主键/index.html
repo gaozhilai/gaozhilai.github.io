@@ -22,7 +22,7 @@
     
 
     <title>
-      归档 
+      Mybatis返回insert自增主键 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,14 +31,18 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://yoursite.com/archive/index.html">
+    <meta name="description" content="敲黑板划重点mybatis的插入数据返回值实际是数据库受影响数据行数,真正的返回值需要在插入DTO对象中再get一次. 详细代码Mybatis返回插入数据的idMySQL简化配置: &amp;lt;insert id=&amp;quot;insert&amp;quot; parameterType=&amp;quot;com.test.User&amp;quot;  keyProperty=&amp;quot;userId&amp;quot; useG">
+<meta name="keywords" content="Mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis返回insert自增主键 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/02/02/mybatis返回insert自增主键/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="敲黑板划重点mybatis的插入数据返回值实际是数据库受影响数据行数,真正的返回值需要在插入DTO对象中再get一次. 详细代码Mybatis返回插入数据的idMySQL简化配置: &amp;lt;insert id=&amp;quot;insert&amp;quot; parameterType=&amp;quot;com.test.User&amp;quot;  keyProperty=&amp;quot;userId&amp;quot; useG">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-18T06:18:04.270Z">
+<meta property="og:updated_time" content="2018-02-02T08:35:30.067Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归档">
+<meta name="twitter:title" content="Mybatis返回insert自增主键 | zlGao的笔记">
+<meta name="twitter:description" content="敲黑板划重点mybatis的插入数据返回值实际是数据库受影响数据行数,真正的返回值需要在插入DTO对象中再get一次. 详细代码Mybatis返回插入数据的idMySQL简化配置: &amp;lt;insert id=&amp;quot;insert&amp;quot; parameterType=&amp;quot;com.test.User&amp;quot;  keyProperty=&amp;quot;userId&amp;quot; useG">
     
     
     
@@ -162,116 +166,74 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">归档</h1>
+    <h1 class="post-title">Mybatis返回insert自增主键</h1>
 
-    <section id="post-content" class="article-content post">
-        
-    </section>
+    
 
+    <div class="post-meta">
+      <time datetime="2018-02-02" class="post-meta__date date">2018-02-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Mybatis/">Mybatis</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
 
   </header>
 
+  <section id="post-content" class="article-content post">
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>mybatis的插入数据返回值实际是数据库受影响数据行数,真正的返回值需要在插入DTO对象中再get一次.</p>
+<h3 id="详细代码"><a href="#详细代码" class="headerlink" title="详细代码"></a>详细代码</h3><p>Mybatis返回插入数据的id<br>MySQL简化配置:</p>
+<pre><code>&lt;insert id=&quot;insert&quot; parameterType=&quot;com.test.User&quot;  keyProperty=&quot;userId&quot; useGeneratedKeys=&quot;true&quot; &gt;  
+&lt;/insert&gt;  
+</code></pre><blockquote>
+<p>keyProperty用来指定返回键值映射到对象中的属性名,useGeneratedKeys=”true”代表使用自增键值.</p>
+</blockquote>
+<p>MySQL:  </p>
+<pre><code>&lt;insert id=&quot;insert&quot; parameterType=&quot;com.pyp.open.entity.sheet.SheetDto&quot; &gt;
+    insert into sheets(type,img,small_img,upload_time,user_id,status,upload_ip)
+    VALUES (#{type},#{img},#{small_img},#{upload_time},#{user_id},#{status},#{upload_ip})
+    &lt;selectKey resultType=&quot;Integer&quot; order=&quot;AFTER&quot; keyProperty=&quot;id&quot;&gt;
+        SELECT LAST_INSERT_ID() AS id
+    &lt;/selectKey&gt;
+&lt;/insert&gt;  
+</code></pre><blockquote>
+<p>复杂的MySQL返回插入数据自增键值的代码与Oracle方式对应,利用了MySQL的LAST_INSERT_ID()函数,order=”AFTER”属性指定insert后执行这条查询语句.</p>
+</blockquote>
+<p>Oracle(未验证):  </p>
+<pre><code>&lt;insert id=&quot;insert&quot; parameterType=&quot;com.test.User&quot;&gt;
+   &lt;selectKey resultType=&quot;INTEGER&quot; order=&quot;BEFORE&quot; keyProperty=&quot;userId&quot;&gt;  
+       SELECT SEQ_USER.NEXTVAL as userId from DUAL
+   &lt;/selectKey&gt; 
+    insert into user (user_id, user_name, modified, state)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},  #{modified,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER})
+&lt;/insert&gt;  
+</code></pre><blockquote>
+<p>Oracle中没有自增长键值,用SEQUENCE来模拟自增键值,order=”BEFORE”指定在insert之前执行语句.</p>
+</blockquote>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
 </article>
 
-<div class="archive-meta">
 
-
-
-
-    <h3>标签</h3>
-    <div class="tagslist">
-        
-            
-                <span><a href="/tags/技术/" title="技术">技术<sup>7</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/Java/" title="Java">Java<sup>7</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/框架/" title="框架">框架<sup>7</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/java基础/" title="java基础">java基础<sup>7</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/感悟/" title="感悟">感悟<sup>5</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/swing/" title="swing">swing<sup>4</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/Spring/" title="Spring">Spring<sup>3</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/Mybatis/" title="Mybatis">Mybatis<sup>3</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/转载/" title="转载">转载<sup>3</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/源码分析/" title="源码分析">源码分析<sup>2</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/开源小工具/" title="开源小工具">开源小工具<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/GridbagLayout/" title="GridbagLayout">GridbagLayout<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/eclipse/" title="eclipse">eclipse<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/java集合框架/" title="java集合框架">java集合框架<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/加载动画/" title="加载动画">加载动画<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/待整理/" title="待整理">待整理<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/JNLP/" title="JNLP">JNLP<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></span>
-            
-        
-            
-                <span><a href="/tags/趣闻/" title="趣闻">趣闻<sup>1</sup></a></span>
-            
-        
-    </div>
-
-
-
-    <h3>归档</h3>
-    <div class="archiveslist">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">3</span></li></ul>
-    </div>
-
-
-</div>
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -299,6 +261,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
