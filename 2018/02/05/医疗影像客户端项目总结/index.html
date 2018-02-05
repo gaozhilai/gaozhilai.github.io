@@ -31,17 +31,17 @@
     
     
 
-    <meta name="description" content="医疗影像客户端项目总结影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,">
+    <meta name="description" content="影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Java Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,在解决样式问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="医疗影像客户端项目总结 | zlGao的笔记">
 <meta property="og:url" content="http://yoursite.com/2018/02/05/医疗影像客户端项目总结/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="医疗影像客户端项目总结影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,">
+<meta property="og:description" content="影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Java Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,在解决样式问">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-05T03:08:45.116Z">
+<meta property="og:updated_time" content="2018-02-05T03:15:55.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="医疗影像客户端项目总结 | zlGao的笔记">
-<meta name="twitter:description" content="医疗影像客户端项目总结影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,">
+<meta name="twitter:description" content="影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.    Swing皮肤GridBagLayout布局方式Java Network Launching Protocol常用dicom知识遇到的问题,学到的经验   Swing皮肤Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,在解决样式问">
     
     
     
@@ -186,18 +186,18 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="医疗影像客户端项目总结"><a href="#医疗影像客户端项目总结" class="headerlink" title="医疗影像客户端项目总结"></a>医疗影像客户端项目总结</h1><p>影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.  </p>
+    <p>影像客户端项目已经告一段落了,学而不思则罔,空闲的时候对项目中用到的技术和经验教训总结一下,可以通过下面目录直接阅读自己感兴趣的部分.  </p>
 <blockquote>
-<p><a href="swingskin"><strong>Swing皮肤</strong></a><br><a href="gridbaglayout"><strong>GridBagLayout布局方式</strong></a><br><a href="jnlp"><strong><br>Network Launching Protocol</strong></a><br><a href="dicomknowledge"><strong>常用dicom知识</strong></a><br><a href="frq"><strong>遇到的问题,学到的经验</strong></a>  </p>
+<p><a href="#swingskin"><strong>Swing皮肤</strong></a><br><a href="#gridbaglayout"><strong>GridBagLayout布局方式</strong></a><br><a href="#jnlp"><strong>Java Network Launching Protocol</strong></a><br><a href="#dicomknowledge"><strong>常用dicom知识</strong></a><br><a href="#frq"><strong>遇到的问题,学到的经验</strong></a>  </p>
 <h3 id="Swing皮肤"><a href="#Swing皮肤" class="headerlink" title="Swing皮肤"></a><a name="swingskin">Swing皮肤</a></h3><p>Java中的Swing工具包很强大,但是比较明显的缺点就是原生样式不太美观,在解决样式问题的时候发现了Swing的一个Look&amp;Feel开源项目,Darcula皮肤是idea编译器作者开源的项目,就是编译器中著名的黑色皮肤.有人说用java开发的idea编译器把Swing工具包运用到了极致,那么目前这个358kb的jar包就是其中的精髓,Darcula皮肤几乎完全重写了Swing组件的样式,很美观.<br><strong>项目github地址:</strong><br><a href="https://github.com/bulenkov/Darcula" target="_blank" rel="external">https://github.com/bulenkov/Darcula</a></p>
 <h3 id="GridBagLayout布局方式"><a href="#GridBagLayout布局方式" class="headerlink" title="GridBagLayout布局方式"></a><a name="gridbaglayout">GridBagLayout布局方式</a></h3><p>要用Java进行客户端开发就怎么也绕不过布局管理器,Java提供了很多布局管理器,最常见的就是大多数组件默认的FlowLayout布局.众多布局管理器中最复杂最强大的就是GridBagLayout,其实说它是Java中最复杂的布局管理器,但是学习成本其实并不高,灵活使用GridbagLayout可以开发出任何想要的布局,按比例适配不同大小的屏幕.<br><strong>网袋布局教程:</strong><br><a href="/2017/11/17/GridBagLayout网袋布局/" title="布局管理器GridBagLayout网袋布局">布局管理器GridBagLayout网袋布局</a></p>
 <h3 id="Java-Network-Launching-Protocol"><a href="#Java-Network-Launching-Protocol" class="headerlink" title="Java Network Launching Protocol"></a><a name="jnlp">Java Network Launching Protocol</a></h3><p>JNLP解决了项目的<strong>部署更新</strong>和<strong>如何被调用</strong>的两个问题.<br>①当实际部署的时候可能要部署的客户机数量很庞大,如果每一个客户机都要部署客户端jar包那么部署人员的压力会很大,每次客户端更新升级代价也会很大.通过JNLP协议解决了这一问题,在服务器端暴露一个动态生成jnlp文件的接口,这样客户机只需要点击对应jnlp协议的链接,JRE就会完成jar包下载更新的动作,jar包只会在第一次下载,不用担心对带宽造成压力.这样更新部署客户端的代价一下子就由很多客户机变成了只需要更新服务器端.  </p>
 </blockquote>
 <p>②Java没有提供程序单例运行的机制,也就是说java客户端在被其他系统调用执行时没有办法每次都将参数传递给同一个正在运行Java客户端实例,无论是网上文件锁还是开启端口号都不是好的解决办法,也不能解决参数传递的问题,如果采用了jnlp部署的方式这个问题就迎刃而解了.<strong>面对合作方谈接口时也有了很好的规范</strong>.  </p>
 <blockquote>
-<p><strong>JNLP协议教程:</strong>  </p>
-</blockquote>
+<p><strong>JNLP协议教程:</strong><br><a href="/2017/11/14/Java-Network-Launch-Protocol分析/" title="Java Network Launch Protocol分析">Java Network Launch Protocol分析</a></p>
 <h3 id="常用的dicom知识"><a href="#常用的dicom知识" class="headerlink" title="常用的dicom知识"></a><a name="dicomknowledge">常用的dicom知识</a></h3><p>开发医疗影像项目肯定需要一些Dicom相关知识,这里列出一些常用的Dicom标签,和Dicom知识获取的网址.<br>Dicom大概有2000个标签,下面只列出几个常用Dicom标签,想了解更多可以自行搜索:  </p>
+</blockquote>
 <table>
 <thead>
 <tr>
