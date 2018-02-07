@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      初见Redis 作为消息队列使用 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="敲黑板划重点最近可能会用到消息队列,提前了解下.本来想先学习ActiveMQ或者RocketMQ,偶然发现了Redis.Redis作为一个key-value形式的内存数据库.全称是REmote DIctionary Server.仔细想想如果项目用了Redis,就既有了高速缓存机制,又有了消息队列,等规模打了还能很方便的搭建集群. Redis实现消息队列消息队列由两个Redis中的list类型组成">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初见Redis 作为消息队列使用 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/02/07/初见Redis-作为消息队列使用/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="敲黑板划重点最近可能会用到消息队列,提前了解下.本来想先学习ActiveMQ或者RocketMQ,偶然发现了Redis.Redis作为一个key-value形式的内存数据库.全称是REmote DIctionary Server.仔细想想如果项目用了Redis,就既有了高速缓存机制,又有了消息队列,等规模打了还能很方便的搭建集群. Redis实现消息队列消息队列由两个Redis中的list类型组成">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T03:37:25.688Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初见Redis 作为消息队列使用 | zlGao的笔记">
+<meta name="twitter:description" content="敲黑板划重点最近可能会用到消息队列,提前了解下.本来想先学习ActiveMQ或者RocketMQ,偶然发现了Redis.Redis作为一个key-value形式的内存数据库.全称是REmote DIctionary Server.仔细想想如果项目用了Redis,就既有了高速缓存机制,又有了消息队列,等规模打了还能很方便的搭建集群. Redis实现消息队列消息队列由两个Redis中的list类型组成">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">初见Redis 作为消息队列使用</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-07" class="post-meta__date date">2018-02-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Redis/">Redis</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>最近可能会用到消息队列,提前了解下.本来想先学习ActiveMQ或者RocketMQ,偶然发现了Redis.Redis作为一个key-value形式的内存数据库.全称是<strong>RE</strong>mote <strong>DI</strong>ctionary <strong>S</strong>erver.仔细想想如果项目用了Redis,就既有了高速缓存机制,又有了消息队列,等规模打了还能很方便的搭建集群.</p>
+<h3 id="Redis实现消息队列"><a href="#Redis实现消息队列" class="headerlink" title="Redis实现消息队列"></a>Redis实现消息队列</h3><p>消息队列由两个Redis中的list类型组成,一个是task任务队列,一个是task-temp任务处理队列,生产者不同速度大量向task中插入任务,消费者用LPOPRPUSH,先从task队列尾部取出任务插入到task-temp队列头部,并且将所操作的元素返回,然后业务逻辑开始处理取出的任务,成功就在task-temp执行rpop彻底清除已完成任务,如果失败还是LPOPRPUSH操作,将两个队列调换参数位置,把失败的任务弹回task队列等待进行下次处理.下面代码转自博客:  </p>
+<blockquote>
+<p><a href="http://blog.csdn.net/zuoanyinxiang/article/details/50263945" target="_blank" rel="external">http://blog.csdn.net/zuoanyinxiang/article/details/50263945</a><br><strong>生产者:</strong>  </p>
+</blockquote>
+<pre><code>public class TaskProducer implements Runnable{  
+    Jedis jedis = new Jedis(&quot;120.55.195.177&quot;,6379);  
+
+    public void run() {  
+        Random random = new Random();  
+        while(true){  
+            try{  
+                Thread.sleep(random.nextInt(600) + 600);  
+                // 模拟生成一个任务  
+                UUID taskid = UUID.randomUUID();  
+                //将任务插入任务队列：task-queue  
+                jedis.lpush(&quot;task-queue&quot;, taskid.toString());  
+                System.out.println(&quot;插入了一个新的任务： &quot; + taskid);  
+
+            }catch(Exception e){  
+                e.printStackTrace();  
+            }  
+        }  
+
+    }  
+
+}  
+</code></pre><p><strong>消费者:</strong>  </p>
+<pre><code>public class TaskConsumer implements Runnable {  
+    Jedis jedis = new Jedis(&quot;120.55.195.177&quot;,6379);  
+
+    public void run() {  
+        Random random = new Random();  
+
+        while(true){  
+
+            //从任务队列&quot;task-queue&quot;中获取一个任务，并将该任务放入暂存队列&quot;tmp-queue&quot;  
+            String taskid = jedis.rpoplpush(&quot;task-queue&quot;, &quot;tmp-queue&quot;);  
+
+
+            // 处理任务----纯属业务逻辑，模拟一下：睡觉  
+            try {  
+                Thread.sleep(1000);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+
+
+            //模拟成功和失败的偶然现象  
+            if(random.nextInt(13) % 7 == 0){// 模拟失败的情况,概率为2/13  
+                //将本次处理失败的任务从暂存队列&quot;tmp-queue&quot;中，弹回任务队列&quot;task-queue&quot;  
+                jedis.rpoplpush(&quot;tmp-queue&quot;, &quot;task-queue&quot;);  
+                System.out.println(taskid + &quot;处理失败，被弹回任务队列&quot;);  
+
+            } else {// 模拟成功的情况  
+
+                // 将本次任务从暂存队列&quot;tmp-queue&quot;中清除  
+                jedis.rpop(&quot;tmp-queue&quot;);  
+                System.out.println(taskid+&quot;处理成功，被清除&quot;);  
+
+            }     
+        }                     
+    }  
+}  
+</code></pre><p><strong>主程序:</strong>  </p>
+<pre><code>public class TaskShedulerSystem {  
+    public static void main(String[] args) throws Exception {  
+
+        // 启动一个生产者线程，模拟任务的产生  
+        new Thread(new TaskProducer()).start();  
+
+        Thread.sleep(15000);  
+
+        //启动一个线程者线程，模拟任务的处理  
+        new Thread(new TaskConsumer()).start();  
+
+        //主线程休眠  
+        Thread.sleep(Long.MAX_VALUE);  
+    }  
+}
+</code></pre><p>这里的代码在任务失败重新弹回task队列时会造成顺序错乱,直接在task队列头部了,从而还是优先尝试已经失败的任务,如果想避免这种情况可以用</p>
+<pre><code>jedis.rpush(&quot;task-queue&quot;,jedis.rpop(&quot;tmp-queue&quot;));//弹回task队列元素插入在队尾.  
+</code></pre><p>替代</p>
+<pre><code>jedis.rpoplpush(“tmp-queue”, “task-queue”);//弹回后插入task队列头部了.  
+</code></pre><p>还可以在上面代码改良用BRPOPLPUSH阻塞的RPOPLPUSH命令.</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>

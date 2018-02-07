@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      初见Redis 通过官方教程熟悉Redis支持的数据结构及操作 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="Redis常见数据结构以及相关操作 下面列出的常用数据结构和命令均整理自官方教程.教程中列出了Redis支持的常见数据类型:key-value,list,set,sorted set,hashes.更多命令可以通过官网查询http://www.redis.cn/commands.html  Redis is what is called a key-value store, often refer">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初见Redis 通过官方教程熟悉Redis支持的数据结构及操作 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/初见Redis-通过官方教程熟悉redis支持的数据结构及操作/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="Redis常见数据结构以及相关操作 下面列出的常用数据结构和命令均整理自官方教程.教程中列出了Redis支持的常见数据类型:key-value,list,set,sorted set,hashes.更多命令可以通过官网查询http://www.redis.cn/commands.html  Redis is what is called a key-value store, often refer">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-07T02:12:40.957Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初见Redis 通过官方教程熟悉Redis支持的数据结构及操作 | zlGao的笔记">
+<meta name="twitter:description" content="Redis常见数据结构以及相关操作 下面列出的常用数据结构和命令均整理自官方教程.教程中列出了Redis支持的常见数据类型:key-value,list,set,sorted set,hashes.更多命令可以通过官网查询http://www.redis.cn/commands.html  Redis is what is called a key-value store, often refer">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">初见Redis 通过官方教程熟悉Redis支持的数据结构及操作</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-06" class="post-meta__date date">2018-02-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Redis/">Redis</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="Redis常见数据结构以及相关操作"><a href="#Redis常见数据结构以及相关操作" class="headerlink" title="Redis常见数据结构以及相关操作"></a>Redis常见数据结构以及相关操作</h3><blockquote>
+<p>下面列出的常用数据结构和命令均整理自官方教程.<br>教程中列出了Redis支持的常见数据类型:key-value,list,set,sorted set,hashes.<br>更多命令可以通过官网查询<strong><a href="http://www.redis.cn/commands.html" target="_blank" rel="external">http://www.redis.cn/commands.html</a></strong></p>
+</blockquote>
+<p>Redis is what is called a key-value store, often referred to as a NoSQL database. The essence of a key-value store is the ability to store some data, called a value, inside a key. This data can later be retrieved only if we know the exact key used to store it. We can use the command SET to store the value “fido” at key “server:name”:<br>Reids是一个key-value存储仓库,经常把他当做NoSQL数据库使用.key-value仓库存储某些数据的实质是用一个key对应存储一个value.如果我们知道key,稍后就可以查看对应value.接下来我们可以用SET命令存储”fido”对应key为”server:name”.</p>
+<pre><code>SET server:name &quot;fido&quot;
+</code></pre><p>Redis will store our data permanently, so we can later ask “What is the value stored at key server:name?” and Redis will reply with “fido”:<br>Reids将会永久存储我们的数据,所以我们可以晚点问server:name对应的value是什么?Redis将会回复”fido”:</p>
+<pre><code>GET server:name =&gt; &quot;fido&quot;
+</code></pre><p>Tip: You can click the commands above to automatically execute them. The text after the arrow (=&gt;) shows the expected output. </p>
+<p>Other common operations provided by key-value stores are DEL to delete a given key and associated value, SET-if-not-exists (called SETNX on Redis) that sets a key only if it does not already exist, and INCR to atomically increment a number stored at a given key:<br>其他的常用操作是DEL命令用来删除给定的key和对应的value.SETNX命令在key不存在时才设置键值,INCR可以让一个存储的数字数据自增.其中INCRBY key number将对key存储的数据自增number.对应的命令还有DECR,DECRBY.</p>
+<pre><code>SET connections 10
+INCR connections =&gt; 11
+INCR connections =&gt; 12
+DEL connections
+INCR connections =&gt; 1
+</code></pre><p>There is something special about INCR. Why do we provide such an operation if we can do it ourself with a bit of code? After all it is as simple as:</p>
+<p>x = GET count<br>x = x + 1<br>SET count x</p>
+<p>The problem is that doing the increment in this way will only work as long as there is a single client using the key. See what happens if two clients are accessing this key at the same time:</p>
+<pre><code>Client A reads count as 10.
+Client B reads count as 10.
+Client A increments 10 and sets count to 11.
+Client B increments 10 and sets count to 11.
+</code></pre><p>We wanted the value to be 12, but instead it is 11! This is because incrementing the value in this way is not an atomic operation. Calling the INCR command in Redis will prevent this from happening, because it is an atomic operation. Redis provides many of these atomic operations on different types of data.</p>
+<p>Redis can be told that a key should only exist for a certain length of time. This is accomplished with the EXPIRE and TTL commands.<br>Redis可以用EXPIRE命令设置一个key-value存在的时间,并用TTL(time to live)命令查看指定key还能存在多久.</p>
+<pre><code>SET resource:lock &quot;Redis Demo&quot;
+EXPIRE resource:lock 120
+</code></pre><p>This causes the key resource:lock to be deleted in 120 seconds. You can test how long a key will exist with the TTL command. It returns the number of seconds until it will be deleted.</p>
+<pre><code>TTL resource:lock =&gt; 113
+// after 113s
+TTL resource:lock =&gt; -2
+</code></pre><p>The -2 for the TTL of the key means that the key does not exist (anymore). A -1 for the TTL of the key means that it will never expire. Note that if you SET a key, its TTL will be reset.</p>
+<pre><code>SET resource:lock &quot;Redis Demo 1&quot;
+EXPIRE resource:lock 120
+TTL resource:lock =&gt; 119
+SET resource:lock &quot;Redis Demo 2&quot;
+TTL resource:lock =&gt; -1
+</code></pre><p>Redis also supports several more complex data structures. The first one we’ll look at is a list. A list is a series of ordered values. Some of the important commands for interacting with lists are RPUSH, LPUSH, LLEN, LRANGE, LPOP, and RPOP. You can immediately begin working with a key as a list, as long as it doesn’t already exist as a different type.<br>Redis还支持一些复杂数据结构.第一个我们将看到的是list.<strong>一个list是一系列有序的值.</strong>一些与list相关的重要命令为RPUSH,LPUSH,LLEN,LRANGE,LPOP和POP.在一个key不是已经存在的其他类型数据的时候,你可以快速的用一个key实现一个list.</p>
+<p>RPUSH puts the new value at the end of the list.<br>RPUSH在list末尾添加新的value.</p>
+<pre><code>RPUSH friends &quot;Alice&quot;
+RPUSH friends &quot;Bob&quot;
+</code></pre><p>LPUSH puts the new value at the start of the list.<br>LPUSH在list的头部添加新的value.</p>
+<pre><code>LPUSH friends &quot;Sam&quot;
+</code></pre><p>LRANGE gives a subset of the list. It takes the index of the first element you want to retrieve as its first parameter and the index of the last element you want to retrieve as its second parameter. A value of -1 for the second parameter means to retrieve elements until the end of the list.<br>LRANGE命令将会返回一个目标list的子集,它的第一个参数是你想开始取得元素的坐标,第二个参数是你想取的最后一个元素的坐标(index从0开始).如果第二个参数为-1则返回从第一个参数到list结尾的元素.</p>
+<pre><code>LRANGE friends 0 -1 =&gt; 1) &quot;Sam&quot;, 2) &quot;Alice&quot;, 3) &quot;Bob&quot;
+LRANGE friends 0 1 =&gt; 1) &quot;Sam&quot;, 2) &quot;Alice&quot;
+LRANGE friends 1 2 =&gt; 1) &quot;Alice&quot;, 2) &quot;Bob&quot;
+</code></pre><p>LLEN returns the current length of the list.<br>LLENG命令返回list的当长度</p>
+<pre><code>LLEN friends =&gt; 3
+</code></pre><p>LPOP removes the first element from the list and returns it.<br>LPOP移除了list的第一个元素并返回他.</p>
+<pre><code>LPOP friends =&gt; &quot;Sam&quot;
+</code></pre><p>RPOP removes the last element from the list and returns it.<br>RPOP移除了list的最后一个元素.</p>
+<pre><code>RPOP friends =&gt; &quot;Bob&quot;
+</code></pre><p>Note that the list now only has one element:</p>
+<pre><code>LLEN friends =&gt; 1
+LRANGE friends 0 -1 =&gt; 1) &quot;Alice&quot;
+</code></pre><p>The next data structure that we’ll look at is a set. A set is similar to a list, except it does not have a specific order and each element may only appear once. Some of the important commands in working with sets are SADD, SREM, SISMEMBER, SMEMBERS and SUNION.<br>下一个数据结构我们将看到的是set,一个set跟list很相似,除了set是无序并且不能有相同元素的.一些set相关的重要命令是SADD,SREM,SISMEMBER,SMEMERS和SUNION.</p>
+<p>SADD adds the given value to the set.<br>SADD命令用于给SET添加一个value</p>
+<pre><code>SADD superpowers &quot;flight&quot;
+SADD superpowers &quot;x-ray vision&quot;
+SADD superpowers &quot;reflexes&quot;
+</code></pre><p>SREM removes the given value from the set.<br>SREM命令从set中移除对应的value.</p>
+<pre><code>SREM superpowers &quot;reflexes&quot;
+</code></pre><p>SISMEMBER tests if the given value is in the set. It returns 1 if the value is there and 0 if it is not.<br>SISMEMBER 测试给出的value是否是set中的元素.如果是返回1,不是则返回0.</p>
+<pre><code>SISMEMBER superpowers &quot;flight&quot; =&gt; 1
+SISMEMBER superpowers &quot;reflexes&quot; =&gt; 0
+</code></pre><p>SMEMBERS returns a list of all the members of this set.<br>SMEMBERS命令用于返回一个set的所有成员.</p>
+<pre><code>SMEMBERS superpowers =&gt; 1) &quot;flight&quot;, 2) &quot;x-ray vision&quot;
+</code></pre><p>SUNION combines two or more sets and returns the list of all elements.<br>SUNION命令用于将两个或以上sets合并成一个set并返回所有元素.(去除了相同的元素)</p>
+<pre><code>SADD birdpowers &quot;pecking&quot;
+SADD birdpowers &quot;flight&quot;
+SUNION superpowers birdpowers =&gt; 1) &quot;pecking&quot;, 2) &quot;x-ray vision&quot;, 3) &quot;flight&quot;
+</code></pre><p>Sets are a very handy data type, but as they are unsorted they don’t work well for a number of problems. This is why Redis 1.2 introduced Sorted Sets.<br>集合是一种非常好用的数据类型,但是由于集合无序所以在很多需求上无法很好的工作,所以在Redis1.2版本中引入了Sorted Sets.</p>
+<p>A sorted set is similar to a regular set, but now each value has an associated score. This score is used to sort the elements in the set.<br>一个sorted set跟一个普通的set很像,但是再sorted set中每个value有一个相关联的权重值.这个个权重是用来在指定set中排序的.</p>
+<pre><code>ZADD hackers 1940 &quot;Alan Kay&quot;
+ZADD hackers 1906 &quot;Grace Hopper&quot;
+ZADD hackers 1953 &quot;Richard Stallman&quot;
+ZADD hackers 1965 &quot;Yukihiro Matsumoto&quot;
+ZADD hackers 1916 &quot;Claude Shannon&quot;
+ZADD hackers 1969 &quot;Linus Torvalds&quot;
+ZADD hackers 1957 &quot;Sophie Wilson&quot;
+ZADD hackers 1912 &quot;Alan Turing&quot;
+</code></pre><p>In these examples, the scores are years of birth and the values are the names of famous hackers.</p>
+<pre><code>ZRANGE hackers 2 4 =&gt; 1) &quot;Claude Shannon&quot;, 2) &quot;Alan Kay&quot;, 3) &quot;Richard Stallman&quot;
+</code></pre><p>Simple strings, sets and sorted sets already get a lot done but there is one more data type Redis can handle: Hashes.<br>sets和sorted sets已经对简单字符串类型做了很多功能,但是这里Redis还提供一种数据类型:Hashes.</p>
+<p>Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (eg: A User with a number of fields like name, surname, age, and so forth):<br>Hashes是字符串field和字符串value之间的映射,所以<strong>Hashes是代表对象的完美数据类型.</strong>(下面代表一个User对象有很多类似name,surname,age等的字段组成.)</p>
+<pre><code>HSET user:1000 name &quot;John Smith&quot;
+HSET user:1000 email &quot;john.smith@example.com&quot;
+HSET user:1000 password &quot;s3cret&quot;
+</code></pre><p>To get back the saved data use HGETALL:</p>
+<pre><code>HGETALL user:1000
+</code></pre><p>You can also set multiple fields at once:</p>
+<pre><code>HMSET user:1001 name &quot;Mary Jones&quot; password &quot;hidden&quot; email &quot;mjones@example.com&quot;
+</code></pre><p>If you only need a single field value that is possible as well:</p>
+<pre><code>HGET user:1001 name =&gt; &quot;Mary Jones&quot;
+</code></pre><p>Numerical values in hash fields are handled exactly the same as in simple strings and there are operations to increment this value in an atomic way.<br>数字类型的值在Hashes的字段中自增等操作跟在简单字符串中的处理是一模一样的,并且那些操作也是一个原子操作.</p>
+<pre><code>HSET user:1000 visits 10
+HINCRBY user:1000 visits 1 =&gt; 11
+HINCRBY user:1000 visits 10 =&gt; 21
+HDEL user:1000 visits
+HINCRBY user:1000 visits 1 =&gt; 1
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
