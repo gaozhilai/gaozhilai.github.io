@@ -22,7 +22,7 @@
     
 
     <title>
-      初见Redis 整合Mysql作为高速缓存存储热点数据 | zlGao的笔记 
+      初见Redis 整合SpringCache作为项目数据缓存 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="暂时思路redis结合mysql存储数据,比如mysql中有2000w数据,redis只存储其中的20w热点数据,有新的数据请求先从redis请求,没有再从mysql请求同时存到redis,数据多的时候根据一定机制淘汰redis数据.">
+    <meta name="description" content="敲黑板划重点Redis作为项目缓存的成熟解决方案是结合SpringCache使用.   原始思路Redis作为项目的缓存,Mysql作为项目的持久化存储,主要要满足下面的思路:请求数据时查看Redis中有没有数据,有的话从Redis查询,没有的话从Mysql查询,并将数据缓存到Redis中,这样下次请求同一数据就可以从内存中取出.思路比较简单清晰,但是问题是怎么保持Redis与MySQL的数据一致">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初见Redis 整合Mysql作为高速缓存存储热点数据 | zlGao的笔记">
+<meta property="og:title" content="初见Redis 整合SpringCache作为项目数据缓存 | zlGao的笔记">
 <meta property="og:url" content="http://yoursite.com/2018/02/07/初见Redis-作为高速缓存存储热点数据/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="暂时思路redis结合mysql存储数据,比如mysql中有2000w数据,redis只存储其中的20w热点数据,有新的数据请求先从redis请求,没有再从mysql请求同时存到redis,数据多的时候根据一定机制淘汰redis数据.">
+<meta property="og:description" content="敲黑板划重点Redis作为项目缓存的成熟解决方案是结合SpringCache使用.   原始思路Redis作为项目的缓存,Mysql作为项目的持久化存储,主要要满足下面的思路:请求数据时查看Redis中有没有数据,有的话从Redis查询,没有的话从Mysql查询,并将数据缓存到Redis中,这样下次请求同一数据就可以从内存中取出.思路比较简单清晰,但是问题是怎么保持Redis与MySQL的数据一致">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-07T04:05:50.090Z">
+<meta property="og:updated_time" content="2018-02-08T05:02:30.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初见Redis 整合Mysql作为高速缓存存储热点数据 | zlGao的笔记">
-<meta name="twitter:description" content="暂时思路redis结合mysql存储数据,比如mysql中有2000w数据,redis只存储其中的20w热点数据,有新的数据请求先从redis请求,没有再从mysql请求同时存到redis,数据多的时候根据一定机制淘汰redis数据.">
+<meta name="twitter:title" content="初见Redis 整合SpringCache作为项目数据缓存 | zlGao的笔记">
+<meta name="twitter:description" content="敲黑板划重点Redis作为项目缓存的成熟解决方案是结合SpringCache使用.   原始思路Redis作为项目的缓存,Mysql作为项目的持久化存储,主要要满足下面的思路:请求数据时查看Redis中有没有数据,有的话从Redis查询,没有的话从Mysql查询,并将数据缓存到Redis中,这样下次请求同一数据就可以从内存中取出.思路比较简单清晰,但是问题是怎么保持Redis与MySQL的数据一致">
     
     
     
@@ -166,7 +166,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">初见Redis 整合Mysql作为高速缓存存储热点数据</h1>
+    <h1 class="post-title">初见Redis 整合SpringCache作为项目数据缓存</h1>
 
     
 
@@ -192,7 +192,234 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h3 id="暂时思路"><a href="#暂时思路" class="headerlink" title="暂时思路"></a>暂时思路</h3><p>redis结合mysql存储数据,比如mysql中有2000w数据,redis只存储其中的20w热点数据,有新的数据请求先从redis请求,没有再从mysql请求同时存到redis,数据多的时候根据一定机制淘汰redis数据.</p>
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>Redis作为项目缓存的成熟解决方案是结合SpringCache使用.  </p>
+<h3 id="原始思路"><a href="#原始思路" class="headerlink" title="原始思路"></a>原始思路</h3><p>Redis作为项目的缓存,Mysql作为项目的持久化存储,主要要满足下面的思路:<br>请求数据时查看Redis中有没有数据,有的话从Redis查询,没有的话从Mysql查询,并将数据缓存到Redis中,这样下次请求同一数据就可以从内存中取出.思路比较简单清晰,但是<strong>问题是怎么保持Redis与MySQL的数据一致性</strong>,假如在查询过程中有并发更新操作就有可能造成在Redis读到脏数据,而且每个操作数据方法之前都要有先查询Redis再查询MySQL的逻辑,造成了大量的冗余代码.  </p>
+<h3 id="Redis与SpringCache整合"><a href="#Redis与SpringCache整合" class="headerlink" title="Redis与SpringCache整合"></a>Redis与SpringCache整合</h3><p>解决原始思路中冗余代码问题可以联想到Spring中的AOP面向切面机制,而这些工作SpringCache已经帮我们都做好了,SpringCache可以很简单的整合各种缓存工具,Redis,Memcache等,下面记录下整合Redis过程.  </p>
+<blockquote>
+<p>转载自<a href="https://www.cnblogs.com/chenkeyu/p/8028781.html" target="_blank" rel="external">https://www.cnblogs.com/chenkeyu/p/8028781.html</a>  </p>
+</blockquote>
+<p>相关依赖:  </p>
+<pre><code>&lt;dependency&gt;  
+   &lt;groupId&gt;redis.clients&lt;/groupId&gt;  
+   &lt;artifactId&gt;jedis&lt;/artifactId&gt;  
+　　&lt;version&gt;2.9.0&lt;/version&gt;  
+&lt;/dependency&gt;  
+&lt;dependency&gt;  
+   &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;  
+   &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;  
+   &lt;version&gt;1.6.0.RELEASE&lt;/version&gt;  
+&lt;/dependency&gt; 
+&lt;dependency&gt;
+　　&lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+　　&lt;artifactId&gt;commons-lang3&lt;/artifactId&gt; 
+　　&lt;version&gt;3.3.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>Spring-Redis.xml配置文件:  </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;    
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:p=&quot;http://www.springframework.org/schema/p&quot;    
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;    
+    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;    
+    xmlns:cache=&quot;http://www.springframework.org/schema/cache&quot;  
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans      
+                        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd      
+                        http://www.springframework.org/schema/context      
+                        http://www.springframework.org/schema/context/spring-context-4.2.xsd      
+                        http://www.springframework.org/schema/mvc      
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd  
+                        http://www.springframework.org/schema/cache   
+                        http://www.springframework.org/schema/cache/spring-cache-4.2.xsd&quot;&gt;
+
+　　&lt;!-- 配置文件加载 --&gt;
+　　&lt;context:property-placeholder location=&quot;classpath:*.properties&quot;/&gt;
+&lt;cache:annotation-driven cache-manager=&quot;cacheManager&quot;/&gt;
+    &lt;!-- redis连接池 --&gt;
+    &lt;bean id=&quot;poolConfig&quot; class=&quot;redis.clients.jedis.JedisPoolConfig&quot;&gt;
+        &lt;property name=&quot;maxIdle&quot; value=&quot;${redis.maxIdle}&quot; /&gt;     
+         &lt;property name=&quot;maxWaitMillis&quot; value=&quot;${redis.maxWait}&quot; /&gt;    
+         &lt;property name=&quot;testOnBorrow&quot; value=&quot;${redis.testOnBorrow}&quot; /&gt; 
+    &lt;/bean&gt;
+    &lt;!-- 连接工厂 --&gt;
+    &lt;bean id=&quot;JedisConnectionFactory&quot; class=&quot;org.springframework.data.redis.connection.jedis.JedisConnectionFactory&quot;    
+       p:host-name=&quot;${redis.host}&quot; p:port=&quot;${redis.port}&quot; p:password=&quot;${redis.pass}&quot; p:pool-config-ref=&quot;poolConfig&quot;/&gt;
+    &lt;!-- redis模板 --&gt;
+    &lt;bean id=&quot;redisTemplate&quot; class=&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;    
+         &lt;property name=&quot;connectionFactory&quot; ref=&quot;JedisConnectionFactory&quot; /&gt;    
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;cacheManager&quot; class=&quot;org.springframework.cache.support.SimpleCacheManager&quot;&gt;    
+         &lt;property name=&quot;caches&quot;&gt;    
+            &lt;set&gt;    
+                &lt;!-- 这里可以配置多个redis --&gt;  
+                &lt;bean class=&quot;com.cky.rest.utils.RedisCache&quot;&gt;    
+                     &lt;property name=&quot;redisTemplate&quot; ref=&quot;redisTemplate&quot; /&gt;    
+                     &lt;property name=&quot;name&quot; value=&quot;content&quot;/&gt;    
+                     &lt;!-- name对应的名称要在类或方法的注解中使用 --&gt;  
+                &lt;/bean&gt;  
+            &lt;/set&gt;    
+         &lt;/property&gt;    
+     &lt;/bean&gt;    
+&lt;/beans&gt;
+</code></pre><p>redis.properties配置文件:  </p>
+<pre><code># Redis settings  
+# server IP  
+redis.host=192.168.100.55 
+# server port  
+redis.port=6379  
+# server pass  
+redis.pass=
+# use dbIndex  
+redis.database=0 
+#max idel instance of jedis
+redis.maxIdle=300  
+#if wait too long ,throw JedisConnectionException
+redis.maxWait=3000  
+#if true,it will validate before borrow jedis instance,what you get instance is all usefull
+redis.testOnBorrow=true
+</code></pre><p>SpringCache接口实现类:  </p>
+<blockquote>
+<p>SpringCache是一个通用的接口,具体缓存工具对应的实现类需要自己实现.  </p>
+</blockquote>
+<pre><code>import java.io.Serializable;
+
+import org.apache.commons.lang3.SerializationUtils;
+import org.springframework.cache.Cache;
+import org.springframework.cache.support.SimpleValueWrapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+
+public class RedisCache implements Cache {
+
+    private RedisTemplate&lt;String, Object&gt; redisTemplate;
+    private String name;
+
+    @Override
+    public void clear() {
+        System.out.println(&quot;-------緩存清理------&quot;);
+        redisTemplate.execute(new RedisCallback&lt;String&gt;() {
+            @Override
+            public String doInRedis(RedisConnection connection) throws DataAccessException {
+                connection.flushDb();
+                return &quot;ok&quot;;
+            }
+        });
+    }
+
+    @Override
+    public void evict(Object key) {
+        System.out.println(&quot;-------緩存刪除------&quot;);
+        final String keyf=key.toString();
+        redisTemplate.execute(new RedisCallback&lt;Long&gt;() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.del(keyf.getBytes());
+            }
+
+        });
+
+    }
+
+    @Override
+    public ValueWrapper get(Object key) {
+        System.out.println(&quot;------缓存获取-------&quot;+key.toString());
+        final String keyf = key.toString();
+        Object object = null;
+        object = redisTemplate.execute(new RedisCallback&lt;Object&gt;() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                byte[] key = keyf.getBytes();
+                byte[] value = connection.get(key);
+                if (value == null) {
+                    System.out.println(&quot;------缓存不存在-------&quot;);
+                    return null;
+                }
+                return SerializationUtils.deserialize(value);
+            }
+        });
+        ValueWrapper obj=(object != null ? new SimpleValueWrapper(object) : null);
+        System.out.println(&quot;------获取到内容-------&quot;+obj);
+        return  obj;
+    }
+
+    @Override
+    public void put(Object key, Object value) {
+        System.out.println(&quot;-------加入缓存------&quot;);
+        System.out.println(&quot;key----:&quot;+key);
+        System.out.println(&quot;key----:&quot;+value);
+        final String keyString = key.toString();
+        final Object valuef = value;
+        final long liveTime = 86400;
+        redisTemplate.execute(new RedisCallback&lt;Long&gt;() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                byte[] keyb = keyString.getBytes();
+                byte[] valueb = SerializationUtils.serialize((Serializable) valuef);
+                connection.set(keyb, valueb);
+                if (liveTime &gt; 0) {
+                    connection.expire(keyb, liveTime);
+                }
+                return 1L;
+            }
+        });
+
+    }
+
+    @Override
+    public &lt;T&gt; T get(Object arg0, Class&lt;T&gt; arg1) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public Object getNativeCache() {
+        return this.redisTemplate;
+    }
+
+    @Override
+    public ValueWrapper putIfAbsent(Object arg0, Object arg1) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public RedisTemplate&lt;String, Object&gt; getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    public void setRedisTemplate(RedisTemplate&lt;String, Object&gt; redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}  
+</code></pre><blockquote>
+<p>注意实体类对象要实现序列化接口.  </p>
+</blockquote>
+<p>SpringCache中常见注解的使用：</p>
+<p>@Cacheable注解</p>
+<p>　　最常用的注解，会把被注解方法的返回值缓存。工作原理是：首先在缓存中查找，如果没有执行方法并缓存结果，然后返回数据。此注解的缓存名必须指定，和cacheManager中的caches中的某一个Cache的name值相对应。可以使用value或cacheNames指定。</p>
+<p>　　如果没有指定key属性，spring会使用默认的主键生成器产生主键。也可以自定义主键，在key中可以使用SpEL表达式。如下：</p>
+<pre><code>@Cacheable(cacheNames=”content”,key=”#user.userId”)
+　　Public User getUser(User user){
+    xxxxx
+}        
+</code></pre><p>　　可以使用condition属性，来给缓存添加条件，如下：</p>
+<p>@Cacheable(cacheNames=”content”,key=”#user.userId”,condition=”#user.age&lt;40”)<br>Public User getUser(User user){xxxxx}</p>
+<p>@CachePut注解</p>
+<p>　　先执行方法，然后将返回值放回缓存。可以用作缓存的更新。</p>
+<p>@CacheEvict注解</p>
+<p>　　该注解负责从缓存中显式移除数据，通常缓存数据都有有效期，当过期时数据也会被移除。</p>
+<p>　　此注解多了两个属性：</p>
+<p>　　　　allEntries是否移除所有缓存条目。</p>
+<p>　　　　beforeInvocation：在方法调用前还是调用后完成移除操作。true/false</p>
 
   </section>
 
