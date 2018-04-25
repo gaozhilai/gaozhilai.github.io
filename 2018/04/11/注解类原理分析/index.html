@@ -22,7 +22,7 @@
     
 
     <title>
-      swing的日常踩坑 | zlGao的笔记 
+      注解类原理分析 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
-<meta name="keywords" content="swing,Java,java基础">
+    <meta name="description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
+<meta name="keywords" content="Java,java基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swing的日常踩坑 | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/2017/11/20/swing的日常踩坑/index.html">
+<meta property="og:title" content="注解类原理分析 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/04/11/注解类原理分析/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
+<meta property="og:description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-20T09:56:09.280Z">
+<meta property="og:updated_time" content="2018-04-11T10:04:20.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swing的日常踩坑 | zlGao的笔记">
-<meta name="twitter:description" content="①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.②如果改变了look&amp;amp;feel调用updateUI()会立刻更新显示效果③更改组件大小或者删除添加组件后调用validate方法使其更新显示.④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种">
+<meta name="twitter:title" content="注解类原理分析 | zlGao的笔记">
+<meta name="twitter:description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">swing的日常踩坑</h1>
+    <h1 class="post-title">注解类原理分析</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-11-20" class="post-meta__date date">2017-11-20</time> 
+      <time datetime="2018-04-11" class="post-meta__date date">2018-04-11</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/swing/">swing</a>
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>
             </font>
           
 
@@ -192,7 +192,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>①当父容器有布局管理器的时候组建的setSize方法不好使,要用setPreferredSize设置组件大小.<br>②如果改变了look&amp;feel调用updateUI()会立刻更新显示效果<br>③更改组件大小或者删除添加组件后调用validate方法使其更新显示.<br>④String继承自CharSequence接口,看到CharSequence也不要慌,也就是说String是CharSequence的一种.  </p>
+    <h3 id="疑问背景"><a href="#疑问背景" class="headerlink" title="疑问背景"></a>疑问背景</h3><p>什么是注解,注解能干什么,注解实现原理</p>
 
   </section>
 
