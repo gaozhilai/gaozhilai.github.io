@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
-<meta name="keywords" content="Java,java基础">
+    <meta name="description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
+<meta name="keywords" content="源码分析,Java,java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注解类原理分析 | zlGao的笔记">
 <meta property="og:url" content="http://yoursite.com/2018/04/11/注解类原理分析/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
+<meta property="og:description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-11T10:04:20.547Z">
+<meta property="og:updated_time" content="2018-04-26T08:13:52.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注解类原理分析 | zlGao的笔记">
-<meta name="twitter:description" content="疑问背景什么是注解,注解能干什么,注解实现原理">
+<meta name="twitter:description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
     
     
     
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/源码分析/">源码分析</a>
             </font>
           
 
@@ -192,8 +192,168 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h3 id="疑问背景"><a href="#疑问背景" class="headerlink" title="疑问背景"></a>疑问背景</h3><p>什么是注解,注解能干什么,注解实现原理</p>
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p><strong>Object:</strong>任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.<br><strong>Class:</strong>任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.<br><strong>Annotation:</strong>注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.<br><strong>定义语法:</strong><br>注解用@interface关键字定义,注解上面可以用四种标记元注解进行范围,目标,是否可以继承,是否需要文档进行标记.<br>注解类似于一个特殊的接口,它定义变量的格式为<br><strong>public/default parameterType name() default value;</strong><br><strong><strong>注解特殊的定义变量格式证明了注解是一个特殊的接口.</strong></strong><br>与普通类中定义变量不同的是,注解支持如下类型数据<br>1.所有基本数据类型（int,float,boolean,byte,double,char,long,short)<br>2.String类型<br>3.Class类型<br>4.enum类型<br>5.Annotation类型<br>6.以上所有类型的数组  </p>
+<h3 id="疑问背景"><a href="#疑问背景" class="headerlink" title="疑问背景"></a>疑问背景</h3><p><strong>1)什么是注解<br>2)注解能干什么<br>3)注解实现原理</strong>  </p>
+<h3 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h3><p><strong>注解本质:</strong><br>注解类似于接口,可以起到标记的作用.<br><strong>注解作用:</strong><br>1)注解可以提供一些基本元信息,起到说明,配置的作用.<br>2)注解作为一个标记,通过Class类提供的方法定位标记,结合反射机制实现各种各样的功能.  </p>
+<h3 id="注解分析"><a href="#注解分析" class="headerlink" title="注解分析"></a>注解分析</h3><p>注解分为<strong>一般注解,标准元注解,标记注解</strong>.<br>常见标记注解为Override(覆盖超类方法),Deprecated(过时的元素),SuppressWarnings(抑制编译器警告).<br>常见标准元注解为Documented(文档注解),Inherited(标记注解是否可以继承到某个类的子类),Retention(注解保留范围),Target(注解可以标记的元素类型),元注解是用于标记注解的注解<br>常见一般注解为Generated用来标记计算机自动生成的代码  </p>
+<p>###标准元注解分析<br><strong>@Target</strong>  </p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Target {
+    /**
+     * Returns an array of the kinds of elements an annotation type
+     * can be applied to.
+     * @return an array of the kinds of elements an annotation type
+     * can be applied to
+     */
+    ElementType[] value();
+}
+</code></pre><blockquote>
+<p>Target注解用ElementType这个枚举类指定范围</p>
+</blockquote>
+<pre><code>public enum ElementType {
+    /** Class, interface (including annotation type), or enum declaration  
+     *类,接口(包括枚举类)或者枚举类型
+    */
+    TYPE,
 
+    /** Field declaration (includes enum constants)
+    *字段或者枚举类常量
+    */
+    FIELD,
+
+    /** Method declaration 
+    *方法声明
+    */
+    METHOD,
+
+    /** Formal parameter declaration 
+    *参数声明
+    */
+    PARAMETER,
+
+    /** Constructor declaration 
+    *构造器声明
+    */
+    CONSTRUCTOR,
+
+    /** Local variable declaration 
+    *局部变量
+    */
+    LOCAL_VARIABLE,
+
+    /** Annotation type declaration 
+    *注解类型
+    */
+    ANNOTATION_TYPE,
+
+    /** Package declaration 
+    *包声明
+    */
+    PACKAGE,
+
+    /**
+     * Type parameter declaration
+     *用在参数前面进行类型注解
+     * @since 1.8
+     */
+    TYPE_PARAMETER,
+
+    /**
+     * Use of a type
+     *用在参数类型声明前面
+     * @since 1.8
+     */
+    TYPE_USE
+}
+</code></pre><p><strong>@Retention</strong>  </p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Retention {
+    /**
+     * Returns the retention policy.
+     * @return the retention policy
+     */
+    RetentionPolicy value();
+}  
+</code></pre><blockquote>
+<p>可以用RetentionPolicy这个枚举类进行设置  </p>
+</blockquote>
+<pre><code>public enum RetentionPolicy {
+    /**
+     * Annotations are to be discarded by the compiler.
+     * 只保留在源码范围内,编译时将被编译器丢弃
+     */
+    SOURCE,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler
+     * but need not be retained by the VM at run time.  This is the default
+     * behavior.
+     * 注解将被编译器保留到class文件中,但是运行时不会被加载到虚拟机内存中,这是注解默认的行为
+     */
+    CLASS,
+
+    /**
+     * Annotations are to be recorded in the class file by the compiler and
+     * retained by the VM at run time, so they may be read reflectively.
+     *
+     * @see java.lang.reflect.AnnotatedElement
+     * 注解被保存到class文件中,并且运行时会被加载到虚拟机内存,所以RUNTIME范围的注解可以被反射机制方法读取到
+     */
+    RUNTIME
+}
+</code></pre><p><strong>@Documented</strong>  </p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Documented {
+}
+</code></pre><blockquote>
+<p>用Documented注解可以配合javadoc工具生成html形式的文档</p>
+</blockquote>
+<p><strong>@Inherited</strong>  </p>
+<pre><code>@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Inherited {
+}
+</code></pre><blockquote>
+<p>用Inherited注解标记的注解在使用中,使用该注解的类的子类也会集成父类这个注解.</p>
+</blockquote>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><blockquote>
+<p>我的Java环境:<br>java version “1.8.0_101”<br>Java(TM) SE Runtime Environment (build 1.8.0_101-b13)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)  </p>
+</blockquote>
+<p>Class类中共有10个注解相关的方法,方法声明与作用为:</p>
+<blockquote>
+<p>其中3个方法来自于Class类本身作用于类  </p>
+</blockquote>
+<pre><code>//判断一个类是不是注解,如果是返回true
+public boolean isAnnotation()
+//获取类继承的带注解的接口
+public AnnotatedType[] getAnnotatedInterfaces()
+//获取指定类带注解的父类
+public AnnotatedType getAnnotatedSuperclass()
+</code></pre><blockquote>
+<p>7个方法来自于实现java.lang.reflect.AnnotatedElement接口,作用于元素  </p>
+</blockquote>
+<pre><code>//判断该元素上是否包含指定类型的注解，存在则返回true，否则返回false
+public boolean isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass)
+//返回该程序元素上存在的、指定类型的注解，如果该类型注解不存在，则返回null。
+public &lt;A extends Annotation&gt; A getAnnotation(Class&lt;A&gt; annotationClass)
+//返回该元素上的所有注解。
+public Annotation[] getAnnotations()
+//根据类型获取包括重复使用的注解
+public &lt;A extends Annotation&gt; A[] getAnnotationsByType(Class&lt;A&gt; annotationClass)
+//获取该元素直接声明的指定的注解
+public &lt;A extends Annotation&gt; A getDeclaredAnnotation(Class&lt;A&gt; annotationClass)
+//返回该元素直接声明的指定的包括重复注解。忽略继承的注释
+public &lt;A extends Annotation&gt; A[] getDeclaredAnnotationsByType(Class&lt;A&gt; annotationClass)
+//返回直接存在于此元素上的所有注释。与此接口中的其他方法不同，该方法将忽略继承的注释。
+public Annotation[] getDeclaredAnnotations()
+</code></pre>
   </section>
 
   <section class="post-comments">
