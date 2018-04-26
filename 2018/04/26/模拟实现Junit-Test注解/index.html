@@ -31,14 +31,18 @@
     
     
 
-    <meta property="og:type" content="article">
+    <meta name="description" content="敲黑板划重点所谓自己实现Junit的@Test注解就是通过自定义注解结合反射实现一次运行多个用自定义注解修饰的方法.   具体代码实现思路上篇笔记分析了注解本质是特殊的接口,接口本身功能是标记,结合反射机制找到注解所标记的元素,然后利用反射机制实现具体功能.代码    自定义注解MyTestAnnotation    /**  * server  *  * @author GaoZhilai  *">
+<meta name="keywords" content="源码分析,Java,java基础">
+<meta property="og:type" content="article">
 <meta property="og:title" content="模拟实现Junit @Test注解 | zlGao的笔记">
 <meta property="og:url" content="http://yoursite.com/2018/04/26/模拟实现Junit-Test注解/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="敲黑板划重点所谓自己实现Junit的@Test注解就是通过自定义注解结合反射实现一次运行多个用自定义注解修饰的方法.   具体代码实现思路上篇笔记分析了注解本质是特殊的接口,接口本身功能是标记,结合反射机制找到注解所标记的元素,然后利用反射机制实现具体功能.代码    自定义注解MyTestAnnotation    /**  * server  *  * @author GaoZhilai  *">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-26T06:52:12.040Z">
+<meta property="og:updated_time" content="2018-04-26T10:09:24.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模拟实现Junit @Test注解 | zlGao的笔记">
+<meta name="twitter:description" content="敲黑板划重点所谓自己实现Junit的@Test注解就是通过自定义注解结合反射实现一次运行多个用自定义注解修饰的方法.   具体代码实现思路上篇笔记分析了注解本质是特殊的接口,接口本身功能是标记,结合反射机制找到注解所标记的元素,然后利用反射机制实现具体功能.代码    自定义注解MyTestAnnotation    /**  * server  *  * @author GaoZhilai  *">
     
     
     
@@ -174,6 +178,11 @@ classes that you can use:
           
 
           
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/源码分析/">源码分析</a>
+            </font>
+          
 
       </span>
     </div>
@@ -183,7 +192,91 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <h3 id="敲黑板划重点"><a href="#敲黑板划重点" class="headerlink" title="敲黑板划重点"></a>敲黑板划重点</h3><p>所谓自己实现Junit的@Test注解就是通过<strong>自定义注解结合反射</strong>实现一次运行多个用自定义注解修饰的方法.  </p>
+<h3 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a>具体代码实现</h3><p><strong>思路</strong><br>上篇笔记分析了注解本质是特殊的接口,接口本身功能是标记,结合反射机制找到注解所标记的元素,然后利用反射机制实现具体功能.<br><strong>代码</strong>  </p>
+<blockquote>
+<p>自定义注解MyTestAnnotation  </p>
+</blockquote>
+<pre><code>/**
+ * server
+ *
+ * @author GaoZhilai
+ * @date 2018/4/26.
+ */
+@Documented
+@Inherited
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyTestAnnotation {
+  public boolean isSuccess() default false ;
+}
+</code></pre><blockquote>
+<p>模拟Dao类MyDaoImpl  </p>
+</blockquote>
+<pre><code>/**
+ * server
+ *
+ * @author GaoZhilai
+ * @date 2018/4/26.
+ */
+public class MyDaoImpl {
+  public void save(){
+    System.out.println(&quot;保存了数据&quot;);
+  }
+
+  public void update(){
+    System.out.println(&quot;更新了数据&quot;);
+  }
+}
+</code></pre><blockquote>
+<p>模拟测试类MyDaoImplTest  </p>
+</blockquote>
+<pre><code>/**
+ * server
+ *
+ * @author GaoZhilai
+ * @date 2018/4/26.
+ */
+public class MyDaoImplTest {
+  MyDaoImpl myDao = new MyDaoImpl();
+
+  @MyTestAnnotation
+  public void testMyDaoImplSave(){
+    myDao.save();
+  }
+
+  //@MyTestAnnotation
+  public void testMyDaoImplUpdate(){
+    myDao.update();
+  }
+}
+</code></pre><blockquote>
+<p>自定义Runner类(注解处理器,实现具体功能)MyRunner  </p>
+</blockquote>
+<pre><code>/**
+ * server
+ *
+ * @author GaoZhilai
+ * @date 2018/4/26.
+ */
+public class MyDaoImplTest {
+  MyDaoImpl myDao = new MyDaoImpl();
+
+  @MyTestAnnotation
+  public void testMyDaoImplSave(){
+    myDao.save();
+  }
+
+  //@MyTestAnnotation
+  public void testMyDaoImplUpdate(){
+    myDao.update();
+  }
+}
+</code></pre><h3 id="Junit4运行带-Test注解的方法原理分析"><a href="#Junit4运行带-Test注解的方法原理分析" class="headerlink" title="Junit4运行带@Test注解的方法原理分析"></a>Junit4运行带@Test注解的方法原理分析</h3><p>上面自己实现的模仿Junit @Test注解中虽然实现了带有自定义注解修饰的方法自动运行,但是还是需要编写自己的main类,其实<strong>Junit4也是通过main作为入口来启动的</strong>,Junit4的入口主类藏在JUnitCore中  </p>
+<blockquote>
+<p>org.junit.runner.JUnitCore  </p>
+</blockquote>
+
   </section>
 
   <section class="post-comments">
