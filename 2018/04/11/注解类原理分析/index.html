@@ -32,14 +32,14 @@
     
 
     <meta name="description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
-<meta name="keywords" content="源码分析,Java,java基础">
+<meta name="keywords" content="Java,源码分析,java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注解类原理分析 | zlGao的笔记">
 <meta property="og:url" content="http://yoursite.com/2018/04/11/注解类原理分析/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
 <meta property="og:description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-27T03:13:01.634Z">
+<meta property="og:updated_time" content="2018-04-27T09:50:31.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注解类原理分析 | zlGao的笔记">
 <meta name="twitter:description" content="敲黑板划重点Object:任何类如果不声明父类默认父类就是Object,层层追溯最终必然追溯到Object.Class:任何类都有个对应的Class实例,包括Object.Class实例为了提供反射等能力.Annotation:注解类似于特殊的接口用@interface定义,注解本身只具有标记功能并携带某些参数值,反射功能找到注解标记的元素真正实现注解的功能.定义语法:注解用@interface关">
@@ -199,7 +199,7 @@ classes that you can use:
 <p><strong><strong>注解特殊的定义变量格式证明了注解是一个特殊的接口.</strong></strong><br>与普通类中定义变量不同的是,注解支持如下类型数据<br>1.所有基本数据类型（int,float,boolean,byte,double,char,long,short)<br>2.String类型<br>3.Class类型<br>4.enum类型<br>5.Annotation类型<br>6.以上所有类型的数组  </p>
 <h3 id="疑问背景"><a href="#疑问背景" class="headerlink" title="疑问背景"></a>疑问背景</h3><p><strong>1)什么是注解<br>2)注解能干什么<br>3)注解实现原理</strong>  </p>
 <h3 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h3><p><strong>注解本质:</strong><br>注解类似于接口,可以起到标记的作用.<br><strong>注解作用:</strong><br>1)注解可以提供一些基本元信息,起到说明,配置的作用.<br>2)注解作为一个标记,通过Class类提供的方法定位标记,结合反射机制实现各种各样的功能.  </p>
-<h3 id="注解分析"><a href="#注解分析" class="headerlink" title="注解分析"></a>注解分析</h3><p>注解分为<strong>一般注解,标准元注解,标记注解</strong>.<br>常见标记注解为Override(覆盖超类方法),Deprecated(过时的元素),SuppressWarnings(抑制编译器警告).<br>常见标准元注解为Documented(文档注解),Inherited(标记注解是否可以继承到某个类的子类),Retention(注解保留范围),Target(注解可以标记的元素类型),元注解是用于标记注解的注解<br>常见一般注解为Generated用来标记计算机自动生成的代码  </p>
+<h3 id="注解分析"><a href="#注解分析" class="headerlink" title="注解分析"></a>注解分析</h3><p>注解分为<strong>一般注解,标准元注解,标记注解</strong>.<br>常见标记注解为Override(覆盖超类方法),Deprecated(过时的元素),SuppressWarnings(抑制编译器警告).<br>常见标准元注解为Documented(文档注解),Inherited(标记注解是否可以继承到某个类的子类),Retention(注解保留范围),Target(注解可以标记的元素类型),Repeatable(修饰的注解可以重复标记),Native(只能用于标记Field,说明字段引用可能来自于native code),元注解是用于标记注解的注解<br>常见一般注解为Generated用来标记计算机自动生成的代码  </p>
 <p>###标准元注解分析<br><strong>@Target</strong>  </p>
 <pre><code>@Documented
 @Retention(RetentionPolicy.RUNTIME)

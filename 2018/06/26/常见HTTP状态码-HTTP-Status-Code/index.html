@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      常见HTTP状态码(HTTP Status Code) | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="HTTP Status Code 定义 HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。  概述HTTP状态码主要描述五个方面的消息响应,分别是100-199消息,200-299成功,300-399重定向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见HTTP状态码(HTTP Status Code) | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/06/26/常见HTTP状态码-HTTP-Status-Code/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="HTTP Status Code 定义 HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。  概述HTTP状态码主要描述五个方面的消息响应,分别是100-199消息,200-299成功,300-399重定向">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-29T07:43:48.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见HTTP状态码(HTTP Status Code) | zlGao的笔记">
+<meta name="twitter:description" content="HTTP Status Code 定义 HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。  概述HTTP状态码主要描述五个方面的消息响应,分别是100-199消息,200-299成功,300-399重定向">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">常见HTTP状态码(HTTP Status Code)</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-06-26" class="post-meta__date date">2018-06-26</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="HTTP-Status-Code-定义"><a href="#HTTP-Status-Code-定义" class="headerlink" title="HTTP Status Code 定义"></a>HTTP Status Code 定义</h1><blockquote>
+<p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。</p>
+</blockquote>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>HTTP状态码主要描述五个方面的消息响应,分别是<strong>100-199消息,200-299成功,300-399重定向,400-499请求错误,500-699服务器错误</strong>  </p>
+<h1 id="详细内容"><a href="#详细内容" class="headerlink" title="详细内容"></a>详细内容</h1><h2 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h2><p><strong>代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。</strong><br><strong>由于 HTTP/1.0 协议中没有定义任何 1xx 状态码，所以除非在某些试验条件下，服务器禁止向此类客户端发送 1xx 响应。</strong><br>100 Continue<br>请求接受,未被拒绝,完成请求后服务器给出最终响应即200-599代码<br>101 Switching Protocols<br>服务器可以<br>102 Processing<br>由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行。  </p>
+<h1 id="成功"><a href="#成功" class="headerlink" title="成功"></a>成功</h1><p><strong>这一类型的状态码，代表请求已成功被服务器接收、理解、并接受</strong><br><strong>200 OK</strong><br>请求已成功，请求所希望的响应头或数据体将随此响应返回。出现此状态码是表示正常状态。<br><strong>201 Created</strong><br>请求已经被实现，而且有一个新的资源已经依据请求的需要而建立，且其 URI 已经随Location 头信息返回。假如需要的资源无法及时建立的话，应当返回 ‘202 Accepted’。<br><strong>202 Accepted</strong><br>服务器已接受请求，但尚未处理。正如它可能被拒绝一样，最终该请求可能会也可能不会被执行。在异步操作的场合下，没有比发送这个状态码更方便的做法了。<br>返回202状态码的响应的目的是允许服务器接受其他过程的请求（例如某个每天只执行一次的基于批处理的操作），而不必让客户端一直保持与服务器的连接直到批处理操作全部完成。在接受请求处理并返回202状态码的响应应当在返回的实体中包含一些指示处理当前状态的信息，以及指向处理状态监视器或状态预测的指针，以便用户能够估计操作是否已经完成。<br><strong>203 Non-Authoritative Information</strong><br>服务器已成功处理了请求，但返回信息可能来自其他网站<br><strong>204 No Content</strong><br>服务器成功处理请求但是没有返回内容.<br><strong>205 Reset Content</strong><br>服务器成功处理了请求，且没有返回任何内容。但是与204响应不同，返回此状态码的响应要求请求者重置文档视图。该响应主要是被用于接受用户输入后，立即重置表单，以便用户能够轻松地开始另一次输入。<br>与204响应一样，该响应也被禁止包含任何消息体，且以消息头后的第一个空行结束。<br><strong>206 Partial Content</strong><br>含有content-range分段传输等信息,用于断点续传.<br><strong>207 Multi-Status</strong><br>由WebDAV(RFC 2518)扩展的状态码，代表之后的消息体将是一个XML消息，并且可能依照之前子请求数量的不同，包含一系列独立的响应代码。  </p>
+<h1 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1><p><strong>这部分状态码表示需要浏览器再次请求才能完成操作,再次请求的地址通过本次响应Location域给出</strong><br><strong>300 Multiple Choices</strong><br>被请求资源有多种返回信息地址可供选择,由浏览器端选择重定向地址<br><strong>301 Moved Permanently</strong><br>请求资源永久移动到新的位置,浏览器可以选择重定向地址<br><strong>302 Move temporarily</strong><br>资源临时移动地址,浏览器依旧按照原有地址请求,只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。<br><strong>303 See Other</strong><br>请求的响应可以在其他URI上找到<br><strong>304 Not Modified</strong><br>请求的文档内容没有被改变<br><strong>305 Use Proxy</strong><br>请求需要代理才可以访问<br><strong>306 Switch Proxy</strong><br>在最新版的规范中，306状态码已经不再被使用。<br><strong>307 Temporary Redirect</strong><br>请求资源临时从其他URI响应  </p>
+<h1 id="请求错误"><a href="#请求错误" class="headerlink" title="请求错误"></a>请求错误</h1><p><strong>这部分状态表示客户端请求发生了错误</strong><br><strong>400 Bad Request</strong><br>请求语义不能被服务器理解或者请求参数错误<br><strong>401 Unauthorized</strong><br>请求没有授权的内容<br><strong>402 Payment Required</strong><br>保留状态码<br><strong>403 Forbidden</strong><br>请求能被服务器理解,但是拒绝执行<br><strong>404 Not Found</strong><br>请求的资源没有被找到,当服务器拒绝执行请求并且不想暴露原因时可以返回404<br><strong>405 Method Not Allowed</strong><br>用于请求的方式不被允许,该响应应该包含Allow域返回允许的方法.例如允许get,允许post.<br><strong>406 Not Acceptable</strong><br>请求的资源的内容特性无法满足请求头中的条件，因而无法生成响应实体。<br><strong>407 Proxy Authentication Required</strong><br>与401响应类似，只不过客户端必须在代理服务器上进行身份验证。<br><strong>408 Request Timeout</strong><br>请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。客户端可以随时再次提交这一请求而无需进行任何更改。<br><strong>409 Conflict</strong><br>由于和被请求的资源的当前状态之间存在冲突，请求无法完成。这个代码只允许用在这样的情况下才能被使用：用户被认为能够解决冲突，并且会重新提交新的请求。该响应应当包含足够的信息以便用户发现冲突的源头。<br>冲突通常发生于对 PUT 请求的处理中。例如，在采用版本检查的环境下，某次 PUT 提交的对特定资源的修改请求所附带的版本信息与之前的某个（第三方）请求向冲突，那么此时服务器就应该返回一个409错误，告知用户请求无法完成。此时，响应实体中很可能会包含两个冲突版本之间的差异比较，以便用户重新提交归并以后的新版本。<br><strong>410 Gone</strong><br>被请求的资源在服务器上已经不再可用，而且没有任何已知的转发地址。这样的状况应当被认为是永久性的。如果可能，拥有链接编辑功能的客户端应当在获得用户许可后删除所有指向这个地址的引用。如果服务器不知道或者无法确定这个状况是否是永久的，那么就应该使用404状态码。除非额外说明，否则这个响应是可缓存的。<br>410响应的目的主要是帮助网站管理员维护网站，通知用户该资源已经不再可用，并且服务器拥有者希望所有指向这个资源的远端连接也被删除。这类事件在限时、增值服务中很普遍。同样，410响应也被用于通知客户端在当前服务器站点上，原本属于某个个人的资源已经不再可用。当然，是否需要把所有永久不可用的资源标记为’410 Gone’，以及是否需要保持此标记多长时间，完全取决于服务器拥有者。<br><strong>411 Length Required</strong><br>服务器拒绝在没有定义 Content-Length 头的情况下接受请求。在添加了表明请求消息体长度的有效 Content-Length 头之后，客户端可以再次提交该请求。<br><strong>412 Precondition Failed</strong><br>服务器在验证在请求的头字段中给出先决条件时，没能满足其中的一个或多个。这个状态码允许客户端在获取资源时在请求的元信息（请求头字段数据）中设置先决条件，以此避免该请求方法被应用到其希望的内容以外的资源上。<br><strong>413 Request Entity Too Large</strong><br>服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。此种情况下，服务器可以关闭连接以免客户端继续发送此请求。<br>如果这个状况是临时的，服务器应当返回一个 Retry-After 的响应头，以告知客户端可以在多少时间以后重新尝试。<br><strong>414 Request-URI Too Long</strong><br>请求的URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。这比较少见，通常的情况包括：<br>本应使用POST方法的表单提交变成了GET方法，导致查询字符串（Query String）过长。<br>重定向URI “黑洞”，例如每次重定向把旧的 URI 作为新的 URI 的一部分，导致在若干次重定向后 URI 超长。<br>客户端正在尝试利用某些服务器中存在的安全漏洞攻击服务器。这类服务器使用固定长度的缓冲读取或操作请求的 URI，当 GET 后的参数超过某个数值后，可能会产生缓冲区溢出，导致任意代码被执行[1]。没有此类漏洞的服务器，应当返回414状态码。<br><strong>415 Unsupported Media Type</strong><br>对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。<br><strong>416 Requested Range Not Satisfiable</strong><br>请求的range与资源不符,断点续传相关<br><strong>417 Expectation Failed</strong><br>请求预期内容无法被满足<br><strong>421 too many connections</strong><br>从当前客户端所在的IP地址到服务器的连接数超过了服务器许可的最大范围。<br><strong>422 Unprocessable Entity</strong><br>请求格式正确，但是由于含有语义错误，无法响应。（RFC 4918 WebDAV）<br><strong>423 Locked</strong><br>当前资源被锁定。（RFC 4918 WebDAV）<br><strong>424 Failed Dependency</strong><br>由于之前的某个请求发生的错误，导致当前请求失败，例如 PROPPATCH。（RFC 4918 WebDAV）<br><strong>425 Unordered Collection</strong><br>在WebDav Advanced Collections 草案中定义，但是未出现在《WebDAV 顺序集协议》（RFC 3658）中。<br><strong>426 Upgrade Required</strong><br>客户端应当切换到TLS/1.0。（RFC 2817）<br><strong>449 Retry With</strong><br>由微软扩展，代表请求应当在执行完适当的操作后进行重试。<br><strong>451Unavailable For Legal Reasons</strong><br>该请求因法律原因不可用。（RFC 7725）  </p>
+<h1 id="服务器错误"><a href="#服务器错误" class="headerlink" title="服务器错误"></a>服务器错误</h1><p><strong>描述服务器处理请求过程中发生错误</strong><br><strong>500 Internal Server Error</strong><br>服务器内部错误,通常是代码错误<br><strong>501 Not Implemented</strong><br>服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。<br><strong>502 Bad Gateway</strong><br>网关或代理服务器无法从上有服务器得到有效响应<br><strong>503 Service Unavailable</strong><br>临时服务器维护或过载用于拒绝客户端请求<br><strong>504 Gateway Timeout</strong><br>网关没有在时间内得到上有服务器的响应<br>注意：某些代理服务器在DNS查询超时时会返回400或者500错误<br><strong>505 HTTP Version Not Supported</strong><br>服务器不支持当前请求的HTTP版本<br><strong>506 Variant Also Negotiates</strong><br>由《透明内容协商协议》（RFC 2295）扩展，代表服务器存在内部配置错误：被请求的协商变元资源被配置为在透明内容协商中使用自己，因此在一个协商处理中不是一个合适的重点。<br><strong>507 Insufficient Storage</strong><br>服务器无法存储完成请求所必须的内容。这个状况被认为是临时的。WebDAV (RFC 4918)<br><strong>509 Bandwidth Limit Exceeded</strong><br>服务器达到带宽限制。这不是一个官方的状态码，但是仍被广泛使用。<br><strong>510 Not Extended</strong><br>获取资源所需要的策略并没有被满足。（RFC 2774）<br><strong>600 Unparseable Response Headers</strong><br>源站没有返回响应头部，只返回实体内容</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
