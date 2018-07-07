@@ -22,7 +22,7 @@
     
 
     <title>
-      page 5 | zlGao的笔记 
+      Spring不能注入静态属性 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,13 +31,18 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="page 5 | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+    <meta name="description" content="Spring无法依赖注入静态属性 Spring容器控制反转(ICO)创建对象,通过依赖注入(DI)为对象属性赋值,静态属性依赖注入会导致属性为null.    因为Spring的依赖注入是对象层面注入,而静态属性属于类属性">
+<meta name="keywords" content="框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring不能注入静态属性 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/07/07/Spring不能注入静态属性/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="Spring无法依赖注入静态属性 Spring容器控制反转(ICO)创建对象,通过依赖注入(DI)为对象属性赋值,静态属性依赖注入会导致属性为null.    因为Spring的依赖注入是对象层面注入,而静态属性属于类属性">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-07T02:58:54.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 5 | zlGao的笔记">
+<meta name="twitter:title" content="Spring不能注入静态属性 | zlGao的笔记">
+<meta name="twitter:description" content="Spring无法依赖注入静态属性 Spring容器控制反转(ICO)创建对象,通过依赖注入(DI)为对象属性赋值,静态属性依赖注入会导致属性为null.    因为Spring的依赖注入是对象层面注入,而静态属性属于类属性">
     
     
     
@@ -57,8 +62,8 @@
     </span>
 
     
- 
-<header class="panel-cover">
+
+<header class="panel-cover panel-cover--collapsed">
 
 
   <div class="panel-main">
@@ -157,106 +162,53 @@ classes that you can use:
         <div class="content-wrapper__inner entry">
             
 
+<article class="post-container post-container--single">
 
-   <!-- do nothing -->
-
-
-<div class="main-post-list">
-    <ol class="post-list">
+  <header class="post-header">
     
-    
-    <li>
+    <h1 class="post-title">Spring不能注入静态属性</h1>
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/11/07/jdom新增xml节点去除空的xmlns/" title="link to jdom新增xml节点去除空的xmlns">jdom新增xml节点去除空的xmlns</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-11-07" class="post-list__meta--date date">2017-11-07</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/10/31/eclipse中Maven子项目不能找到变量或者方法的引用问题/" title="link to eclipse中Maven子项目不能找到变量或者方法的引用问题">eclipse中Maven子项目不能找到变量或者方法的引用问题</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-10-31" class="post-list__meta--date date">2017-10-31</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/10/31/Java8新特性-Lambda表达式/" title="link to Java8新特性,Lambda表达式">Java8新特性,Lambda表达式</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-10-31" class="post-list__meta--date date">2017-10-31</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/10/19/约定优先于配置的理解/" title="link to 约定优先于配置的理解">约定优先于配置的理解</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-10-19" class="post-list__meta--date date">2017-10-19</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>ConventionOverConfiguration:约定优先于配置,之前一直不理解这句话,字面意思是’约定’的权利大于’配置’,但是约定是什么约定,网上只是说约定俗成的约定,还是不理解,直到在书上看到一句话:</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
-    
-    	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/4/">&larr; 上一页 </a>
-        
     
 
-    <span class="pagination__page-number"> 5 / 5</span>
+    <div class="post-meta">
+      <time datetime="2018-07-07" class="post-meta__date date">2018-07-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/框架/">框架</a>
+            </font>
+          
+
+      </span>
+    </div>
     
     
-</nav>
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="Spring无法依赖注入静态属性"><a href="#Spring无法依赖注入静态属性" class="headerlink" title="Spring无法依赖注入静态属性"></a>Spring无法依赖注入静态属性</h1><blockquote>
+<p>Spring容器控制反转(ICO)创建对象,通过依赖注入(DI)为对象属性赋值,静态属性依赖注入会导致属性为null. </p>
+</blockquote>
+<p> <strong>因为Spring的依赖注入是对象层面注入,而静态属性属于类属性</strong></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
 
 
-</div>
+</article>
+
+
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -284,6 +236,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
