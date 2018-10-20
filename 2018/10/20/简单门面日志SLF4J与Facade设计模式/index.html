@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      简单门面日志SLF4J与Facade设计模式 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="SLF4J与Common LoggingSLF4J(Simple Logging Facade for Java)即Java版本简单门面日志与Common Logging都是Apache开源基金会的门面日志框架,二者利用Facade设计模式为各种具体日志实现组件规定了一致的使用方法.   常见具体日志框架 Log4JLog4J2logbackJDK Logging since JDK1.4  上面">
+<meta name="keywords" content="Java,源码分析,技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单门面日志SLF4J与Facade设计模式 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/10/20/简单门面日志SLF4J与Facade设计模式/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="SLF4J与Common LoggingSLF4J(Simple Logging Facade for Java)即Java版本简单门面日志与Common Logging都是Apache开源基金会的门面日志框架,二者利用Facade设计模式为各种具体日志实现组件规定了一致的使用方法.   常见具体日志框架 Log4JLog4J2logbackJDK Logging since JDK1.4  上面">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-20T07:58:49.047Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单门面日志SLF4J与Facade设计模式 | zlGao的笔记">
+<meta name="twitter:description" content="SLF4J与Common LoggingSLF4J(Simple Logging Facade for Java)即Java版本简单门面日志与Common Logging都是Apache开源基金会的门面日志框架,二者利用Facade设计模式为各种具体日志实现组件规定了一致的使用方法.   常见具体日志框架 Log4JLog4J2logbackJDK Logging since JDK1.4  上面">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">简单门面日志SLF4J与Facade设计模式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-10-20" class="post-meta__date date">2018-10-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/技术/">技术</a>, <a class="tags-link" href="/tags/源码分析/">源码分析</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="SLF4J与Common-Logging"><a href="#SLF4J与Common-Logging" class="headerlink" title="SLF4J与Common Logging"></a>SLF4J与Common Logging</h3><p><strong>SLF4J(Simple Logging Facade for Java)即Java版本简单门面日志</strong>与<strong>Common Logging</strong>都是Apache开源基金会的门面日志框架,二者利用Facade设计模式为各种具体日志实现组件规定了一致的使用方法.  </p>
+<h3 id="常见具体日志框架"><a href="#常见具体日志框架" class="headerlink" title="常见具体日志框架"></a>常见具体日志框架</h3><blockquote>
+<p>Log4J<br>Log4J2<br>logback<br>JDK Logging since JDK1.4</p>
+</blockquote>
+<p>上面四款最常用到的日志框架前三款都出自同一作者.最后一个是JDK自带的日志组件,JDK官方日志组件比log4j晚出现,log4j已经凭借实力深入人心直到今天.</p>
+<h3 id="SLF4J对比Common-Logging优点"><a href="#SLF4J对比Common-Logging优点" class="headerlink" title="SLF4J对比Common Logging优点"></a>SLF4J对比Common Logging优点</h3><p>Common Logging提供了一个Log接口,在程序运行的过程中动态寻找Log实现类.即动态绑定,运行时绑定.<br>在多ClassLoader应用中Common Logging可能会遇到下面三类问题  </p>
+<blockquote>
+<p>NoClassDefFoundError 某个Logger相关的类对child ClassLoader来说是可见的，但是对parent ClassLoader不可见<br>两类虽然相同或存在父子关系，但是由于ClassLoader不一样而导致不可以相互赋值**<br>用集合对ClassLoader的引用会阻止使用该ClassLoader加载的资源无法被垃圾回收  </p>
+</blockquote>
+<p>与前者不同的是SLF4J采用编译时绑定实现类,即静态绑定,编译时绑定不会遇到多ClassLoader导致的问题.  </p>
+<h3 id="SLF4J源码分析与其设计理念"><a href="#SLF4J源码分析与其设计理念" class="headerlink" title="SLF4J源码分析与其设计理念"></a>SLF4J源码分析与其设计理念</h3><p>SLF4J提供了通过类名与类对象两种获取Logger实例的方法,方法签名分别为  </p>
+<pre><code>public static Logger getLogger(Class&lt;?&gt; clazz)
+public static Logger getLogger(String name)
+</code></pre><p>推荐使用第一种,第一种在源码中也是通过方法二或得到Logger实例,但是第一种方法可以配合IDE避免类名错误产生.  </p>
+<blockquote>
+<p>getLogger方法源代码如下  </p>
+</blockquote>
+<pre><code>public static Logger getLogger(String name) {
+    ILoggerFactory iLoggerFactory = getILoggerFactory();
+    return iLoggerFactory.getLogger(name);
+}
+</code></pre><p>方法中先获得ILoggerFactory的实现类,然后再通过工厂获得Logger实例.  </p>
+<blockquote>
+<p>getILoggerFactory源代码如下  </p>
+</blockquote>
+<pre><code>public static ILoggerFactory getILoggerFactory() {
+    if (INITIALIZATION_STATE == UNINITIALIZED) {
+        synchronized (LoggerFactory.class) {
+            if (INITIALIZATION_STATE == UNINITIALIZED) {
+                INITIALIZATION_STATE = ONGOING_INITIALIZATION;
+                performInitialization();
+            }
+        }
+    }
+    switch (INITIALIZATION_STATE) {
+    case SUCCESSFUL_INITIALIZATION:
+        return StaticLoggerBinder.getSingleton().getLoggerFactory();
+    case NOP_FALLBACK_INITIALIZATION:
+        return NOP_FALLBACK_FACTORY;
+    case FAILED_INITIALIZATION:
+        throw new IllegalStateException(UNSUCCESSFUL_INIT_MSG);
+    case ONGOING_INITIALIZATION:
+        // support re-entrant behavior.
+        // See also http://jira.qos.ch/browse/SLF4J-97
+        return SUBST_FACTORY;
+    }
+    throw new IllegalStateException(&quot;Unreachable code&quot;);
+}
+</code></pre><p>在getILoggerFactory方法中,利用double check synchronized的方式判断工厂实现类是否初始化过,如果初始化过返回具体的ILoggerFactory实例.否则执行performInitialization方法进行初始化操作.<strong>注意这里用到double check节省了获取同步锁的时间</strong>  </p>
+<blockquote>
+<p>performInitialization源代码如下  </p>
+</blockquote>
+<pre><code>private final static void performInitialization() {
+    bind();
+    if (INITIALIZATION_STATE == SUCCESSFUL_INITIALIZATION) {
+        versionSanityCheck();
+    }
+}
+</code></pre><p>这个方法先执行了bind方法进行了实际的ILoggerFactory实现类加载.如果加载成功会执行versionSanityCheck方法判断是否支持当前JDK版本.  </p>
+<blockquote>
+<p>bind源代码较多,除去捕获异常等代码,主要逻辑如下    </p>
+</blockquote>
+<pre><code>staticLoggerBinderPathSet = findPossibleStaticLoggerBinderPathSet();
+reportMultipleBindingAmbiguity(staticLoggerBinderPathSet);  
+reportActualBinding(staticLoggerBinderPathSet);
+</code></pre><p>bind方法中主要执行了两个方法,findPossibleStaticLoggerBinderPathSet为具体ILoggerFactory实现类的加载逻辑,reportMultipleBindingAmbiguity主要判断是否有多个实现类,如果存在冲突则在控制台给出警告,reportActualBinding在控制台输出实际加载的实现类路径.  </p>
+<blockquote>
+<p>findPossibleStaticLoggerBinderPathSet源代码如下</p>
+</blockquote>
+<pre><code>// We need to use the name of the StaticLoggerBinder class, but we can&apos;t
+// reference
+// the class itself.
+private static String STATIC_LOGGER_BINDER_PATH = &quot;org/slf4j/impl/StaticLoggerBinder.class&quot;;
+
+static Set&lt;URL&gt; findPossibleStaticLoggerBinderPathSet() {
+    // use Set instead of list in order to deal with bug #138
+    // LinkedHashSet appropriate here because it preserves insertion order
+    // during iteration
+    Set&lt;URL&gt; staticLoggerBinderPathSet = new LinkedHashSet&lt;URL&gt;();
+    try {
+        ClassLoader loggerFactoryClassLoader = LoggerFactory.class.getClassLoader();
+        Enumeration&lt;URL&gt; paths;
+        if (loggerFactoryClassLoader == null) {
+            paths = ClassLoader.getSystemResources(STATIC_LOGGER_BINDER_PATH);
+        } else {
+            paths = loggerFactoryClassLoader.getResources(STATIC_LOGGER_BINDER_PATH);
+        }
+        while (paths.hasMoreElements()) {
+            URL path = paths.nextElement();
+            staticLoggerBinderPathSet.add(path);
+        }
+    } catch (IOException ioe) {
+        Util.report(&quot;Error getting resources from path&quot;, ioe);
+    }
+    return staticLoggerBinderPathSet;
+}  
+</code></pre><p>可以看到方法上作者给出的注释,这个方法需要引用StaticLoggerBinder class,但是没有办法在这里引用具体实现类本身,因为在SLF4J中还无法确定使用哪个日志框架提供的具体的StaticLoggerBinder.在方法中通过类加载器的方式加载项目Build Path下的StaticLoggerBinder实现类.  </p>
+<p>至此终于将具体日志组件的org/slf4j/impl/StaticLoggerBinder.class类加载到了JVM中,接下来方法线程返回到了getILoggerFactory中继续执行 </p>
+<pre><code>return StaticLoggerBinder.getSingleton().getLoggerFactory();  
+</code></pre><p>语句返回具体日志组件提供的ILoggerFactory实现类对象给方法getLogger,getLogger继续执行  </p>
+<pre><code>return iLoggerFactory.getLogger(name);  
+</code></pre><p>语句,返回具体日志组件的Logger实现类给使用者.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>SLF4J比Common Logging晚诞生,两者都很出名,设计理念都很伟大,但是SLF4J应用更加广泛,一部分原因是Facade设计模式本身<strong>实现了项目与具体日志框架解耦.统一了各种日志框架的使用方法,降低重复的学习成本.</strong>还有一部分是因为同行Common Logging衬托的好.</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
