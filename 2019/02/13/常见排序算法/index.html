@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+    <style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      常见排序算法 | zlGao的笔记 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="zlgao">
+    
+    
+
+    <meta name="description" content="常见排序算法常见排序算法分为比较排序和非比较排序,比较排序有冒泡排序, 选择排序, 插入排序, 归并排序, 堆排序, 快速排序,非比较排序有计数排序,基数排序,桶排序.     排序算法稳定性定义如果有Ai 等于Aj,且排序后Ai与Aj的相对位置不改变,则此种排序算法是稳定的. 工具方法 交换给定数组中两个指定元素位置的工具方法  12345private void swap(int[] nums">
+<meta name="keywords" content="算法,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见排序算法 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/常见排序算法/index.html">
+<meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="常见排序算法常见排序算法分为比较排序和非比较排序,比较排序有冒泡排序, 选择排序, 插入排序, 归并排序, 堆排序, 快速排序,非比较排序有计数排序,基数排序,桶排序.     排序算法稳定性定义如果有Ai 等于Aj,且排序后Ai与Aj的相对位置不改变,则此种排序算法是稳定的. 工具方法 交换给定数组中两个指定元素位置的工具方法  12345private void swap(int[] nums">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-13T06:44:38.240Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见排序算法 | zlGao的笔记">
+<meta name="twitter:description" content="常见排序算法常见排序算法分为比较排序和非比较排序,比较排序有冒泡排序, 选择排序, 插入排序, 归并排序, 堆排序, 快速排序,非比较排序有计数排序,基数排序,桶排序.     排序算法稳定性定义如果有Ai 等于Aj,且排序后Ai与Aj的相对位置不改变,则此种排序算法是稳定的. 工具方法 交换给定数组中两个指定元素位置的工具方法  12345private void swap(int[] nums">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">zlGao的笔记</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">常见排序算法</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2019-02-13" class="post-meta__date date">2019-02-13</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/数据结构/">数据结构</a>, <a class="tags-link" href="/tags/算法/">算法</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="常见排序算法"><a href="#常见排序算法" class="headerlink" title="常见排序算法"></a>常见排序算法</h3><p>常见排序算法分为比较排序和非比较排序,比较排序有<strong>冒泡排序, 选择排序, 插入排序, 归并排序, 堆排序, 快速排序</strong>,非比较排序有<strong>计数排序,基数排序,桶排序.</strong>    </p>
+<h3 id="排序算法稳定性定义"><a href="#排序算法稳定性定义" class="headerlink" title="排序算法稳定性定义"></a>排序算法稳定性定义</h3><p>如果有Ai 等于Aj,且排序后Ai与Aj的相对位置不改变,则此种排序算法是稳定的.</p>
+<h3 id="工具方法"><a href="#工具方法" class="headerlink" title="工具方法"></a>工具方法</h3><blockquote>
+<p>交换给定数组中两个指定元素位置的工具方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> temp = nums[i];</div><div class="line">    nums[i] = nums[j];</div><div class="line">    nums[j] = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="冒泡排序-上浮-上升排序"><a href="#冒泡排序-上浮-上升排序" class="headerlink" title="冒泡排序(上浮,上升排序)"></a>冒泡排序(上浮,上升排序)</h5><blockquote>
+<p>冒泡排序为稳定排序算法,时间复杂度O(n2),辅助空间O(1)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length - i - <span class="number">1</span>; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (nums[j] &gt; nums[j + <span class="number">1</span>]) &#123;</div><div class="line">                swap(nums, j, j + <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="鸡尾酒排序-冒泡算法改良-又叫做鸡尾酒排序-涟漪排序-搅拌排序-双向冒泡排序"><a href="#鸡尾酒排序-冒泡算法改良-又叫做鸡尾酒排序-涟漪排序-搅拌排序-双向冒泡排序" class="headerlink" title="鸡尾酒排序(冒泡算法改良,又叫做鸡尾酒排序,涟漪排序,搅拌排序,双向冒泡排序)"></a>鸡尾酒排序(冒泡算法改良,又叫做鸡尾酒排序,涟漪排序,搅拌排序,双向冒泡排序)</h5><blockquote>
+<p>鸡尾酒排序为稳定排序算法,时间复杂度O(n2),辅助空间O(1)  </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cockTailSort</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</div><div class="line">        <span class="comment">// 前半轮大元素上浮</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = left; i &lt; right; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (nums[i] &gt; nums[i + <span class="number">1</span>]) &#123;</div><div class="line">                swap(nums, i, i + <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        right--;</div><div class="line">        <span class="comment">// 后半轮小元素下沉</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = right; i &gt; left; i--) &#123;</div><div class="line">            <span class="keyword">if</span> (nums[i - <span class="number">1</span>] &gt; nums[i]) &#123;</div><div class="line">                swap(nums, i - <span class="number">1</span>, i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        left++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">Copyright © 2017 zlgao
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    <script src="/js/spirit.js"></script>
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>

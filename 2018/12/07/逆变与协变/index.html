@@ -22,7 +22,7 @@
     
 
     <title>
-      page 2 | 标签: Java | zlGao的笔记 
+      逆变与协变 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,13 +31,18 @@
     
     
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="page 2 | 标签: Java | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/tags/Java/page/2/index.html">
+    <meta name="description" content="定义协变(covariant) 协变指能在定义类型处使用其子类.(实际类型比声明类型小) 逆变(contravariant) 逆变指能在定义类型处使用其父类.(实际类型比声明类型大) 里氏代换原则(Liskov Substitution Principle 缩写 LSP) 里氏代换原则指任何基类可以出现的地方,子类一定可以出现. 协变应用场景假设有A,B,C三个类: public class A">
+<meta name="keywords" content="Java,java基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆变与协变 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2018/12/07/逆变与协变/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
+<meta property="og:description" content="定义协变(covariant) 协变指能在定义类型处使用其子类.(实际类型比声明类型小) 逆变(contravariant) 逆变指能在定义类型处使用其父类.(实际类型比声明类型大) 里氏代换原则(Liskov Substitution Principle 缩写 LSP) 里氏代换原则指任何基类可以出现的地方,子类一定可以出现. 协变应用场景假设有A,B,C三个类: public class A">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-07T10:58:23.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 2 | 标签: Java | zlGao的笔记">
+<meta name="twitter:title" content="逆变与协变 | zlGao的笔记">
+<meta name="twitter:description" content="定义协变(covariant) 协变指能在定义类型处使用其子类.(实际类型比声明类型小) 逆变(contravariant) 逆变指能在定义类型处使用其父类.(实际类型比声明类型大) 里氏代换原则(Liskov Substitution Principle 缩写 LSP) 里氏代换原则指任何基类可以出现的地方,子类一定可以出现. 协变应用场景假设有A,B,C三个类: public class A">
     
     
     
@@ -157,87 +162,61 @@ classes that you can use:
         <div class="content-wrapper__inner entry">
             
 
+<article class="post-container post-container--single">
 
-  <h1 class="archive-title">标签: Java</h1>
-  <hr class="post-list__divider" />
-
-
-<div class="main-post-list">
-    <ol class="post-list">
+  <header class="post-header">
     
-    
-    <li>
+    <h1 class="post-title">逆变与协变</h1>
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/12/01/System-arraycopy-实现数组之间的复制/" title="link to System.arraycopy()实现数组之间的复制">System.arraycopy()实现数组之间的复制</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-12-01" class="post-list__meta--date date">2017-12-01</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/11/20/swing的日常踩坑/" title="link to swing的日常踩坑">swing的日常踩坑</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-11-20" class="post-list__meta--date date">2017-11-20</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/11/14/Java-Network-Launch-Protocol分析/" title="link to Java Network Launch Protocol分析">Java Network Launch Protocol分析</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-11-14" class="post-list__meta--date date">2017-11-14</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
-    
-    	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/tags/Java/">&larr; 上一页 </a>
-        
     
 
-    <span class="pagination__page-number"> 2 / 2</span>
+    <div class="post-meta">
+      <time datetime="2018-12-07" class="post-meta__date date">2018-12-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>
+            </font>
+          
+
+      </span>
+    </div>
     
     
-</nav>
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>协变(covariant) 协变指能在定义类型处使用其子类.(实际类型比声明类型小)</p>
+<p>逆变(contravariant) 逆变指能在定义类型处使用其父类.(实际类型比声明类型大)</p>
+<p>里氏代换原则(Liskov Substitution Principle 缩写 LSP) 里氏代换原则指任何基类可以出现的地方,子类一定可以出现.</p>
+<h3 id="协变应用场景"><a href="#协变应用场景" class="headerlink" title="协变应用场景"></a>协变应用场景</h3><p>假设有A,B,C三个类:</p>
+<p>public class A {</p>
+<p>​    </p>
+<p>}</p>
+<p>public class B extends A {</p>
+<p>}</p>
+<p>public class C extends B {</p>
+<p>}</p>
+<p>B bInstance = new B();</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
 
 
-</div>
+</article>
+
+
             <footer class="footer">
 
     <span class="footer__copyright">Copyright © 2017 zlgao
@@ -265,6 +244,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
