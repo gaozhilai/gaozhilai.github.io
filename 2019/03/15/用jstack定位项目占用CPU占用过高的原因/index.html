@@ -22,7 +22,7 @@
     
 
     <title>
-      利用反射机制实现反编译java程序 | zlGao的笔记 
+      用jstack定位项目占用CPU占用过高的原因 | zlGao的笔记 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -31,18 +31,18 @@
     
     
 
-    <meta name="description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
-<meta name="keywords" content="技术,Java,java基础">
+    <meta name="description" content="背景生产服务器项目突然无响应,查看mysql并无慢日志,随即发现项目占用了很高的服务器CPU. 排查过程1.利用top命令找到进程的PID 2.通过ps -mp PID -o THREAD,tid,time命令定位长时间占用CPU过高的的异常线程的TID. 3.通过jstack -l PID导出堆栈状态 4.将TID转换为16进制,在导出的堆栈状态中根据TID找到异常线程,定位异常代码位置.  j">
+<meta name="keywords" content="Java,java基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用反射机制实现反编译java程序 | zlGao的笔记">
-<meta property="og:url" content="http://yoursite.com/2017/12/20/利用反射机制实现反编译java程序/index.html">
+<meta property="og:title" content="用jstack定位项目占用CPU占用过高的原因 | zlGao的笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/用jstack定位项目占用CPU占用过高的原因/index.html">
 <meta property="og:site_name" content="zlGao的笔记">
-<meta property="og:description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
+<meta property="og:description" content="背景生产服务器项目突然无响应,查看mysql并无慢日志,随即发现项目占用了很高的服务器CPU. 排查过程1.利用top命令找到进程的PID 2.通过ps -mp PID -o THREAD,tid,time命令定位长时间占用CPU过高的的异常线程的TID. 3.通过jstack -l PID导出堆栈状态 4.将TID转换为16进制,在导出的堆栈状态中根据TID找到异常线程,定位异常代码位置.  j">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-20T05:34:43.653Z">
+<meta property="og:updated_time" content="2019-03-17T08:43:46.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用反射机制实现反编译java程序 | zlGao的笔记">
-<meta name="twitter:description" content="类的的结构要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.">
+<meta name="twitter:title" content="用jstack定位项目占用CPU占用过高的原因 | zlGao的笔记">
+<meta name="twitter:description" content="背景生产服务器项目突然无响应,查看mysql并无慢日志,随即发现项目占用了很高的服务器CPU. 排查过程1.利用top命令找到进程的PID 2.通过ps -mp PID -o THREAD,tid,time命令定位长时间占用CPU过高的的异常线程的TID. 3.通过jstack -l PID导出堆栈状态 4.将TID转换为16进制,在导出的堆栈状态中根据TID找到异常线程,定位异常代码位置.  j">
     
     
     
@@ -166,12 +166,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">利用反射机制实现反编译java程序</h1>
+    <h1 class="post-title">用jstack定位项目占用CPU占用过高的原因</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-12-20" class="post-meta__date date">2017-12-20</time> 
+      <time datetime="2019-03-15" class="post-meta__date date">2019-03-15</time> 
 
       <span class="post-meta__tags tags">
 
@@ -180,7 +180,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>, <a class="tags-link" href="/tags/技术/">技术</a>
+              <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/java基础/">java基础</a>
             </font>
           
 
@@ -192,7 +192,15 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h3 id="类的的结构"><a href="#类的的结构" class="headerlink" title="类的的结构"></a>类的的结构</h3><p>要实现从字节码文件反编译出源代码就要知道源代码的结构,这样才能知道需要从字节码文件中获取什么.</p>
+    <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>生产服务器项目突然无响应,查看mysql并无慢日志,随即发现项目占用了很高的服务器CPU.</p>
+<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><p>1.利用top命令找到进程的PID</p>
+<p>2.通过ps -mp PID -o THREAD,tid,time命令定位长时间占用CPU过高的的异常线程的TID.</p>
+<p>3.通过jstack -l PID导出堆栈状态</p>
+<p>4.将TID转换为16进制,在导出的堆栈状态中根据TID找到异常线程,定位异常代码位置.</p>
+<blockquote>
+<p><em>jstack</em>是java虚拟机自带的一种堆栈跟踪工具.当线上环境出现CPU占用过高时可以通过jstack来dump出线程状态,找到占用CPU过高的线程即可定位代码中的位置.</p>
+</blockquote>
+<p><strong>注</strong> windows环境可通过Process Explorer(线程浏览器)获取占用CPU异常线程的TID.</p>
 
   </section>
 
